@@ -1,0 +1,17 @@
+{
+  "name": "uncle-argon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "vee-validate": "^2.2.13",
+    "vue-argon-dashboard": "git+https://github.com/guglielmoseminara/vue-argon-dashboard.git",
+    "vue-async-computed": "^3.7.0"
+  }
+}

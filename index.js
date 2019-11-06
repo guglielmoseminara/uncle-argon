@@ -1,0 +1,1 @@
+export { default as UncleArgon } from './src/plugin';

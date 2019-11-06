@@ -1,0 +1,53 @@
+// @import "~vue-argon-dashboard/src/assets/scss/argon.scss";
+
+@import "~vue-argon-dashboard/src/assets/scss/custom/functions";
+@import "~vue-argon-dashboard/src/assets/scss/custom/variables";
+@import "~vue-argon-dashboard/src/assets/scss/custom/mixins";
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+@import "./_variables.scss";
+@import "./layout.scss";
+
+h1, .h1 {
+font-size: 38px;
+}
+
+h2, .h2 {
+font-size: 30px;
+}
+
+h3, .h3 {
+font-size: 24px;
+}
+
+h4, .h4 {
+font-size: 20px;
+}
+
+h5, .h5 {
+font-size: 18px;
+}
+
+h6, .h6 {
+font-size: 16px;
+}
+
+.cols-layout-container {
+    display: flex;
+    flex-direction: column;
+    height: 4600px;
+    flex-wrap: wrap;
+
+    .col-layout-6 {
+        @include media-breakpoint-up(lg) {
+            width: 50%;
+            &:nth-child(2)::after {
+                content: '';
+                flex-basis: 100%;
+            }
+        }
+    }
+}
+
+
