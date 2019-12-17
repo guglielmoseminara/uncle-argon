@@ -11,9 +11,10 @@
 
         <div v-else>
             <span v-for="(field, findex) in fieldsList" :key="findex">
-                    {{field.text}}
+                <UncleSummaryLabelAbstract v-if="labelObject" :type="labelObject.type" :label-object="labelObject" :value="getValue(itemObj, labelObject.field)"/>
+                <span v-else>{{field.text}}</span>
                 <p>
-                    <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(itemObj, field.type, field.name)" />
+                    <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(itemObj, field)" />
                 </p>
             </span>
         </div>
@@ -29,6 +30,9 @@
                 type: Object,
                 required: true,
             }
+        },
+        created() {
+            this.labelObject = this.fieldObject.getLabel();
         }
     }
 </script>

@@ -1,6 +1,7 @@
 <template>
     <div>
-        <input type="hidden" @update='triggerInput' v-model='formValue' :name='fieldObject.name' v-validate="validator"/>
+        <base-checkbox @input='triggerInput' v-model='formValue' v-validate="validator" :name='fieldObject.name'>
+        </base-checkbox>
     </div>
 </template>
 

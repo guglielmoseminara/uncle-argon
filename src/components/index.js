@@ -30,9 +30,10 @@ export { default as UncleFormFieldContainer } from './Form/FormFieldContainer.vu
 export { default as UncleFormGroup } from './Form/FormGroup.vue';
 export { default as UncleSummaryGroup } from './Summary/SummaryGroup.vue';
 export { default as UncleFormFieldText } from './Form/FormFieldText.vue';
+export { default as UncleFormFieldPassword } from './Form/FormFieldPassword.vue';
 export { default as UncleFormFieldTextArea } from './Form/FormFieldTextArea.vue';
 export { default as UncleFormFieldEmail } from './Form/FormFieldEmail.vue';
-export { default as UncleFormFieldFile } from './Form/FormFieldFile.vue';
+export { default as UncleFormFieldImage } from './Form/FormFieldImage.vue';
 export { default as UncleFormFieldEnum } from './Form/FormFieldEnum.vue';
 export { default as UncleFormFieldSelectResource } from './Form/FormFieldSelectResource.vue';
 export { default as UncleFormFieldPhone } from './Form/FormFieldPhone.vue';
@@ -49,6 +50,8 @@ export { default as UncleChip } from './Chip.vue';
 export { default as UncleSummaryFieldArrayChiplist } from './Summary/SummaryFieldArrayWidgets/SummaryFieldArrayChiplist.vue';
 export { default as UncleSummaryWidgetAbstract } from './Summary/SummaryFieldArrayWidgets/SummaryWidgetAbstract.vue';
 export { default as UncleSummaryFieldArrayImage } from './Summary/SummaryFieldArrayImage.vue';
+export { default as UncleSummaryLabelAbstract } from './Summary/SummaryLabelAbstract.vue';
+export { default as UncleSummaryLabelField } from './Summary/SummaryLabelField.vue';
 
 
 

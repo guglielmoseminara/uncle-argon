@@ -1,5 +1,5 @@
 <template>
-    <base-input @input='triggerInput' v-model='formValue' />
+    <base-input @input='triggerInput' v-model='formValue' v-validate="validator" :name='fieldObject.name'/>
 </template>
 
 <script>

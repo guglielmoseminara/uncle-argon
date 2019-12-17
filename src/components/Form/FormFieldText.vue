@@ -1,13 +1,13 @@
 <template>
     <div>
-        <base-input @input='triggerInput' v-model='formValue' v-validate="validator" :name='name'/>
+        <base-input @input='triggerInput' v-model='formValue' v-validate="validator" :name='fieldObject.name' :placeholder="fieldObject.placeholder" :addon-left-icon="getIcon()"/>
     </div>
 </template>
 
 <script>
-    import { FormFieldComponent } from 'uncle-vue';
+    import { FormFieldTextComponent } from 'uncle-vue';
 
     export default {
-        extends: FormFieldComponent
+        extends: FormFieldTextComponent
     }
 </script>

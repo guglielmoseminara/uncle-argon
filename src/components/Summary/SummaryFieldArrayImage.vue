@@ -8,7 +8,7 @@
                <UncleSummaryFieldAbstract 
                 :field-object="field" 
                 :type="field.type" 
-                :value="getValue(itemObj, field.type, field.name)" />
+                :value="getValue(itemObj, field)" />
            </div>
         </span>
         <UncleModal class="gallery-modal" 
@@ -48,11 +48,9 @@
             }
         },
         mounted() {
-            console.log(this.value);
             this.images = this.value.map( ele => {
                 return ele.image;
             });
-            console.log(this.images);
         },
         methods: {
             openModal(event, index) {

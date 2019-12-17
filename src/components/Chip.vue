@@ -32,7 +32,7 @@
             closeEvent () {
                 this.$emit('closed')
             },
-            selectEvent (event) {
+            selectEvent () {
                 this.$emit('selected')
             }
         }

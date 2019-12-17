@@ -1,5 +1,5 @@
 <template>
-    <span class="field-text">{{ getFormattedDatetime() }}</span>
+    <span class="field-text">{{ value }}</span>
 </template>
 
 <script>

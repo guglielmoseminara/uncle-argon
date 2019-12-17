@@ -5,22 +5,24 @@
         </p>
         <div class="cols-layout-container">            
             <template v-if="item && groupsList.length > 0">
-                <UncleSummaryGroup v-for="(group, gindex) in groupsList"
-                    class="group col-layout-6"
-                    :key='gindex' 
-                    :text='group.text' 
-                >
-                    <template slot="header">
-                        <p class="title"> {{group.getTitle()}} </p>   
-                    </template>
-                     <!-- :class="'field-'+field.type" ?? mmm -->
-                    <div class="field" v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
-                        <label class="label">
-                            <b>{{field.text}}</b>
-                        </label>
-                        <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field.type, field.name)" />
-                    </div>
-                </UncleSummaryGroup>
+                <vue-grid align="stretch" justify="start">
+                    <vue-cell width="6of12" v-for="(group, gindex) in groupsList" :key="gindex">
+                        <UncleSummaryGroup
+                            class="group"
+                            :text='group.text'
+                        >
+                            <template slot="header">
+                                <p class="title"> {{group.getTitle()}} </p>   
+                            </template>
+                            <div class="field" v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
+                                <label class="label" v-if="!field.getLabel()">
+                                    <b>{{field.text}}</b>
+                                </label>
+                                <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
+                            </div>
+                        </UncleSummaryGroup>
+                    </vue-cell>
+                </vue-grid>
             </template>
             <template v-else>
                 <ul v-if="item">
@@ -29,7 +31,7 @@
                             <b>{{field.text}}</b>
                         </label>
                         <p>
-                            <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field.type, field.name)" />
+                            <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
                         </p>
                     </li>
                 </ul> 

@@ -7,6 +7,8 @@ export default class ActionsProvider{
     execute(action, params) {
         if (action.type == 'nav') {
             this.router.push({ name: action.route.name, params: params });
+        } else if (action.type == 'sdk') {
+            action.execute();
         }
     }
 }

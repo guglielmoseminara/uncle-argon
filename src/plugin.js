@@ -1,11 +1,15 @@
 import VeeValidate from 'vee-validate';
 import ArgonDashboard from 'vue-argon-dashboard/src/plugins/argon-dashboard'
 import IconsProvider from './icon';
+import NotifierProvider from './notifier';
 import ActionsProvider from './actions';
 import ModalProvider from './modal';
 import AsyncComputed from 'vue-async-computed';
 import { Validator } from 'vee-validate';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/index.css';
 const VueUploadComponent = require('vue-upload-component');
+import { VueGrid, VueCell } from 'vue-grd';
 
 import {
     UncleSidebar,
@@ -44,14 +48,17 @@ import {
     UncleSummaryFieldImage,
     UncleSummaryFieldObject,
     UncleSummaryFieldEnum,
+    UncleSummaryLabelAbstract,
+    UncleSummaryLabelField,
     UncleSummaryGroup,
     UncleForm,
     UncleFormFieldAbstract,
     UncleFormFieldContainer,
     UncleFormFieldText,
+    UncleFormFieldPassword,
     UncleFormFieldTextArea,
     UncleFormFieldEmail,
-    UncleFormFieldFile,
+    UncleFormFieldImage,
     UncleFormFieldEnum,
     UncleFormFieldSelectResource,
     UncleFormFieldPhone,
@@ -66,6 +73,10 @@ export default {
         Vue.use(ArgonDashboard);
         Vue.use(VeeValidate);
         Vue.use(AsyncComputed);
+        Vue.use(VueToast);
+        const notifier = new NotifierProvider(Vue.$toast);
+        var app = Vue.prototype.$uncle.getApp();
+        app.serviceManager.setNotifier(notifier);
         Vue.component('UncleSidebar', UncleSidebar);
         Vue.component('UncleView', UncleView);
         Vue.component('UncleSearchText', UncleSearchText);
@@ -100,13 +111,16 @@ export default {
         Vue.component('UncleSummaryFieldImage', UncleSummaryFieldImage);
         Vue.component('UncleSummaryFieldObject', UncleSummaryFieldObject);
         Vue.component('UncleSummaryFieldEnum', UncleSummaryFieldEnum);
+        Vue.component('UncleSummaryLabelAbstract', UncleSummaryLabelAbstract);
+        Vue.component('UncleSummaryLabelField', UncleSummaryLabelField);
         Vue.component('UncleForm', UncleForm);
         Vue.component('UncleFormFieldAbstract', UncleFormFieldAbstract);
         Vue.component('UncleFormFieldContainer', UncleFormFieldContainer);
         Vue.component('UncleFormFieldText', UncleFormFieldText);
+        Vue.component('UncleFormFieldPassword', UncleFormFieldPassword);
         Vue.component('UncleFormFieldTextArea', UncleFormFieldTextArea);
         Vue.component('UncleFormFieldEmail', UncleFormFieldEmail);
-        Vue.component('UncleFormFieldFile', UncleFormFieldFile);
+        Vue.component('UncleFormFieldImage', UncleFormFieldImage);
         Vue.component('UncleFormFieldEnum', UncleFormFieldEnum);
         Vue.component('UncleFormFieldSelectResource', UncleFormFieldSelectResource);       
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);
@@ -119,7 +133,8 @@ export default {
         Vue.component('UncleSummaryFieldArrayImage', UncleSummaryFieldArrayImage);  
 
         Vue.component('file-upload', VueUploadComponent);
-
+        Vue.component('vue-grid', VueGrid);
+        Vue.component('vue-cell', VueCell);
         Vue.prototype.$iconsProvider = new IconsProvider();
         Vue.prototype.$actionsProvider = new ActionsProvider(options.router);
         Vue.prototype.$eventHub = new Vue();

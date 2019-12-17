@@ -12,7 +12,7 @@
         computed: {
             pageCount: {
                 get() {
-                    return parseInt(this.total/this.paginationObject.perPage)
+                    return Math.ceil(this.total/this.paginationObject.perPage)
                 }
             }
         }

@@ -3,7 +3,7 @@
         <span v-for="(field, findex) in fieldsList" :key="findex">
             <b>{{field.text}}</b>
             <p>
-                <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(value, field.type, field.name)" />
+                <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(value, field)" />
             </p>
         </span>
     </div>

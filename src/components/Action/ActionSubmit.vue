@@ -9,13 +9,13 @@
         extends: ActionComponent,
         inject: ['$validator'],
         methods: {
-            click() {
+            async click() {
                 this.$emit('click');
                 if (this.actionItemObject.validate) {
                     this.$validator.validateAll();
                 }
                 this.actionItemObject.action.setRequestParams(this.paramsObject);
-                this.execute();
+                const response = await this.execute();
             }
         }
     }

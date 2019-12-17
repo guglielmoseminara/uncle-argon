@@ -4,7 +4,7 @@
             <UncleChip :select=false
                 class-list="chip-primary-outline"
                 :close=false 
-                :text="getValue(itemObj, field.type, field.name)"
+                :text="getValue(itemObj, field)"
             />
         </span>
     </span>
