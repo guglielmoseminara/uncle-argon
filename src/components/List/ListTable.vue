@@ -10,7 +10,7 @@
             <template #columns="{columns}">
                 <th @click="toggleArrow(column)" v-for="column in columns" :key="column">
                     <span>{{ headersText[column] }}</span>
-                    <span class="arrows" v-show="headersText[column]!=''">
+                    <span class="arrows" v-show="headersText[column]!='' && headersMap[column].sortable">
                         <base-button @click="arrowClick($event, column, 'ASC')" style="top:-8px;" class="arrow" type="secondary" :icon="currentOrder[column] && currentOrder[column].direction == 'ASC' ? 'fas fa-caret-up' : 'fas fa-angle-up'"></base-button>
                         <base-button @click="arrowClick($event, column, 'DESC')" style="bottom:-8px;" class="arrow" type="secondary" :icon="currentOrder[column] && currentOrder[column].direction == 'DESC' ? 'fas fa-caret-down' : 'fas fa-angle-down'"></base-button>
                     </span>
@@ -47,6 +47,14 @@ export default {
             get() {
                 return this.headersList ? this.headersList.reduce((prev, item) => {
                     prev[item.name] = item.text;
+                    return prev;
+                }, {}) : {};
+            }
+        },
+        headersMap: {
+            get() {
+                return this.headersList ? this.headersList.reduce((prev, item) => {
+                    prev[item.name] = item;
                     return prev;
                 }, {}) : {};
             }

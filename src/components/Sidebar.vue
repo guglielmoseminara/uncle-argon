@@ -13,6 +13,12 @@
                     <span class="nav-link-text">{{navItem.text}}</span>
                 </a>
             </li>
+            <sidebar-item v-else-if="!navItem.route && !navItem.action" :key="navkey" :link="{name: navItem.text, icon: getIcon(navItem.icon), path:''}">
+                <sidebar-item v-for="(subNavItem, subNavKey) in navItem.getNavItems()"
+                    :link="{ name: subNavItem.text, path: subNavItem.route.url }"
+                    :key="subNavKey"
+                ></sidebar-item>
+            </sidebar-item>
         </template>
       </template>
       <slot name="header"></slot>

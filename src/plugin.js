@@ -22,6 +22,9 @@ import {
     UncleListFieldEnum,
     UncleListFieldCheckbox,
     UncleListFieldBoolean,
+    UncleListFieldArray,
+    UncleListFieldArrayChiplist,
+    UncleListWidgetAbstract,
     UnclePagination,
     UncleFilterModal,
     UncleFilterFieldAbstract,
@@ -88,6 +91,9 @@ export default {
         Vue.component('UncleListFieldCheckbox', UncleListFieldCheckbox);
         Vue.component('UncleListFieldAction', UncleListFieldAction);
         Vue.component('UncleListFieldBoolean', UncleListFieldBoolean);
+        Vue.component('UncleListFieldArray', UncleListFieldArray);
+        Vue.component('UncleListFieldArrayChiplist', UncleListFieldArrayChiplist);
+        Vue.component('UncleListWidgetAbstract', UncleListWidgetAbstract);
         Vue.component('UnclePagination', UnclePagination);
         Vue.component('UncleFilterModal', UncleFilterModal);
         Vue.component('UncleFilterFieldAbstract', UncleFilterFieldAbstract);
