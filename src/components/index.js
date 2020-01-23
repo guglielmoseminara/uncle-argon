@@ -1,5 +1,6 @@
 export { default as UncleSidebar } from './Sidebar.vue';
 export { default as UncleView } from './View.vue';
+export { default as UncleBreadcrumb } from './Breadcrumb.vue';
 export { default as UncleSearchText } from './SearchText.vue';
 export { default as UncleListTable } from './List/ListTable.vue';
 export { default as UncleListToken } from './List/ListToken.vue';
@@ -18,6 +19,7 @@ export { default as UncleFilterFieldAbstract } from './Filter/FilterFieldAbstrac
 export { default as UncleFilterModalFieldEnum } from './Filter/FilterModalFieldEnum.vue';
 export { default as UncleFilterModalFieldBoolean } from './Filter/FilterModalFieldBoolean.vue';
 export { default as UncleFilterModalFieldResource } from './Filter/FilterModalFieldResource.vue';
+export { default as UncleFilterModalFieldResourceMany } from './Filter/FilterModalFieldResourceMany.vue';
 export { default as UncleActionDropdown } from './Action/ActionDropdown.vue';
 export { default as UncleActionButton } from './Action/ActionButton.vue';
 export { default as UncleActionSubmit } from './Action/ActionSubmit.vue';
@@ -38,12 +40,14 @@ export { default as UncleFormFieldTextArea } from './Form/FormFieldTextArea.vue'
 export { default as UncleFormFieldEmail } from './Form/FormFieldEmail.vue';
 export { default as UncleFormFieldImage } from './Form/FormFieldImage.vue';
 export { default as UncleFormFieldEnum } from './Form/FormFieldEnum.vue';
-export { default as UncleFormFieldSelectResource } from './Form/FormFieldSelectResource.vue';
+export { default as UncleFormFieldResource } from './Form/FormFieldResource.vue';
+export { default as UncleFormFieldResourceMany } from './Form/FormFieldResourceMany.vue';
 export { default as UncleFormFieldPhone } from './Form/FormFieldPhone.vue';
 export { default as UncleFormFieldHidden } from './Form/FormFieldHidden.vue';
 export { default as UncleSummary } from './Summary/Summary.vue';
 export { default as UncleSummaryFieldAbstract } from './Summary/SummaryFieldAbstract.vue';
 export { default as UncleSummaryFieldText } from './Summary/SummaryFieldText.vue';
+export { default as UncleSummaryFieldTextArea } from './Summary/SummaryFieldTextArea.vue';
 export { default as UncleSummaryFieldDatetime } from './Summary/SummaryFieldDatetime.vue';
 export { default as UncleSummaryFieldArray } from './Summary/SummaryFieldArray.vue';
 export { default as UncleSummaryFieldImage } from './Summary/SummaryFieldImage.vue';

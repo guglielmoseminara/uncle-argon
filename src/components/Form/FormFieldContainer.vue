@@ -14,3 +14,9 @@
         extends: FormFieldContainerComponent
     }
 </script>
+
+<style lang="scss" scoped>
+    label {
+        color:$primary;
+    }
+</style>

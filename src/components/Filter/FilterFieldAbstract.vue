@@ -2,6 +2,7 @@
     <UncleFilterModalFieldBoolean v-if="type == 'boolean'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
     <UncleFilterModalFieldEnum v-else-if="type == 'enum'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
     <UncleFilterModalFieldResource v-else-if="type == 'resource'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
+    <UncleFilterModalFieldResourceMany v-else-if="type == 'resource_many'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
 </template>
 
 <script>

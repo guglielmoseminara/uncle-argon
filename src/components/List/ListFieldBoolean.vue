@@ -1,5 +1,7 @@
 <template>
-    <td>{{ text == true ? 'Yes' : 'No' }}</td>
+    <span>
+        {{ text == true ? 'Yes' : 'No' }}
+    </span>
 </template>
 
 <script>

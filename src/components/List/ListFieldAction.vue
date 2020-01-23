@@ -1,7 +1,5 @@
 <template>
-    <td @click="$event.stopPropagation()" >
-        <UncleActionDropdown :actions-list="actionsList" :params-object='listRowObject'/>
-    </td>
+    <UncleActionDropdown :actions-list="actionsList" :params-object='listRowObject'/>
 </template>
 
 <script>

@@ -10,10 +10,13 @@ import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 const VueUploadComponent = require('vue-upload-component');
 import { VueGrid, VueCell } from 'vue-grd';
+import VueTagsInput from '@johmun/vue-tags-input';
+import VueBreadcrumbs from 'vue-breadcrumbs'
 
 import {
     UncleSidebar,
     UncleView,
+    UncleBreadcrumb,
     UncleSearchText,
     UncleListToken,
     UncleListTable,
@@ -31,6 +34,7 @@ import {
     UncleFilterModalFieldEnum,
     UncleFilterModalFieldBoolean,
     UncleFilterModalFieldResource,
+    UncleFilterModalFieldResourceMany,
     UncleActionDropdown,
     UncleListFieldAction,
     UncleActionButton,
@@ -46,6 +50,7 @@ import {
     UncleSummaryFieldArrayChiplist,
     UncleSummaryWidgetAbstract,
     UncleSummaryFieldText,
+    UncleSummaryFieldTextArea,
     UncleSummaryFieldDatetime,
     UncleSummaryFieldArray,
     UncleSummaryFieldImage,
@@ -63,7 +68,8 @@ import {
     UncleFormFieldEmail,
     UncleFormFieldImage,
     UncleFormFieldEnum,
-    UncleFormFieldSelectResource,
+    UncleFormFieldResource,
+    UncleFormFieldResourceMany,
     UncleFormFieldPhone,
     UncleFormFieldHidden,
     UncleSummaryFieldArrayImage,
@@ -77,11 +83,15 @@ export default {
         Vue.use(VeeValidate);
         Vue.use(AsyncComputed);
         Vue.use(VueToast);
+        Vue.use(VueBreadcrumbs);
         const notifier = new NotifierProvider(Vue.$toast);
         var app = Vue.prototype.$uncle.getApp();
+        Vue.prototype.$eventHub = new Vue();
         app.serviceManager.setNotifier(notifier);
+        app.serviceManager.setEventEmitter(Vue.prototype.$eventHub);
         Vue.component('UncleSidebar', UncleSidebar);
         Vue.component('UncleView', UncleView);
+        Vue.component('UncleBreadcrumb', UncleBreadcrumb);
         Vue.component('UncleSearchText', UncleSearchText);
         Vue.component('UncleListTable', UncleListTable);
         Vue.component('UncleListToken', UncleListToken);
@@ -100,6 +110,7 @@ export default {
         Vue.component('UncleFilterModalFieldBoolean', UncleFilterModalFieldBoolean);
         Vue.component('UncleFilterModalFieldEnum', UncleFilterModalFieldEnum);
         Vue.component('UncleFilterModalFieldResource', UncleFilterModalFieldResource);
+        Vue.component('UncleFilterModalFieldResourceMany', UncleFilterModalFieldResourceMany);
         Vue.component('UncleActionDropdown', UncleActionDropdown);
         Vue.component('UncleActionButton', UncleActionButton);
         Vue.component('UncleActionSubmit', UncleActionSubmit);
@@ -112,6 +123,7 @@ export default {
         Vue.component('UncleSummary', UncleSummary);
         Vue.component('UncleSummaryFieldAbstract', UncleSummaryFieldAbstract);
         Vue.component('UncleSummaryFieldText', UncleSummaryFieldText);
+        Vue.component('UncleSummaryFieldTextArea', UncleSummaryFieldTextArea);
         Vue.component('UncleSummaryFieldDatetime', UncleSummaryFieldDatetime);
         Vue.component('UncleSummaryFieldArray', UncleSummaryFieldArray);
         Vue.component('UncleSummaryFieldImage', UncleSummaryFieldImage);
@@ -128,7 +140,8 @@ export default {
         Vue.component('UncleFormFieldEmail', UncleFormFieldEmail);
         Vue.component('UncleFormFieldImage', UncleFormFieldImage);
         Vue.component('UncleFormFieldEnum', UncleFormFieldEnum);
-        Vue.component('UncleFormFieldSelectResource', UncleFormFieldSelectResource);       
+        Vue.component('UncleFormFieldResource', UncleFormFieldResource);
+        Vue.component('UncleFormFieldResourceMany', UncleFormFieldResourceMany);    
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);
         Vue.component('UncleFormFieldHidden', UncleFormFieldHidden);
         Vue.component('UncleFormGroup', UncleFormGroup);
@@ -141,9 +154,10 @@ export default {
         Vue.component('file-upload', VueUploadComponent);
         Vue.component('vue-grid', VueGrid);
         Vue.component('vue-cell', VueCell);
+        Vue.component('vue-tags-input', VueTagsInput);
+
         Vue.prototype.$iconsProvider = new IconsProvider();
         Vue.prototype.$actionsProvider = new ActionsProvider(options.router);
-        Vue.prototype.$eventHub = new Vue();
         Vue.prototype.$modalProvider = new ModalProvider(Vue.prototype.$eventHub);
         
         Validator.extend('alpha_spaces_points', {

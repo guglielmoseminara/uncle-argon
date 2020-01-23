@@ -1,7 +1,6 @@
 <template>
         <UncleListFieldArrayChiplist 
-            v-if="fieldObject.widget == 'chip-list'"
-            :item-obj="itemObj" :field-object="fieldObject" :value="value">
+            v-if="fieldObject.widget == 'chip-list'" :field-object="fieldObject" :value="value">
         </UncleListFieldArrayChiplist>
 
         <span v-else>
@@ -17,13 +16,7 @@
     import { ListFieldArrayComponent } from 'uncle-vue';
 
     export default {
-        extends: ListFieldArrayComponent,
-        props: {
-            itemObj: {
-                type: Object,
-                required: true,
-            }
-        }
+        extends: ListFieldArrayComponent
     }
 </script>
 

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <label>{{text}}</label>
         <base-checkbox label="text" class="form-control mb-3" @input="triggerInput" v-model="filterValue">
         </base-checkbox>
     </div>

@@ -1,5 +1,7 @@
 <template>
-    <textarea class="form-control" rows="3" @input='triggerInput' v-model='formValue' v-validate="validator" :name='fieldObject.name'></textarea>
+    <div class="form-group">
+        <textarea class="form-control" rows="3" @input='triggerInput' v-model='formValue' v-validate="validator" :name='fieldObject.name'></textarea>
+    </div>
 </template>
 
 <script>

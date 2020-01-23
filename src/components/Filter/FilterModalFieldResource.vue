@@ -1,6 +1,5 @@
 <template>
     <div>
-        <label>{{text}}</label>
         <select class="form-control" v-model="filterValue" @change="triggerInput">
             <option>Nessuno</option>
             <option v-for="(option, oindex) in itemsList" :key=oindex :value="option[fieldObject.item.valueField]">{{getOptionText(option, fieldObject.item.textField)}}</option>

@@ -1,7 +1,5 @@
 <template>
-    <td>
-        <base-checkbox class="mb-3" :disabled="disabled" @input="$emit('input', value)" v-model="value" />
-    </td>
+    <base-checkbox class="mb-3" :disabled="disabled" @input="$emit('input', checked)" v-model="checked" />
 </template>
 
 <script>
@@ -11,13 +9,16 @@
             disabled: {
                 type: Boolean
             },
-            checked: {
-                type: Boolean
-            }
+            value: {}
         },
         data() {
             return {
-                value: this.checked
+                checked: this.value
+            }
+        },
+        watch: {
+            value: function(val) {
+                this.checked = val;
             }
         }
     }

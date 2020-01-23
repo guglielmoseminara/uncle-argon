@@ -1,5 +1,6 @@
 <template>
     <UncleSummaryFieldText  v-if="type == 'text'" :value="value" />
+    <UncleSummaryFieldTextArea  v-else-if="type == 'textarea'" :value="value" />
     <UncleSummaryFieldArray  v-else-if="type == 'array'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldArrayImage  v-else-if="type == 'array_image'" 
         :field-object="fieldObject" 

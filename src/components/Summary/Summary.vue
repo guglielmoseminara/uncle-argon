@@ -12,11 +12,11 @@
                             :text='group.text'
                         >
                             <template slot="header">
-                                <p class="title"> {{group.getTitle()}} </p>   
+                                <p class="title"> {{group.text}} </p>   
                             </template>
                             <div class="field" v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
-                                <label class="label" v-if="!field.getLabel()">
-                                    <b>{{field.text}}</b>
+                                <label v-show="field.type != 'array_image'" class="label" v-if="!field.getLabel()">
+                                    {{field.text}}
                                 </label>
                                 <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
                             </div>
@@ -27,8 +27,8 @@
             <template v-else>
                 <ul v-if="item">
                     <li v-for="(field, findex) in fieldsList" :key="findex">
-                        <label>
-                            <b>{{field.text}}</b>
+                        <label v-show="field.type != 'array_image'">
+                            {{field.text}}
                         </label>
                         <p>
                             <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
@@ -53,5 +53,8 @@
 <style scoped lang="scss">
     img {
         width: 200px;
+    }
+    .summary .field .label {
+        color:$primary;
     }
 </style>

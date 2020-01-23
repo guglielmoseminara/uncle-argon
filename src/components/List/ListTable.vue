@@ -1,13 +1,14 @@
 <template>
     <div class="card">
         <div class="row border-0 card-header">
-            <h3 class="mb-0 col-3">List</h3>
+            <h3 class="mb-0 col-3">{{listObject.text}}</h3>
             <div class="col-9 actions-bar" v-if="actionsList.length > 0">
                 <UncleActionButton v-for="(actionItem, aindex) in actionsList" :params-object="paramsObject" :key="aindex" :action-item-object='actionItem'/>
             </div>
         </div>
         <base-table ref="table" :class="this.rowsAction ? 'clickable': ''" :columns="headers" :data="itemsList ? itemsList : []" @rowClick="rowClick($event)">
             <template #columns="{columns}">
+                <th v-if="listObject.selectable" class="select-all-checkbox" ><UncleListFieldCheckbox @input="setSelectedAllValue($event)" :value="selectedAll"/></th>
                 <th @click="toggleArrow(column)" v-for="column in columns" :key="column">
                     <span>{{ headersText[column] }}</span>
                     <span class="arrows" v-show="headersText[column]!='' && headersMap[column].sortable">
@@ -17,13 +18,12 @@
                 </th>
             </template>
             <template v-slot="{ row }">
-                <UncleListFieldAbstract v-for="(field, findex) in fieldsList" :slot=field.name :key="findex" :field-object="field" :row="row">
-                    <UncleListFieldCheckbox :key="findex" v-if="field.type == 'checkbox'"/>
-                    <UncleListFieldEnum :key="findex" v-else-if="field.type == 'enum'" :field-object="field" :value='row[field.name]' />
-                    <UncleListFieldText :key="findex" v-else-if="field.type == 'text'" :text='getItemValue(row, field.name)' />
-                    <UncleListFieldBoolean :key="findex" v-else-if="field.type == 'boolean'" :text='getItemValue(row, field.name)'/>
-                    <UncleListFieldAction :key="findex" v-else-if="field.type == 'actions-list'" :actions-list=field.getActions() :list-row-object='row' />
-                </UncleListFieldAbstract>
+                <td v-if="listObject.selectable">
+                    <UncleListFieldCheckbox @input="selectIndex(row[listObject.selectable_id], $event)" :value='selectedIndexes[row[listObject.selectable_id]]'/>
+                </td>
+                <td v-for="(field, findex) in fieldsList" :key="findex">
+                    <UncleListFieldAbstract :slot=field.name :field-object="field" :row="row"/>
+                </td>
             </template>
         </base-table>
         <UnclePagination v-if='paginationObject' :pagination-object='paginationObject' v-model="selectedPage" :total='totalItems'/>
@@ -69,7 +69,7 @@ export default {
     data() {
         return {
             currentOrder: {},
-            defaultDirection: 'ASC'
+            defaultDirection: 'ASC',
         }
     },
     methods: {
@@ -114,6 +114,16 @@ export default {
 <style scoped lang="scss">
     .actions-bar {
         text-align:right;
+        & > * {
+            margin: 0 20px;
+        }
+        & > *:last-child {
+            margin: 0;
+        }
+    }
+    .select-all-checkbox {
+        width:20px;
+        padding-bottom: 18px;
     }
     table::v-deep {
         th {
@@ -152,10 +162,12 @@ export default {
                 }
             }
         }
+        div {
+            display: table-cell;
+        }
         td {
             word-wrap: break-word;
             white-space: normal !important;
-            max-width: 150px;
         }
     }
 </style>

@@ -8,7 +8,11 @@
         @input='triggerInput($event)'
         :field-object="fieldObject"
     />
-    <UncleFormFieldSelectResource :validator='validator' :value='value' v-else-if="type == 'resource'" 
+    <UncleFormFieldResource :validator='validator' :value='value' v-else-if="type == 'resource'" 
+        @input='triggerInput($event)'
+        :field-object="fieldObject"
+    />
+    <UncleFormFieldResourceMany :validator='validator' :value='value' v-else-if="type == 'resource_many'" 
         @input='triggerInput($event)'
         :field-object="fieldObject"
     />

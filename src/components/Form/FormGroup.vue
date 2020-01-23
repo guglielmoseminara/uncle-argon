@@ -1,7 +1,9 @@
 <template>
     <card>
         <template slot="header">
-            {{text}}
+            <slot name="header">
+                {{ text }}
+            </slot>
         </template>
         <slot></slot>
     </card>

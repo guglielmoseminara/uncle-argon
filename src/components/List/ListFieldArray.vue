@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <template v-for="(itemObj, index) in value">
-            <UncleListWidgetAbstract :item-obj="itemObj" :field-object="fieldObject" :value="value" :key="index">
-            </UncleListWidgetAbstract>
-        </template>
+    <div class="list-array-field__container">
+        <UncleListWidgetAbstract :field-object="fieldObject" :value="value">
+        </UncleListWidgetAbstract>
     </div>
 </template>
 
@@ -14,3 +12,9 @@
         extends: ListFieldArrayComponent
     }
 </script>
+
+<style scoped lang="scss">
+    .array-chips {
+        margin-right: 5px;
+    }
+</style>

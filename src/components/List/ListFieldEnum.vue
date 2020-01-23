@@ -1,5 +1,5 @@
 <template>
-    <td>{{getItemValue(this.value)}}</td>
+    <span>{{getItemValue(this.value)}}</span>
 </template>
 
 <script>
