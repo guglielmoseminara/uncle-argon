@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="hidden" @update='triggerInput' v-model='formValue' :name='fieldObject.name' v-validate="validator"/>
+        <input type="hidden" @update='triggerInput' v-model='formValue' :name='fieldObject.name'/>
     </div>
 </template>
 

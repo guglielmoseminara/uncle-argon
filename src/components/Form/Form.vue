@@ -1,5 +1,5 @@
 <template>
-    <div class="form">
+    <div class="form" :data-vv-scope="formObject.name">
         <template v-for="(elementObject, tindex) in formObject.parse()">
             <p v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
                 <UncleActionSubmit @click="actionClick" v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params-object='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
@@ -12,21 +12,21 @@
                                 <template slot="header">
                                     <p class="title"> {{group.text}} </p>   
                                 </template>
-                                <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
-                                    <UncleFormFieldAbstract @input="formUpdate(field, $event)" :validator='field.validator' :field-object="field"
-                                        :value='formValue[field.name]' :type="field.type"
+                                <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && formErrors[field.name]) }">
+                                    <UncleFormFieldAbstract @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name='field.name' :data-vv-scope="formObject.name" :field-object="field"
+                                    :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"
                                     />
-                                    <span v-if='submitted && formErrors[field.name]'>{{formErrors[field.name].msg}}</span>
+                                    <span class="text-error" v-if='submitted && formErrors[field.name]'>{{formErrors[field.name].msg}}</span>
                                 </UncleFormFieldContainer>
                             </UncleFormGroup>
                         </vue-cell>
                     </vue-grid>
                 </template>
                 <template v-else-if="elementObject.tagName == 'fields'">
-                    <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text'>
+                    <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && formErrors[field.name]) }">
                         <UncleFormFieldAbstract @input="formUpdate(field, $event)" :field-object="field"
-                            :validator='field.validator' :value='formValue[field.name]' :type="field.type"/>
-                        <span v-if='submitted && formErrors[field.name]'>{{formErrors[field.name].msg}}</span>
+                            v-validate.initial="field.validator" :name='field.name' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"/>
+                        <span class="text-error" v-if='submitted && formErrors[field.name]'>{{formErrors[field.name].msg}}</span>
                     </UncleFormFieldContainer>
                 </template>
                 <slot :formValue="formValue" :formErrors="formErrors"></slot>
@@ -44,8 +44,17 @@
             actionClick() {
                 this.submitted = true;
             },
-            validate() {
-                return this.$validator.validateAll();
+            async triggerSubmit() {
+                this.actionClick();
+                this.validate();
+                var filteredErrors = this.filteredErrors;
+                if (filteredErrors.length == 0) {
+                    await this.submit();
+                    this.submitted = false;
+                }
+            },
+            async validate() {
+                return await this.$validator.validateAll(this.formObject.name);
             }
         },
         data() {
@@ -56,11 +65,17 @@
         computed: {
             formErrors() {
                 var errors = {};
-                for(let e in this.$validator.errors.items) {
-                    let formItem = this.$validator.errors.items[e];
+                var filteredErrors = this.filteredErrors;
+                for(let e in filteredErrors) {
+                    let formItem = filteredErrors[e];
                     errors[formItem.field] = formItem;
                 }
                 return errors;
+            },
+            filteredErrors() {
+                return this.$validator.errors.items.filter((item) => {
+                    return item.scope == this.formObject.name
+                });
             }
         }
     }
@@ -70,5 +85,20 @@
     .form-group {
         margin-bottom: 1rem;
         margin-top: 1rem;
+    }
+    ::v-deep .is-invalid input, ::v-deep .is-invalid select, ::v-deep .is-invalid .ti-input, ::v-deep .is-invalid textarea{
+        border: 1px solid var(--danger);
+    }
+    ::v-deep .form-group:not(.is-invalid) input:not(.ti-new-tag-input), ::v-deep .form-group:not(.is-invalid) select, ::v-deep .form-group:not(.is-invalid) textarea, ::v-deep .form-group:not(.is-invalid) .ti-input {
+        border: 1px solid #cad1d7;
+    }
+    
+    ::v-deep .is-invalid .ti-input input {
+        border:none;
+    }
+    .text-error {
+        color: var(--danger);
+        font-size: 0.875rem;
+        margin-top: 10px;
     }
 </style>

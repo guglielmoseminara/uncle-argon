@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="form-field__container form-group">
         <label v-show='text'>
             {{text}}
         </label>
@@ -16,7 +16,10 @@
 </script>
 
 <style lang="scss" scoped>
-    label {
-        color:$primary;
+    .form-field__container {
+        text-align:left;
+        label {
+            color:$primary;
+        }
     }
 </style>

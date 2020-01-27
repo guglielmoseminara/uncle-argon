@@ -12,10 +12,12 @@
             async click() {
                 this.$emit('click');
                 if (this.actionItemObject.validate) {
-                    this.$validator.validateAll();
+                    this.$validator.validateAll(this.actionItemObject.getForm().name);
                 }
-                this.actionItemObject.action.setRequestParams(this.paramsObject);
-                const response = await this.execute();
+                if (this.$validator.errors.items.filter((item) => {return item.scope == this.actionItemObject.getForm().name}).length == 0) {
+                    this.actionItemObject.action.setRequestParams(this.paramsObject);
+                    const response = await this.execute();
+                }
             }
         }
     }

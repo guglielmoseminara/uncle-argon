@@ -4,14 +4,12 @@
         <h5 class="modal-title" id="exampleModalLabel">{{modalObject.title}}</h5>
      </template>
      <div>
-    <!-- <template v-if="formObject">
-        <UncleForm ref="form" :form='formObject.name'/>
-    </template> -->
-      <slot></slot>
+      <UncleForm v-if="formObject" ref="form" :form='formObject.name' :params="params"/>
+      <slot name="content" :opened-params="openedParams"></slot>
      </div>
      <template slot="footer">
-         <base-button v-if="hasCloseBtn" type="secondary" @click="close()">Close</base-button>
-         <!-- <base-button @click="formSubmit" v-if="formObject" type="primary">Invia</base-button> -->
+         <base-button v-if="hasCloseBtn" type="secondary" @click="close()">Chiudi</base-button>
+         <base-button @click="formSubmit" v-if="formObject" type="primary">Salva</base-button>
      </template>
    </modal>
 </template>
@@ -26,36 +24,31 @@
                 type: Boolean,
                 default: true
             },
-            id: {
-                type: String,
-                required: false,
-                default: 'modal1'
-            },
         },
         created() {
-            if (this.formObject !== null && this.formObject !== undefined) {
-                this.formObject = this.getComponents('Form').pop();
-            }
+            this.formObject = this.getComponents('Form').pop();
             this.$eventHub.$on('opened',  (value) => {
-                if (this.id === value.modalId) {
+                this.openedParams = value;
+                if (this.modalObject.name === value.modalId) {
                     this.isOpened = value.visible;
+                    this.params = value.params;
                 }
             });
         },
-        beforeDestroy(){
-            this.$eventHub.$off('show-registration');
-        },
         methods: {
             formSubmit() {
-                this.$refs.form.actionClick();
+                this.$refs.form.triggerSubmit();
             },
             close() {
-                this.$modalProvider.close();
+                this.$modalProvider.close(this.modalObject.name);
             }
         },
         data() {
             return {
                 isOpened: false,
+                formObject: null,
+                params: null,
+                openedParams: {},
             }
         },
     }

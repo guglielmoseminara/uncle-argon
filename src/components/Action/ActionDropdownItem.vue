@@ -10,6 +10,7 @@
                 {{actionItemObject.text}}
             </a>
         </UncleActionNavItem>
+        <a class="dropdown-item" v-else-if="actionItemObject.action.type == 'modal'" @click="$modalProvider.open(actionItemObject.action.getModal().name, paramsObject)">{{actionItemObject.text}}</a>
     </li>
 </template>
 

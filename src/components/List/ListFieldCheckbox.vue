@@ -1,5 +1,5 @@
 <template>
-    <base-checkbox class="mb-3" :disabled="disabled" @input="$emit('input', checked)" v-model="checked" />
+    <base-checkbox class="mb-3" :disabled="disabled" @input="triggerInput" v-model="checked" />
 </template>
 
 <script>
@@ -19,6 +19,11 @@
         watch: {
             value: function(val) {
                 this.checked = val;
+            }
+        },
+        methods: {
+            triggerInput() {
+                this.$emit('input', this.checked)
             }
         }
     }

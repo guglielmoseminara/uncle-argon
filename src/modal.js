@@ -4,16 +4,18 @@ export default class ModalProvider {
         this.eventHub = eventHub;
     }
     
-    open(modalId) {
+    open(modalId, params = {}) {
         this.eventHub.$emit('opened', {
             visible: true,
-            modalId: modalId
+            modalId: modalId,
+            params: params
         });
     }
 
-    close() {
+    close(modalId) {
         this.eventHub.$emit('opened', {
-            visible: false
+            visible: false,
+            modalId: modalId
         });
     }
 

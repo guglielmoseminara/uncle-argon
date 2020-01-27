@@ -11,7 +11,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@johmun/vue-tags-input": "^2.1.0",
-    "vee-validate": "^2.2.13",
+    "vee-validate": "^2.2.15",
     "vue-argon-dashboard": "git+https://github.com/guglielmoseminara/vue-argon-dashboard.git",
     "vue-async-computed": "^3.7.0",
     "vue-breadcrumbs": "^1.2.0",

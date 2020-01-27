@@ -6,6 +6,7 @@ import ActionsProvider from './actions';
 import ModalProvider from './modal';
 import AsyncComputed from 'vue-async-computed';
 import { Validator } from 'vee-validate';
+import it from 'vee-validate/dist/locale/it';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 const VueUploadComponent = require('vue-upload-component');
@@ -18,6 +19,7 @@ import {
     UncleView,
     UncleBreadcrumb,
     UncleSearchText,
+    UncleList,
     UncleListToken,
     UncleListTable,
     UncleListFieldAbstract,
@@ -45,6 +47,7 @@ import {
     UncleActionModalItem,
     UncleTabs,
     UncleModal,
+    UncleModalGallery,
     UncleSummary,
     UncleSummaryFieldAbstract,
     UncleSummaryFieldArrayChiplist,
@@ -93,6 +96,7 @@ export default {
         Vue.component('UncleView', UncleView);
         Vue.component('UncleBreadcrumb', UncleBreadcrumb);
         Vue.component('UncleSearchText', UncleSearchText);
+        Vue.component('UncleList', UncleList);
         Vue.component('UncleListTable', UncleListTable);
         Vue.component('UncleListToken', UncleListToken);
         Vue.component('UncleListFieldAbstract', UncleListFieldAbstract);
@@ -120,6 +124,7 @@ export default {
         Vue.component('UncleActionModalItem', UncleActionModalItem);
         Vue.component('UncleTabs', UncleTabs);
         Vue.component('UncleModal', UncleModal);
+        Vue.component('UncleModalGallery', UncleModalGallery);
         Vue.component('UncleSummary', UncleSummary);
         Vue.component('UncleSummaryFieldAbstract', UncleSummaryFieldAbstract);
         Vue.component('UncleSummaryFieldText', UncleSummaryFieldText);
@@ -160,6 +165,7 @@ export default {
         Vue.prototype.$actionsProvider = new ActionsProvider(options.router);
         Vue.prototype.$modalProvider = new ModalProvider(Vue.prototype.$eventHub);
         
+        Validator.localize('it', it);
         Validator.extend('alpha_spaces_points', {
             validate: (value) => {
                 var regex = new RegExp(/^[A-Za-z .]+$/u);

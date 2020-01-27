@@ -1,5 +1,5 @@
 <template>
-    <div ref="input" class="form-group">
+    <div ref="input" class="resource-many-field">
         <vue-tags-input
             v-model="tag"
             :tags="tags"
@@ -14,6 +14,8 @@
             {{ props.item.text }}
             </div>
         </vue-tags-input>
+        <base-button v-if="fieldObject.modal" :type="'primary'" @click="add">Aggiungi</base-button>
+        <UncleModal v-if="fieldObject.modal" :modal-obj="fieldObject.modal"/>
     </div>
 </template>
 
@@ -56,6 +58,11 @@
                         item: item
                     }
                 });
+            },
+            add() {
+                if (this.fieldObject.modal) {
+                    this.$modalProvider.open(this.fieldObject.modal.name);
+                }
             }
         },
         computed: {
@@ -75,5 +82,13 @@
     ::v-deep .ti-input {
         min-height:calc(1.5em + 1.25rem + 2px);
         height:auto;
+    }
+    .resource-many-field {
+        display:flex;
+    }
+    .vue-tags-input {
+        max-width:100%;
+        width: 100%;
+        margin-right: 20px;
     }
 </style>

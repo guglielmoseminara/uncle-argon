@@ -1,9 +1,11 @@
 <template>
     <span>
-        <base-button type="primary" :icon='icon' @click="modals[modal.name] = true">
-            {{actionItemObject.text}}
-        </base-button>
-        <UncleModal :modal-object="modal"/>
+        <slot name="body" :modal="modal">
+            <base-button type="primary" :icon='icon' @click="$modalProvider.open(modal.name)">
+                {{actionItemObject.text}}
+            </base-button>
+        </slot>
+        <UncleModal :modal-obj="modal"/>
     </span>
 </template>
 
