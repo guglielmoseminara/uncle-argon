@@ -105,7 +105,7 @@ export default {
             });
         },
         rowClick($event) {
-            this.$actionsProvider.execute(this.rowsAction, $event);
+            this.rowsAction.execute($event);
         }
     }
 };

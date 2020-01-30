@@ -6,7 +6,6 @@
         <template slot="content">
             <img class="gallery-img" :src="images[selectedImageIndex]"/>
             <div class="gallery-footer">
-                <p class="preview">Anteprima</p>
                 <div class="controls">
                     <i class="fas fa-chevron-right ml-3" @click="nextPhoto"></i>
                     <p class="counter">{{selectedImageIndex + 1}} / {{images.length}}</p>
@@ -38,6 +37,7 @@
             return {
                 modalObject: null,
                 modalId: this.id || 'ModalGallery',
+                selectedImageIndex: this.selectedIndex || 0,
             }
         },
         created() {
@@ -48,20 +48,17 @@
         },
         methods: {
             nextPhoto() {
-                this.selectedIndex = ((this.selectedImageIndex+1) % this.images.length)
+                this.selectedImageIndex = ((this.selectedImageIndex+1) % this.images.length)
             },
             previousPhoto() {
                 if(this.selectedImageIndex!==0) {
-                    this.selectedIndex = ((this.selectedImageIndex-1) % this.images.length)
+                    this.selectedImageIndex = ((this.selectedImageIndex-1) % this.images.length)
                 }
             }
         },
         computed: {
             imagesList() {
                 return this.images;
-            },
-            selectedImageIndex() {
-                return this.selectedIndex || 0;
             }
         }
     }

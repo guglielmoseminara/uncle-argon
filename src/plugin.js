@@ -2,7 +2,6 @@ import VeeValidate from 'vee-validate';
 import ArgonDashboard from 'vue-argon-dashboard/src/plugins/argon-dashboard'
 import IconsProvider from './icon';
 import NotifierProvider from './notifier';
-import ActionsProvider from './actions';
 import ModalProvider from './modal';
 import AsyncComputed from 'vue-async-computed';
 import { Validator } from 'vee-validate';
@@ -87,10 +86,16 @@ export default {
         Vue.use(AsyncComputed);
         Vue.use(VueToast);
         Vue.use(VueBreadcrumbs);
-        const notifier = new NotifierProvider(Vue.$toast);
-        var app = Vue.prototype.$uncle.getApp();
         Vue.prototype.$eventHub = new Vue();
-        app.serviceManager.setNotifier(notifier);
+        const notifierProvider = new NotifierProvider(Vue.$toast);
+        const iconsProvider = new IconsProvider();
+        const modalProvider = new ModalProvider(Vue.prototype.$eventHub);
+        Vue.prototype.$iconsProvider = iconsProvider;
+        Vue.prototype.$modalProvider = modalProvider;
+        var app = Vue.prototype.$uncle.getApp();
+        app.serviceManager.setNotifier(notifierProvider);
+        app.serviceManager.setModal(modalProvider);
+        app.serviceManager.setIcons(iconsProvider);
         app.serviceManager.setEventEmitter(Vue.prototype.$eventHub);
         Vue.component('UncleSidebar', UncleSidebar);
         Vue.component('UncleView', UncleView);
@@ -160,10 +165,6 @@ export default {
         Vue.component('vue-grid', VueGrid);
         Vue.component('vue-cell', VueCell);
         Vue.component('vue-tags-input', VueTagsInput);
-
-        Vue.prototype.$iconsProvider = new IconsProvider();
-        Vue.prototype.$actionsProvider = new ActionsProvider(options.router);
-        Vue.prototype.$modalProvider = new ModalProvider(Vue.prototype.$eventHub);
         
         Validator.localize('it', it);
         Validator.extend('alpha_spaces_points', {
