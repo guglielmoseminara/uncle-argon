@@ -4,13 +4,13 @@
             <i v-show="hasIcon" :class="icon"/>
             {{actionItemObject.text}}
         </a>
-        <UncleActionNavItem v-else-if="actionItemObject.action.type == 'nav'" :action-item-object='actionItemObject' :params-object='paramsObject'>
+        <UncleActionNavItem v-else-if="actionItemObject.action.type == 'nav'" :action-item-object='actionItemObject' :params='params'>
             <a class="dropdown-item">
                 <i v-show="hasIcon" :class="icon"/>
                 {{actionItemObject.text}}
             </a>
         </UncleActionNavItem>
-        <a class="dropdown-item" v-else-if="actionItemObject.action.type == 'modal'" @click="$modalProvider.open(actionItemObject.action.getModal().name, paramsObject)">{{actionItemObject.text}}</a>
+        <a class="dropdown-item" v-else-if="actionItemObject.action.type == 'modal'" @click="$modalProvider.open(actionItemObject.action.getModal().name, params)">{{actionItemObject.text}}</a>
     </li>
 </template>
 

@@ -2,7 +2,7 @@
     <div class="form" :data-vv-scope="formObject.name">
         <template v-for="(elementObject, tindex) in formObject.parse()">
             <p v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
-                <UncleActionSubmit @click="actionClick" v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params-object='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
+                <UncleActionSubmit @click="actionClick" v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
             </p>
             <div v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">

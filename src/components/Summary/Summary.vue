@@ -56,4 +56,7 @@
     .summary .field .label {
         color:$primary;
     }
+    .cols-layout-container {
+        height: auto;
+    }
 </style>
