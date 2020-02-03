@@ -40,7 +40,7 @@
                 return this.$iconsProvider.get(icon);
             },
             click(action) {
-                console.log(action.execute());
+                action.execute()
             }
         }
     }

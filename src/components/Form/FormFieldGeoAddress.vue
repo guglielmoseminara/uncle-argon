@@ -13,11 +13,13 @@
     import { FormFieldComponent } from 'uncle-vue';
     import { OpenStreetMapProvider } from 'leaflet-geosearch';
     import VGeosearch from 'vue2-leaflet-geosearch';
-    import { LMap, LTileLayer, LMarker, LTooltip, LPopup } from 'vue2-leaflet';
+    import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
     
+    var L = window.L;
+
     export default {
         extends: FormFieldComponent,
-        components: { VGeosearch, LMap, LTileLayer, LMarker, LTooltip, LPopup },
+        components: { VGeosearch, LMap, LTileLayer, LMarker },
         mounted() {
             this.geosearchOptions = {
                 provider: new OpenStreetMapProvider(),
@@ -43,7 +45,9 @@
             coords() {
                 if (this.formValue) {
                     return L.latLng(this.formValue[this.fieldObject.coordsField][0], this.formValue[this.fieldObject.coordsField][1]);
-                } 
+                } else {
+                    return null;
+                }
             }
         },
         data() {

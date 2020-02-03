@@ -9,14 +9,15 @@
 
 <script>
     import { OpenStreetMapProvider } from 'leaflet-geosearch';
-    import VGeosearch from 'vue2-leaflet-geosearch';
-    import { LMap, LTileLayer, LMarker, LTooltip, LPopup } from 'vue2-leaflet';
+    import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
     
+    var L = window.L;
+
     export default {
         props: {
             value: {}
         },
-        components: { VGeosearch, LMap, LTileLayer, LMarker, LTooltip, LPopup },
+        components: { LMap, LTileLayer, LMarker },
         mounted() {
             this.geosearchOptions = {
                 provider: new OpenStreetMapProvider(),
@@ -35,7 +36,9 @@
             coords() {
                 if (Array.isArray(this.value)) {
                     return L.latLng(this.value[0], this.value[1]);
-                } 
+                } else {
+                    return null;
+                }
             }
         },
         data() {

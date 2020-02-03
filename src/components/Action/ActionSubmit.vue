@@ -16,7 +16,7 @@
                 }
                 if (this.$validator.errors.items.filter((item) => {return item.scope == this.actionItemObject.getForm().name}).length == 0) {
                     this.actionItemObject.action.setRequestParams(this.params);
-                    const response = await this.execute();
+                    await this.execute();
                 }
             }
         }

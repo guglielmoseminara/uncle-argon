@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import { SummaryFieldArrayComponent, Modal } from 'uncle-vue';
+    import { SummaryFieldArrayComponent } from 'uncle-vue';
 
     export default {
         extends: SummaryFieldArrayComponent,
