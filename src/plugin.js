@@ -13,6 +13,15 @@ import { VueGrid, VueCell } from 'vue-grd';
 import VueTagsInput from '@johmun/vue-tags-input';
 import VueBreadcrumbs from 'vue-breadcrumbs'
 
+import 'leaflet/dist/leaflet.css';
+import { Icon }  from 'leaflet';
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
 import {
     UncleSidebar,
     UncleView,
@@ -58,6 +67,7 @@ import {
     UncleSummaryFieldImage,
     UncleSummaryFieldObject,
     UncleSummaryFieldEnum,
+    UncleSummaryFieldMap,
     UncleSummaryLabelAbstract,
     UncleSummaryLabelField,
     UncleSummaryGroup,
@@ -74,6 +84,7 @@ import {
     UncleFormFieldResourceMany,
     UncleFormFieldPhone,
     UncleFormFieldHidden,
+    UncleFormFieldGeoAddress,
     UncleSummaryFieldArrayImage,
     UncleFormGroup,
     UncleChip,
@@ -139,6 +150,7 @@ export default {
         Vue.component('UncleSummaryFieldImage', UncleSummaryFieldImage);
         Vue.component('UncleSummaryFieldObject', UncleSummaryFieldObject);
         Vue.component('UncleSummaryFieldEnum', UncleSummaryFieldEnum);
+        Vue.component('UncleSummaryFieldMap', UncleSummaryFieldMap);
         Vue.component('UncleSummaryLabelAbstract', UncleSummaryLabelAbstract);
         Vue.component('UncleSummaryLabelField', UncleSummaryLabelField);
         Vue.component('UncleForm', UncleForm);
@@ -154,6 +166,7 @@ export default {
         Vue.component('UncleFormFieldResourceMany', UncleFormFieldResourceMany);    
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);
         Vue.component('UncleFormFieldHidden', UncleFormFieldHidden);
+        Vue.component('UncleFormFieldGeoAddress', UncleFormFieldGeoAddress);
         Vue.component('UncleFormGroup', UncleFormGroup);
         Vue.component('UncleSummaryGroup', UncleSummaryGroup);
         Vue.component('UncleChip', UncleChip);

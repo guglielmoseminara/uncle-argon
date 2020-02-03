@@ -5,7 +5,7 @@
             :tags="tags"
             :autocomplete-items="filteredItems"
             @tags-changed="update"
-            v-bind:max-tags='fieldObject.max ? parseInt(fieldObject.max) : false'
+            :data-max-tags='fieldObject.max ? parseInt(fieldObject.max) : false'
         >
             <div
                 slot="autocomplete-item"

@@ -1,5 +1,5 @@
 <template>
-    <UncleActionDropdown :actions-list="actionsList" :params-object='listRowObject'/>
+    <UncleActionDropdown :actions-list="actionsList" :params='listRowObject'/>
 </template>
 
 <script>

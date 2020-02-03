@@ -30,7 +30,7 @@
                     </template>
                 </slot>
             </file-upload>
-            <UncleModalGallery v-if="hasModalVisible" :id="modalId" :images = images :selected-index="selectedImageIndex"/>
+            <!--<UncleModalGallery v-if="hasModalVisible" :id="modalId" :images = images :selected-index="selectedImageIndex"/>!-->
         </div>
 </template>
 

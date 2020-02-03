@@ -18,6 +18,7 @@
     />
     <UncleFormFieldPhone @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'phone'" :field-object='fieldObject'/>
     <UncleFormFieldHidden @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'hidden'" :field-object='fieldObject'/>
+    <UncleFormFieldGeoAddress @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'geoaddress'" :field-object='fieldObject'/>
     <component :is="fieldObject.component" @input='triggerInput' :value='value'  v-else-if="type == 'custom'" />
 </template>
 

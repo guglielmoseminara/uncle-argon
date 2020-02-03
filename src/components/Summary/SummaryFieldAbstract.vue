@@ -10,7 +10,7 @@
     <UncleSummaryFieldObject  v-else-if="type == 'object'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldEnum  v-else-if="type == 'enum'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldDatetime  v-else-if="type == 'datetime'" :field-object="fieldObject" :value="value"/>
-
+    <UncleSummaryFieldMap  v-else-if="type == 'map'" :field-object="fieldObject" :value="value"/>
 </template>
 
 <script>

@@ -46,6 +46,7 @@ export { default as UncleFormFieldResource } from './Form/FormFieldResource.vue'
 export { default as UncleFormFieldResourceMany } from './Form/FormFieldResourceMany.vue';
 export { default as UncleFormFieldPhone } from './Form/FormFieldPhone.vue';
 export { default as UncleFormFieldHidden } from './Form/FormFieldHidden.vue';
+export { default as UncleFormFieldGeoAddress } from './Form/FormFieldGeoAddress.vue';
 export { default as UncleSummary } from './Summary/Summary.vue';
 export { default as UncleSummaryFieldAbstract } from './Summary/SummaryFieldAbstract.vue';
 export { default as UncleSummaryFieldText } from './Summary/SummaryFieldText.vue';
@@ -55,6 +56,7 @@ export { default as UncleSummaryFieldArray } from './Summary/SummaryFieldArray.v
 export { default as UncleSummaryFieldImage } from './Summary/SummaryFieldImage.vue';
 export { default as UncleSummaryFieldObject } from './Summary/SummaryFieldObject.vue';
 export { default as UncleSummaryFieldEnum } from './Summary/SummaryFieldEnum.vue';
+export { default as UncleSummaryFieldMap } from './Summary/SummaryFieldMap.vue';
 export { default as UncleChip } from './Chip.vue';
 export { default as UncleSummaryFieldArrayChiplist } from './Summary/SummaryFieldArrayWidgets/SummaryFieldArrayChiplist.vue';
 export { default as UncleSummaryWidgetAbstract } from './Summary/SummaryFieldArrayWidgets/SummaryWidgetAbstract.vue';

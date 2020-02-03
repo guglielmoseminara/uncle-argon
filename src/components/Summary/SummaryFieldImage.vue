@@ -3,7 +3,7 @@
 <template>
     <div>
         <img class="field-image" :src="value" @click="openModal($event, 0)"/>
-        <UncleModalGallery :id="modalId" :images = images :selected-index="selectedImageIndex"/>
+        <UncleModalGallery v-if="hasModalVisible" :id="modalId" :images = images :selected-index="selectedImageIndex"/>
     </div>
 </template>
 
@@ -13,6 +13,9 @@
             value: {
                 type: String,
                 required: true
+            },
+            hasModal: {
+                type: Boolean
             }
         },
         data() {
@@ -23,15 +26,20 @@
         },
         methods: {
             openModal(event, index) {
-                this.selectedImageIndex = index;
-                event.stopPropagation();
-                event.stopImmediatePropagation();
-                this.$modalProvider.open(this.modalId);
+                if (this.hasModal) {
+                    this.selectedImageIndex = index;
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+                    this.$modalProvider.open(this.modalId);
+                }
             }
         },
         computed: {
             images() {
                 return this.value ? [this.value] : [];
+            },
+            hasModalVisible() {
+                return this.hasModal;
             }
         }
     }
