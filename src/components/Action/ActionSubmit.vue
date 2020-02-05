@@ -1,5 +1,5 @@
 <template>
-    <base-button v-if="actionItemObject.action.type == 'sdk'" :icon='icon' @click="click()" type="primary">{{actionItemObject.text}}</base-button>
+    <base-button @click="click" v-if="actionItemObject.action.type == 'sdk'" :icon='icon' type="primary">{{actionItemObject.text}}</base-button>
 </template>
 
 <script>

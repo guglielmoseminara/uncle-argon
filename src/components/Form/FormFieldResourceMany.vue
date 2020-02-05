@@ -58,6 +58,7 @@
                 }, 600);
             },
             createTags(val) {
+                console.log("create tags", val);
                 if (Array.isArray(val)) {
                     this.tags = val.map((item) => {
                         return {

@@ -15,7 +15,8 @@ export default class IconsProvider{
             'lock': 'ni ni-lock-circle-open',
             'folder_plus': 'fas fa-folder-plus',
             'bookmark': 'fas fa-bookmark',
-            'flag': 'fas fa-flag'
+            'flag': 'fas fa-flag',
+            'file_alt':'fas fa-file-alt'
         }    
     }
     

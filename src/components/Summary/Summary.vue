@@ -6,7 +6,7 @@
         <div class="cols-layout-container">            
             <template v-if="item && groupsList.length > 0">
                 <vue-grid align="stretch" justify="start">
-                    <vue-cell width="6of12" v-for="(group, gindex) in groupsList" :key="gindex">
+                    <vue-cell :width="getGroupWidht(group)" v-for="(group, gindex) in groupsList" :key="gindex">
                         <UncleSummaryGroup
                             class="group"
                             :text='group.text'
@@ -14,12 +14,15 @@
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   
                             </template>
-                            <div class="field" v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
-                                <label v-show="field.type != 'array_image'" class="label" v-if="!field.getLabel()">
+                            <UncleSummaryFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text="field.text" :field-object="field">
+                                <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
+                            </UncleSummaryFieldContainer>
+                            <!--<div class="field" v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
+                                <label v-show="field.type != 'array_image' && !field.disableLabel" class="label" v-if="!field.getLabel()">
                                     {{field.text}}
                                 </label>
                                 <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
-                            </div>
+                            </div>!-->
                         </UncleSummaryGroup>
                     </vue-cell>
                 </vue-grid>
@@ -45,7 +48,16 @@
     import { SummaryComponent } from 'uncle-vue';
 
     export default {
-        extends: SummaryComponent
+        extends: SummaryComponent,
+        methods: {
+            getGroupWidht(group) {
+                if (group.layout == 'full') {
+                    return '12of12';
+                } else {
+                    return '6of12';
+                }
+            }
+        }
     }
 </script>
 

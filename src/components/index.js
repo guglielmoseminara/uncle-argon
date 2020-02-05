@@ -21,6 +21,7 @@ export { default as UncleFilterModalFieldEnum } from './Filter/FilterModalFieldE
 export { default as UncleFilterModalFieldBoolean } from './Filter/FilterModalFieldBoolean.vue';
 export { default as UncleFilterModalFieldResource } from './Filter/FilterModalFieldResource.vue';
 export { default as UncleFilterModalFieldResourceMany } from './Filter/FilterModalFieldResourceMany.vue';
+export { default as UncleFilterModalFieldNumberSlider } from './Filter/FilterModalFieldNumberSlider.vue';
 export { default as UncleActionDropdown } from './Action/ActionDropdown.vue';
 export { default as UncleActionButton } from './Action/ActionButton.vue';
 export { default as UncleActionSubmit } from './Action/ActionSubmit.vue';
@@ -47,11 +48,14 @@ export { default as UncleFormFieldResourceMany } from './Form/FormFieldResourceM
 export { default as UncleFormFieldPhone } from './Form/FormFieldPhone.vue';
 export { default as UncleFormFieldHidden } from './Form/FormFieldHidden.vue';
 export { default as UncleFormFieldGeoAddress } from './Form/FormFieldGeoAddress.vue';
+export { default as UncleFormFieldDateRangeDistinct } from './Form/FormFieldDateRangeDistinct.vue';
 export { default as UncleSummary } from './Summary/Summary.vue';
 export { default as UncleSummaryFieldAbstract } from './Summary/SummaryFieldAbstract.vue';
+export { default as UncleSummaryFieldContainer } from './Summary/SummaryFieldContainer.vue';
 export { default as UncleSummaryFieldText } from './Summary/SummaryFieldText.vue';
 export { default as UncleSummaryFieldTextArea } from './Summary/SummaryFieldTextArea.vue';
 export { default as UncleSummaryFieldDatetime } from './Summary/SummaryFieldDatetime.vue';
+export { default as UncleSummaryFieldDateRange } from './Summary/SummaryFieldDateRange.vue';
 export { default as UncleSummaryFieldArray } from './Summary/SummaryFieldArray.vue';
 export { default as UncleSummaryFieldImage } from './Summary/SummaryFieldImage.vue';
 export { default as UncleSummaryFieldObject } from './Summary/SummaryFieldObject.vue';

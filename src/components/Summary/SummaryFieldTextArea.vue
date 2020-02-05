@@ -3,10 +3,10 @@
 </template>
 
 <script>
-    import { FormFieldComponent } from 'uncle-vue';
+    import { SummaryFieldComponent } from 'uncle-vue';
 
     export default {
-        extends: FormFieldComponent
+        extends: SummaryFieldComponent
     }
 </script>
 

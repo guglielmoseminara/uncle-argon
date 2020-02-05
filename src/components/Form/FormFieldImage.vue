@@ -14,7 +14,6 @@
                 post-action="/post.method"
                 :multiple="false"
                 put-action="/put.method"
-                @input-file="inputFile"
                 @input-filter="inputFilter"
                 input-id="fileupload"
                 class="btn btn-icon btn-primary"

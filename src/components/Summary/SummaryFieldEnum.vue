@@ -1,6 +1,6 @@
 <template>
     <span class="field-text">
-        {{getItemValue(this.value)}}
+        {{getEnumValue(this.value)}}
     </span>
 </template>
 

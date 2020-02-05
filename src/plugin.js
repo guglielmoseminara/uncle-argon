@@ -12,8 +12,10 @@ const VueUploadComponent = require('vue-upload-component');
 import { VueGrid, VueCell } from 'vue-grd';
 import VueTagsInput from '@johmun/vue-tags-input';
 import VueBreadcrumbs from 'vue-breadcrumbs'
+import flatPickr from 'vue-flatpickr-component';
 
 import 'leaflet/dist/leaflet.css';
+import 'flatpickr/dist/flatpickr.css';
 import { Icon }  from 'leaflet';
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -45,6 +47,7 @@ import {
     UncleFilterModalFieldBoolean,
     UncleFilterModalFieldResource,
     UncleFilterModalFieldResourceMany,
+    UncleFilterModalFieldNumberSlider,
     UncleActionDropdown,
     UncleListFieldAction,
     UncleActionButton,
@@ -58,11 +61,13 @@ import {
     UncleModalGallery,
     UncleSummary,
     UncleSummaryFieldAbstract,
+    UncleSummaryFieldContainer,
     UncleSummaryFieldArrayChiplist,
     UncleSummaryWidgetAbstract,
     UncleSummaryFieldText,
     UncleSummaryFieldTextArea,
     UncleSummaryFieldDatetime,
+    UncleSummaryFieldDateRange,
     UncleSummaryFieldArray,
     UncleSummaryFieldImage,
     UncleSummaryFieldObject,
@@ -85,6 +90,7 @@ import {
     UncleFormFieldPhone,
     UncleFormFieldHidden,
     UncleFormFieldGeoAddress,
+    UncleFormFieldDateRangeDistinct,
     UncleSummaryFieldArrayImage,
     UncleFormGroup,
     UncleChip,
@@ -131,6 +137,7 @@ export default {
         Vue.component('UncleFilterModalFieldEnum', UncleFilterModalFieldEnum);
         Vue.component('UncleFilterModalFieldResource', UncleFilterModalFieldResource);
         Vue.component('UncleFilterModalFieldResourceMany', UncleFilterModalFieldResourceMany);
+        Vue.component('UncleFilterModalFieldNumberSlider', UncleFilterModalFieldNumberSlider);
         Vue.component('UncleActionDropdown', UncleActionDropdown);
         Vue.component('UncleActionButton', UncleActionButton);
         Vue.component('UncleActionSubmit', UncleActionSubmit);
@@ -143,9 +150,11 @@ export default {
         Vue.component('UncleModalGallery', UncleModalGallery);
         Vue.component('UncleSummary', UncleSummary);
         Vue.component('UncleSummaryFieldAbstract', UncleSummaryFieldAbstract);
+        Vue.component('UncleSummaryFieldContainer', UncleSummaryFieldContainer);
         Vue.component('UncleSummaryFieldText', UncleSummaryFieldText);
         Vue.component('UncleSummaryFieldTextArea', UncleSummaryFieldTextArea);
         Vue.component('UncleSummaryFieldDatetime', UncleSummaryFieldDatetime);
+        Vue.component('UncleSummaryFieldDateRange', UncleSummaryFieldDateRange);
         Vue.component('UncleSummaryFieldArray', UncleSummaryFieldArray);
         Vue.component('UncleSummaryFieldImage', UncleSummaryFieldImage);
         Vue.component('UncleSummaryFieldObject', UncleSummaryFieldObject);
@@ -167,6 +176,7 @@ export default {
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);
         Vue.component('UncleFormFieldHidden', UncleFormFieldHidden);
         Vue.component('UncleFormFieldGeoAddress', UncleFormFieldGeoAddress);
+        Vue.component('UncleFormFieldDateRangeDistinct', UncleFormFieldDateRangeDistinct);
         Vue.component('UncleFormGroup', UncleFormGroup);
         Vue.component('UncleSummaryGroup', UncleSummaryGroup);
         Vue.component('UncleChip', UncleChip);
@@ -178,7 +188,8 @@ export default {
         Vue.component('vue-grid', VueGrid);
         Vue.component('vue-cell', VueCell);
         Vue.component('vue-tags-input', VueTagsInput);
-        
+        Vue.component('flat-pickr', flatPickr);
+
         Validator.localize('it', it);
         Validator.extend('alpha_spaces_points', {
             validate: (value) => {

@@ -2,13 +2,15 @@
     <div class="form" :data-vv-scope="formObject.name">
         <template v-for="(elementObject, tindex) in formObject.parse()">
             <p v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
-                <UncleActionSubmit @click="actionClick" v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
+                <slot name="actions">
+                    <UncleActionSubmit @click=actionClick v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
+                </slot>
             </p>
             <div v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
                     <vue-grid align="stretch" justify="start">
-                        <vue-cell width="6of12" v-for="(group, gindex) in groupsList" :key="gindex">
-                            <UncleFormGroup class="group" :text='group.text'>
+                        <vue-cell :width="getGroupWidht(group)" v-for="(group, gindex) in groupsList" :key="gindex">
+                            <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
                                 <template slot="header">
                                     <p class="title"> {{group.text}} </p>   
                                 </template>
@@ -55,6 +57,13 @@
             },
             async validate() {
                 return await this.$validator.validateAll(this.formObject.name);
+            },
+            getGroupWidht(group) {
+                if (group.layout == 'full') {
+                    return '12of12';
+                } else {
+                    return '6of12';
+                }
             }
         },
         data() {

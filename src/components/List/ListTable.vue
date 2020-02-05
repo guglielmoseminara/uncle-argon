@@ -22,7 +22,12 @@
                     <UncleListFieldCheckbox @input="selectIndex(row[listObject.selectable_id], $event)" :value='selectedIndexes[row[listObject.selectable_id]]'/>
                 </td>
                 <td v-for="(field, findex) in fieldsList" :key="findex">
-                    <UncleListFieldAbstract :slot=field.name :field-object="field" :row="row"/>
+                    <slot :name=field.name :row="row">
+                        <UncleListFieldAbstract :field-object="field" :row="row"/>
+                    </slot>
+                </td>
+                <td v-if="!hasActionsList">
+                    <slot name='actions' :row="row"></slot>
                 </td>
             </template>
         </base-table>
