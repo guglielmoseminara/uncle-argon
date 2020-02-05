@@ -1,7 +1,9 @@
 <template>
     <div class="summary">
         <p slot="actions" v-show='actionsList && actionsList.length > 0'>
-            <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='summaryValue'>{{actionItem.text}}</UncleActionButton>
+            <template v-if="item">
+                <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='item'>{{actionItem.text}}</UncleActionButton>
+            </template>
         </p>
         <div class="cols-layout-container">            
             <template v-if="item && groupsList.length > 0">
