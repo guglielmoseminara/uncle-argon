@@ -9,6 +9,7 @@
     <UncleSummaryFieldImage  v-else-if="type == 'image'" :value="value" :field-object="fieldObject"/>
     <UncleSummaryFieldObject  v-else-if="type == 'object'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldEnum  v-else-if="type == 'enum'" :field-object="fieldObject" :value="value"/>
+    <UncleSummaryFieldHidden  v-else-if="type == 'hidden'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldDatetime  v-else-if="type == 'datetime' || type == 'date'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldDateRange  v-else-if="type == 'date_range'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldMap  v-else-if="type == 'map'" :field-object="fieldObject" :value="value"/>

@@ -53,6 +53,7 @@ export { default as UncleSummary } from './Summary/Summary.vue';
 export { default as UncleSummaryFieldAbstract } from './Summary/SummaryFieldAbstract.vue';
 export { default as UncleSummaryFieldContainer } from './Summary/SummaryFieldContainer.vue';
 export { default as UncleSummaryFieldText } from './Summary/SummaryFieldText.vue';
+export { default as UncleSummaryFieldHidden } from './Summary/SummaryFieldHidden.vue';
 export { default as UncleSummaryFieldTextArea } from './Summary/SummaryFieldTextArea.vue';
 export { default as UncleSummaryFieldDatetime } from './Summary/SummaryFieldDatetime.vue';
 export { default as UncleSummaryFieldDateRange } from './Summary/SummaryFieldDateRange.vue';

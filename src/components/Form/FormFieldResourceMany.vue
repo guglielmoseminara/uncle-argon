@@ -1,5 +1,5 @@
 <template>
-    <div ref="input" class="resource-many-field">
+    <div ref="tagsinput" class="resource-many-field">
         <vue-tags-input
             v-model="tag"
             :tags="tags"
@@ -32,7 +32,7 @@
             };
         },
         mounted() {
-            this.$refs.input.querySelector('.ti-input').classList.add('form-control');
+            this.$refs.tagsinput.querySelector('.ti-input').classList.add('form-control');
         },
         watch: {
             'tag': 'initItems',
@@ -80,11 +80,11 @@
                 }
             },
             checkInput() {
-                if (this.fieldObject.max) {
+                if (this.fieldObject.max && this.$refs.tagsinput) {
                     if (this.tags.length == this.fieldObject.max) {
-                        this.$refs.input.querySelector('.ti-input input').style.display = "none";
+                        this.$refs.tagsinput.querySelector('.ti-input input').style.display = "none";
                     } else {
-                        this.$refs.input.querySelector('.ti-input input').style.display = "block";
+                        this.$refs.tagsinput.querySelector('.ti-input input').style.display = "block";
                     }
                 }
             }

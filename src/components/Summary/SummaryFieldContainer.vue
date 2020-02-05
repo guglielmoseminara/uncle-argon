@@ -1,6 +1,6 @@
 <template>
     <div class="summary-field__container field">
-        <label v-show="fieldObject.type != 'array_image' && !fieldObject.disableLabel" class="label" v-if="!fieldObject.getLabel()">
+        <label v-show="fieldObject.type != 'array_image' && text && !fieldObject.disableLabel" class="label" v-if="!fieldObject.getLabel()">
             {{text}}
         </label>
         <slot></slot>

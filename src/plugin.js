@@ -65,6 +65,7 @@ import {
     UncleSummaryFieldArrayChiplist,
     UncleSummaryWidgetAbstract,
     UncleSummaryFieldText,
+    UncleSummaryFieldHidden,
     UncleSummaryFieldTextArea,
     UncleSummaryFieldDatetime,
     UncleSummaryFieldDateRange,
@@ -152,6 +153,7 @@ export default {
         Vue.component('UncleSummaryFieldAbstract', UncleSummaryFieldAbstract);
         Vue.component('UncleSummaryFieldContainer', UncleSummaryFieldContainer);
         Vue.component('UncleSummaryFieldText', UncleSummaryFieldText);
+        Vue.component('UncleSummaryFieldHidden', UncleSummaryFieldHidden);
         Vue.component('UncleSummaryFieldTextArea', UncleSummaryFieldTextArea);
         Vue.component('UncleSummaryFieldDatetime', UncleSummaryFieldDatetime);
         Vue.component('UncleSummaryFieldDateRange', UncleSummaryFieldDateRange);
