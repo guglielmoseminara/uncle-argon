@@ -46,10 +46,13 @@
             actionClick() {
                 this.submitted = true;
             },
-            async triggerSubmit() {
+            async validateAndSubmit() {
                 this.actionClick();
-                this.validate();
-                var filteredErrors = this.filteredErrors;
+                await this.validate();
+                return this.filteredErrors;
+            },
+            async triggerSubmit() {
+                var filteredErrors = await this.validateAndSubmit();
                 if (filteredErrors.length == 0) {
                     await this.submit();
                     this.submitted = false;
