@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: actionItemObject.action.route.name, params: params }">
+    <router-link :to="{ name: actionObject.route.name, params: params }">
         <slot></slot>
     </router-link>
 </template>

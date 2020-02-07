@@ -2,7 +2,7 @@
     <div class="summary">
         <p slot="actions" v-show='actionsList && actionsList.length > 0'>
             <template v-if="item">
-                <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='item'>{{actionItem.text}}</UncleActionButton>
+                <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :params='item'>{{actionItem.text}}</UncleActionButton>
             </template>
         </p>
         <div class="cols-layout-container">            

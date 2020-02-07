@@ -1,9 +1,9 @@
 <template>
-    <base-button v-if="actionItemObject.action.type == 'sdk'" :icon='icon || null' @click="execute()" :type="actionItemObject.color || 'primary'">{{actionItemObject.text}}</base-button>
-    <UncleActionNavItem v-else-if="actionItemObject.action.type == 'nav'" :action-item-object='actionItemObject' :params='params'>
-        <base-button :icon='icon || null' :type="actionItemObject.color || 'primary'">{{actionItemObject.text}}</base-button>
+    <base-button v-if="actionObject.type == 'sdk'" :icon='computedIcon' @click="$event.stopPropagation(); execute()" :type="color || 'primary'">{{text}}</base-button>
+    <UncleActionNavItem v-else-if="actionObject.type == 'nav'" :action-obj='actionObject' :params='params'>
+        <base-button :icon='computedIcon' :type="color || 'primary'">{{text}}</base-button>
     </UncleActionNavItem>
-    <UncleActionModalItem v-else-if="actionItemObject.action.type == 'modal'" :action-item-object='actionItemObject' :params='params' />
+    <UncleActionModalItem v-else-if="actionObject.type == 'modal'" :text='text' :params='params' />
 </template>
 
 <script>

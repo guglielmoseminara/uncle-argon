@@ -1,21 +1,42 @@
 <template>
     <div>
-        <base-slider v-model="sliders.slider1"></base-slider>
+        <base-slider v-if="range" v-model="sliderValue" @input="sliderChange($event)" :range="range" :options="{step: 1}"></base-slider>
+        <div class="slider-range__container" v-if="range">
+            <div>{{range.min}} {{fieldObject.symbol}}</div>
+            <div>{{sliderValue}} {{fieldObject.symbol}}</div>
+            <div>{{range.max}} {{fieldObject.symbol}}</div>
+        </div>
     </div>
 </template>
 
 <script>
-    import { FilterFieldComponent } from 'uncle-vue';
+    import { FilterFieldNumberComponent } from 'uncle-vue';
 
     export default {
-        extends: FilterFieldComponent,
-        data(){
+        extends: FilterFieldNumberComponent,
+        data() {
             return {
-                sliders: {
-                    slider1: 0,
-                    slider2: [150, 400]
-                }
+                filterValue: 0,
+                sliderValue: this.filterValue
+            }
+        },
+        methods: {
+            sliderChange(value) {
+                console.log(parseInt(value));
+                this.triggerInput(parseInt(value));
+            }
+        },
+        watch: {
+            filterValue() {
+                this.sliderValue = this.filterValue;
             }
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .slider-range__container {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>

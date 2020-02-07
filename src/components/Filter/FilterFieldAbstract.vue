@@ -4,6 +4,7 @@
     <UncleFilterModalFieldResource v-else-if="type == 'resource'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
     <UncleFilterModalFieldResourceMany v-else-if="type == 'resource_many'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
     <UncleFilterModalFieldNumberSlider v-else-if="type == 'number' && fieldObject.widget == 'slider'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
+    <UncleFilterModalFieldDate v-else-if="type == 'date'" :value="value" @input='triggerInput($event)' :field-object="fieldObject" :text="fieldObject.text"/>
 </template>
 
 <script>

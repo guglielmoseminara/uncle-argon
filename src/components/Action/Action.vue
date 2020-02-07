@@ -9,12 +9,17 @@
     export default {
         extends: ActionComponent,
         computed: {
-            icon() {
-                return this.$iconsProvider.get(this.actionItemObject.icon);
+            computedIcon() {
+                if (this.icon) {
+                    return this.$iconsProvider.get(this.icon);
+                }
+                else {
+                    return null;
+                }
             }
         },
         created() {
-            this.hasIcon = this.icon != null;
+            this.hasIcon = this.computedIcon != null;
         }
     }
 </script>

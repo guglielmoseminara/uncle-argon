@@ -1,16 +1,16 @@
 <template>
     <li>
-        <a class="dropdown-item" v-if="actionItemObject.action.type == 'sdk'" @click="execute()">
+        <a class="dropdown-item" v-if="actionObject.type == 'sdk'" @click="execute()">
             <i v-show="hasIcon" :class="icon"/>
-            {{actionItemObject.text}}
+            {{text}}
         </a>
-        <UncleActionNavItem v-else-if="actionItemObject.action.type == 'nav'" :action-item-object='actionItemObject' :params='params'>
+        <UncleActionNavItem v-else-if="actionObject.type == 'nav'" :action-obj='actionObject' :params='params'>
             <a class="dropdown-item">
                 <i v-show="hasIcon" :class="icon"/>
-                {{actionItemObject.text}}
+                {{text}}
             </a>
         </UncleActionNavItem>
-        <a class="dropdown-item" v-else-if="actionItemObject.action.type == 'modal'" @click="$modalProvider.open(actionItemObject.action.getModal().name, params)">{{actionItemObject.text}}</a>
+        <a class="dropdown-item" v-else-if="actionObject.type == 'modal'" @click="$modalProvider.open(actionObject.getModal().name, params)">{{text}}</a>
     </li>
 </template>
 

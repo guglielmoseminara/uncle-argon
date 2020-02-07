@@ -3,7 +3,7 @@
         <template v-for="(elementObject, tindex) in formObject.parse()">
             <p v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
                 <slot name="actions">
-                    <UncleActionSubmit @click=actionClick v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-item-object='actionItem' :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
+                    <UncleActionSubmit @click=actionClick v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :form="formObject.name" :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
                 </slot>
             </p>
             <div v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>

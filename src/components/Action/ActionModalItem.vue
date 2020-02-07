@@ -2,7 +2,7 @@
     <span>
         <slot name="body" :modal="modal">
             <base-button type="primary" :icon='icon' @click="$modalProvider.open(modal.name)">
-                {{actionItemObject.text}}
+                {{text}}
             </base-button>
         </slot>
         <UncleModal :modal-obj="modal"/>
@@ -16,7 +16,7 @@
         extends: ActionComponent,
         computed: {
             modal() {
-                return this.actionItemObject.action.getModal();
+                return this.actionObj.getModal();
             }
         }
     }

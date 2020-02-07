@@ -3,7 +3,7 @@
         <div class="row border-0 card-header">
             <h3 class="mb-0 col-3">{{listObject.text}}</h3>
             <div class="col-9 actions-bar" v-if="actionsList.length > 0">
-                <UncleActionButton v-for="(actionItem, aindex) in actionsList" :params="params" :key="aindex" :action-item-object='actionItem'/>
+                <UncleActionButton v-for="(actionItem, aindex) in actionsList" :params="params" :key="aindex" :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm"/>
             </div>
         </div>
         <base-table ref="table" :class="this.rowsAction ? 'clickable': ''" :columns="headers" :data="itemsList ? itemsList : []" @rowClick="rowClick($event)">

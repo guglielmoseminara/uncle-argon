@@ -16,7 +16,8 @@ export default class IconsProvider{
             'folder_plus': 'fas fa-folder-plus',
             'bookmark': 'fas fa-bookmark',
             'flag': 'fas fa-flag',
-            'file_alt':'fas fa-file-alt'
+            'file_alt':'fas fa-file-alt',
+            'send':'fas fa-paper-plane'
         }    
     }
     

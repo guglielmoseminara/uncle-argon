@@ -34,22 +34,25 @@ import {
     UncleListTable,
     UncleListFieldAbstract,
     UncleListFieldText,
+    UncleListFieldUrl,
     UncleListFieldEnum,
     UncleListFieldCheckbox,
     UncleListFieldBoolean,
     UncleListFieldArray,
     UncleListFieldArrayChiplist,
+    UncleListFieldActionDropdown,
+    UncleListFieldActionButton,
     UncleListWidgetAbstract,
     UnclePagination,
     UncleFilterModal,
     UncleFilterFieldAbstract,
     UncleFilterModalFieldEnum,
+    UncleFilterModalFieldDate,
     UncleFilterModalFieldBoolean,
     UncleFilterModalFieldResource,
     UncleFilterModalFieldResourceMany,
     UncleFilterModalFieldNumberSlider,
     UncleActionDropdown,
-    UncleListFieldAction,
     UncleActionButton,
     UncleActionSubmit,
     UncleActionDropdownItem,
@@ -124,9 +127,11 @@ export default {
         Vue.component('UncleListToken', UncleListToken);
         Vue.component('UncleListFieldAbstract', UncleListFieldAbstract);
         Vue.component('UncleListFieldText', UncleListFieldText);
+        Vue.component('UncleListFieldUrl', UncleListFieldUrl);
         Vue.component('UncleListFieldEnum', UncleListFieldEnum);
         Vue.component('UncleListFieldCheckbox', UncleListFieldCheckbox);
-        Vue.component('UncleListFieldAction', UncleListFieldAction);
+        Vue.component('UncleListFieldActionDropdown', UncleListFieldActionDropdown);
+        Vue.component('UncleListFieldActionButton', UncleListFieldActionButton);
         Vue.component('UncleListFieldBoolean', UncleListFieldBoolean);
         Vue.component('UncleListFieldArray', UncleListFieldArray);
         Vue.component('UncleListFieldArrayChiplist', UncleListFieldArrayChiplist);
@@ -136,6 +141,7 @@ export default {
         Vue.component('UncleFilterFieldAbstract', UncleFilterFieldAbstract);
         Vue.component('UncleFilterModalFieldBoolean', UncleFilterModalFieldBoolean);
         Vue.component('UncleFilterModalFieldEnum', UncleFilterModalFieldEnum);
+        Vue.component('UncleFilterModalFieldDate', UncleFilterModalFieldDate);
         Vue.component('UncleFilterModalFieldResource', UncleFilterModalFieldResource);
         Vue.component('UncleFilterModalFieldResourceMany', UncleFilterModalFieldResourceMany);
         Vue.component('UncleFilterModalFieldNumberSlider', UncleFilterModalFieldNumberSlider);

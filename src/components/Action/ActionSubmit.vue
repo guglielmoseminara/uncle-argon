@@ -1,5 +1,5 @@
 <template>
-    <base-button @click="click" v-if="actionItemObject.action.type == 'sdk'" :icon='icon' type="primary">{{actionItemObject.text}}</base-button>
+    <base-button @click="click" v-if="actionObject.type == 'sdk'" :icon='icon' type="primary">{{text}}</base-button>
 </template>
 
 <script>
@@ -8,14 +8,19 @@
     export default {
         extends: ActionComponent,
         inject: ['$validator'],
+        props: {
+            form: {
+                type: String
+            }
+        },
         methods: {
             async click() {
                 this.$emit('click');
-                if (this.actionItemObject.validate) {
-                    await this.$validator.validateAll(this.actionItemObject.getForm().name);
+                if (this.validate && this.formName) {
+                    await this.$validator.validateAll(this.form);
                 }
-                if (this.$validator.errors.items.filter((item) => {return item.scope == this.actionItemObject.getForm().name}).length == 0) {
-                    this.actionItemObject.action.setRequestParams(this.params);
+                if (this.$validator.errors.items.filter((item) => {return item.scope == this.formName}).length == 0) {
+                    this.actionObj.setRequestParams(this.params);
                     await this.execute();
                 }
             }
