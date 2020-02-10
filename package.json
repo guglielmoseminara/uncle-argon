@@ -1,6 +1,6 @@
 {
   "name": "uncle-argon",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "vue-breadcrumbs": "^1.2.0",
     "vue-flatpickr-component": "^8.1.5",
     "vue-grd": "^1.2.1",
+    "vue-loaders": "^3.1.0",
     "vue-toast-notification": "0.0.3",
     "vue2-leaflet": "^2.1.1",
     "vue2-leaflet-geosearch": "https://github.com/guglielmoseminara/vue2-leaflet-geosearch"

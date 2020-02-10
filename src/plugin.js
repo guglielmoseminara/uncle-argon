@@ -15,6 +15,10 @@ import flatPickr from 'vue-flatpickr-component';
 
 import 'leaflet/dist/leaflet.css';
 import 'flatpickr/dist/flatpickr.css';
+import 'vue-loaders/dist/vue-loaders.css';
+
+import VueLoadersBallClipRotate from 'vue-loaders/dist/loaders/ball-clip-rotate';
+
 import { Icon }  from 'leaflet';
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -196,6 +200,8 @@ export default {
         Vue.component('vue-cell', VueCell);
         Vue.component('vue-tags-input', VueTagsInput);
         Vue.component('flat-pickr', flatPickr);
+        Vue.component('vue-loaders-ball-clip-rotate', VueLoadersBallClipRotate.component);
+        
 
         Validator.extend('alpha_spaces_points', {
             validate: (value) => {
@@ -203,7 +209,14 @@ export default {
                 return regex.test(value);
             }
         });
-        
-        // console.log(this.event);
+        Validator.extend("unique", {
+            validate: async (value, args) => {
+                const action = Vue.prototype.$uncle.getAction(args[0]);
+                var params = {};
+                params[args[1]] = value;
+                const response = await action.execute(params);
+                return response.getData().length == 0;
+            }
+        });
     }
 }
