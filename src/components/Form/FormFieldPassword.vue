@@ -1,6 +1,6 @@
 <template>
     <div class="input-group">
-        <div class="input-group-prepend">
+        <div class="input-group-prepend" v-if="getIcon()">
             <span class="input-group-text">
                 <i :class="getIcon()"></i>
             </span>

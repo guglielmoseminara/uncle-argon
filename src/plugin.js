@@ -5,7 +5,6 @@ import NotifierProvider from './notifier';
 import ModalProvider from './modal';
 import AsyncComputed from 'vue-async-computed';
 import { Validator } from 'vee-validate';
-import it from 'vee-validate/dist/locale/it';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 const VueUploadComponent = require('vue-upload-component');
@@ -198,7 +197,6 @@ export default {
         Vue.component('vue-tags-input', VueTagsInput);
         Vue.component('flat-pickr', flatPickr);
 
-        Validator.localize('it', it);
         Validator.extend('alpha_spaces_points', {
             validate: (value) => {
                 var regex = new RegExp(/^[A-Za-z .]+$/u);

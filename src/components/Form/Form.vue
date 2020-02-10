@@ -104,6 +104,10 @@
     ::v-deep .form-group:not(.is-invalid) input:not(.ti-new-tag-input), ::v-deep .form-group:not(.is-invalid) select, ::v-deep .form-group:not(.is-invalid) textarea, ::v-deep .form-group:not(.is-invalid) .ti-input {
         border: 1px solid #cad1d7;
     }
+
+    ::v-deep .is-invalid .input-group-prepend .input-group-text{
+        border: 1px solid var(--danger);
+    }
     
     ::v-deep .is-invalid .ti-input input {
         border:none;

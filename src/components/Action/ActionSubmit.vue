@@ -16,10 +16,10 @@
         methods: {
             async click() {
                 this.$emit('click');
-                if (this.validate && this.formName) {
+                if (this.validate && this.form) {
                     await this.$validator.validateAll(this.form);
                 }
-                if (this.$validator.errors.items.filter((item) => {return item.scope == this.formName}).length == 0) {
+                if (this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0) {
                     this.actionObj.setRequestParams(this.params);
                     await this.execute();
                 }
