@@ -1,5 +1,5 @@
 <template>
-    <base-button v-if="actionObject.type == 'sdk'" :icon='computedIcon' @click="$event.stopPropagation(); execute()" :type="color || 'primary'">{{text}}</base-button>
+    <base-button v-if="actionObject.type == 'sdk' || actionObject.type == 'service'" :icon='computedIcon' @click="$event.stopPropagation(); execute()" :type="color || 'primary'">{{text}}</base-button>
     <UncleActionNavItem v-else-if="actionObject.type == 'nav'" :action-obj='actionObject' :params='params'>
         <base-button :icon='computedIcon' :type="color || 'primary'">{{text}}</base-button>
     </UncleActionNavItem>

@@ -17,7 +17,8 @@ export default class IconsProvider{
             'bookmark': 'fas fa-bookmark',
             'flag': 'fas fa-flag',
             'file_alt':'fas fa-file-alt',
-            'send':'fas fa-paper-plane'
+            'send':'fas fa-paper-plane',
+            'download': 'fas fa-download'
         }    
     }
     
