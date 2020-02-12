@@ -3,8 +3,8 @@ import ArgonDashboard from 'vue-argon-dashboard/src/plugins/argon-dashboard'
 import IconsProvider from './icon';
 import NotifierProvider from './notifier';
 import ModalProvider from './modal';
+import ValidatorProvider from './validator';
 import AsyncComputed from 'vue-async-computed';
-import { Validator } from 'vee-validate';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 const VueUploadComponent = require('vue-upload-component');
@@ -202,21 +202,10 @@ export default {
         Vue.component('flat-pickr', flatPickr);
         Vue.component('vue-loaders-ball-clip-rotate', VueLoadersBallClipRotate.component);
         
-
-        Validator.extend('alpha_spaces_points', {
-            validate: (value) => {
-                var regex = new RegExp(/^[A-Za-z .]+$/u);
-                return regex.test(value);
-            }
-        });
-        Validator.extend("unique", {
-            validate: async (value, args) => {
-                const action = Vue.prototype.$uncle.getAction(args[0]);
-                var params = {};
-                params[args[1]] = value;
-                const response = await action.execute(params);
-                return response.getData().length == 0;
-            }
-        });
+        const validatorProvider = new ValidatorProvider(Vue);
+        if (options.validation) {
+            validatorProvider.localize(options.validation.language, options.validation.class);
+        }
+        validatorProvider.init();
     }
 }

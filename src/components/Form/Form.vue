@@ -14,21 +14,21 @@
                                 <template slot="header">
                                     <p class="title"> {{group.text}} </p>   
                                 </template>
-                                <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && formErrors[field.name]) }">
-                                    <UncleFormFieldAbstract @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name='field.name' :data-vv-scope="formObject.name" :field-object="field"
+                                <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
+                                    <UncleFormFieldAbstract :ref="getFieldName(field)" @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name="getFieldName(field)" :data-vv-scope="formObject.name" :field-object="field"
                                     :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"
                                     />
-                                    <span class="text-error" v-if='submitted && formErrors[field.name]'>{{formErrors[field.name].msg}}</span>
+                                    <span class="text-error" v-if="submitted && validated && formErrors[getFieldName(field)]">{{formErrors[getFieldName(field)].msg}}</span>
                                 </UncleFormFieldContainer>
                             </UncleFormGroup>
                         </vue-cell>
                     </vue-grid>
                 </template>
                 <template v-else-if="elementObject.tagName == 'fields'">
-                    <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && formErrors[field.name]) }">
+                    <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
                         <UncleFormFieldAbstract @input="formUpdate(field, $event)" :field-object="field"
-                            v-validate.initial="field.validator" :name='field.name' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"/>
-                        <span class="text-error" v-if='submitted && formErrors[field.name]'>{{formErrors[field.name].msg}}</span>
+                            v-validate.initial="field.validator" :name='getFieldName(field)' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :ref="getFieldName(field)"/>
+                        <span class="text-error" v-if='submitted && validated && formErrors[getFieldName(field)]'>{{formErrors[getFieldName(field)].msg}}</span>
                     </UncleFormFieldContainer>
                 </template>
                 <slot :formValue="formValue" :formErrors="formErrors"></slot>
@@ -43,12 +43,13 @@
     export default {
         extends: FormComponent,
         methods: {
-            actionClick() {
+            async actionClick() {
                 this.submitted = true;
+                await this.validate();
+                this.validated = true;
             },
             async validateAndSubmit() {
-                this.actionClick();
-                await this.validate();
+                await this.actionClick();
                 return this.filteredErrors;
             },
             async triggerSubmit() {
@@ -67,11 +68,15 @@
                 } else {
                     return '6of12';
                 }
+            },
+            getFieldName(field) {
+                return this.formObject.name+'_'+field.name;
             }
         },
         data() {
             return {
                 submitted: false,
+                validated: false
             }
         },
         computed: {
