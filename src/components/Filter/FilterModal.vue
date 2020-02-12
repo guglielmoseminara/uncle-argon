@@ -5,11 +5,11 @@
         <modal :show.sync="modals.modal0">
             <template slot="header">
                 <div class="col-4 filters-header__container">
-                    <h4 class="modal-title">Filtri</h4>
+                    <h4 class="modal-title">{{$languageProvider.get('filtersModalTitle')}}</h4>
                 </div>
                 <div class="col-8 filters-buttons__container">
-                    <base-button type="secondary" icon="fas fa-times" @click="modals.modal0 = false">Chiudi</base-button>
-                    <base-button @click="submit()" icon="fas fa-check" type="primary">Applica</base-button>
+                    <base-button type="secondary" icon="fas fa-times" @click="modals.modal0 = false">{{$languageProvider.get('close')}}</base-button>
+                    <base-button @click="submit()" icon="fas fa-check" type="primary">{{$languageProvider.get('apply')}}</base-button>
                 </div>
             </template>
             <div v-if="groupsList.length > 0">
@@ -69,5 +69,8 @@
         .form-group {
             margin-top:0px;
         }
+    }
+    ::v-deep .close {
+        display: none;
     }
 </style>

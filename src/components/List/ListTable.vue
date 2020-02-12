@@ -7,6 +7,9 @@
             </div>
         </div>
         <base-table ref="table" :class="this.rowsAction ? 'clickable': ''" :columns="headers" :data="itemsList ? itemsList : []" @rowClick="rowClick($event)">
+            <template slot="loading">
+                <vue-loaders-ball-beat v-show="loading"/>
+            </template>
             <template #columns="{columns}">
                 <th v-if="listObject.selectable" class="select-all-checkbox" ><UncleListFieldCheckbox @input="setSelectedAllValue($event)" :value="selectedAll"/></th>
                 <th @click="toggleArrow(column)" v-for="column in columns" :key="column">
@@ -26,7 +29,7 @@
                         <UncleListFieldAbstract :field-object="field" :row="row"/>
                     </slot>
                 </td>
-                <td v-if="!hasActionsList">
+                <td v-if="!hasActionsList && hasActionsSlot">
                     <slot name='actions' :row="row"></slot>
                 </td>
             </template>
@@ -41,34 +44,29 @@ import { ListComponent } from 'uncle-vue';
 export default {
     extends: ListComponent,
     computed: {
-        headers: {
-            get() {
+        headers() {
                 return this.headersList ? this.headersList.map((header) => {
                     return header.name
                 }) : [];
-            }
         },
-        headersText: {
-            get() {
-                return this.headersList ? this.headersList.reduce((prev, item) => {
-                    prev[item.name] = item.text;
-                    return prev;
-                }, {}) : {};
-            }
+        headersText() {
+            return this.headersList ? this.headersList.reduce((prev, item) => {
+                prev[item.name] = item.text;
+                return prev;
+            }, {}) : {};
         },
-        headersMap: {
-            get() {
-                return this.headersList ? this.headersList.reduce((prev, item) => {
-                    prev[item.name] = item;
-                    return prev;
-                }, {}) : {};
-            }
+        headersMap() {
+            return this.headersList ? this.headersList.reduce((prev, item) => {
+                prev[item.name] = item;
+                return prev;
+            }, {}) : {};
         },
-        rowsAction: {
-            get() {
-                const rows = this.listObject.getRows();
-                return rows ? rows.getAction() : null;
-            }
+        rowsAction() {
+            const rows = this.listObject.getRows();
+            return rows ? rows.getAction() : null;
+        },
+        hasActionsSlot () {
+            return !!this.$slots['actions']
         }
     },
     data() {
@@ -118,6 +116,8 @@ export default {
 
 <style scoped lang="scss">
     .actions-bar {
+        display: flex;
+        justify-content: flex-end;
         text-align:right;
         & > * {
             margin: 0 20px;
@@ -131,6 +131,9 @@ export default {
         padding-bottom: 18px;
     }
     table::v-deep {
+        .ball-beat > div{
+            background-color: $primary !important;
+        }
         th {
             background-color: #F4F8FB;
             cursor:pointer;
@@ -167,7 +170,7 @@ export default {
                 }
             }
         }
-        div {
+        > div, th div {
             display: table-cell;
         }
         td {

@@ -9,7 +9,8 @@
             <sidebar-item v-if="navItem.route" :key="navkey" :link="{name: navItem.text, icon: getIcon(navItem.icon), path: navItem.route.url}"/>
             <li :id="navItem.name" class="nav-item nav-item-button" :key="navkey" v-else-if="navItem.action">
                 <a @click="click(navItem.action)" class="nav-link">
-                    <i class="fas fa-map-marker-alt"></i>
+                    <i v-show="!loading" class="fas fa-map-marker-alt"></i>
+                    <span v-show="loading" class="loader"><vue-loaders-ball-clip-rotate :color="'rgba(0, 0, 0, 0.5)'"/></span>
                     <span class="nav-link-text">{{navItem.text}}</span>
                 </a>
             </li>
@@ -32,22 +33,25 @@
         extends: NavComponent,
         data() { 
             return {
-                sidebarBackground: 'vue' //vue|blue|orange|green|red|primary
+                sidebarBackground: 'vue', //vue|blue|orange|green|red|primary
+                loading: false
             };
         },
         methods: {
             getIcon(icon) {
                 return this.$iconsProvider.get(icon);
             },
-            click(action) {
-                action.execute()
+            async click(action) {
+                this.loading = true;
+                await action.execute();
+                this.loading = false;
             }
         }
     }
 </script>
 
-<style lang="scss">
-    .navbar  {
+<style lang="scss" scoped>
+    .navbar::v-deep  {
         // img {
         //     position: absolute;
         // }
@@ -69,13 +73,27 @@
             right: 0;
             left: 0;
         }
+        .router-link-active {
+            background-color:$gray-100;
+            .nav-link-text, i {
+                color:$primary;
+            }
+        }
     }
-    
 
-    .router-link-active {
-        background-color:$gray-100;
-        .nav-link-text, i {
-            color:$primary;
+    ::v-deep .loader {
+        margin-right: 10px;
+    }
+    .loader {
+        height: 0.875rem;
+        .ball-clip-rotate {
+            height: 0.875rem;
+        }
+        .ball-clip-rotate::v-deep div {
+            width: 0.875rem !important;
+            height: 0.875rem !important;
+            display:block;
+            margin: 0;
         }
     }
 </style>

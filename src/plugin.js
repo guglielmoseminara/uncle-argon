@@ -4,6 +4,8 @@ import IconsProvider from './icon';
 import NotifierProvider from './notifier';
 import ModalProvider from './modal';
 import ValidatorProvider from './validator';
+import LanguageProvider from './language';
+import ConfigurationProvider from './config';
 import AsyncComputed from 'vue-async-computed';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
@@ -18,6 +20,7 @@ import 'flatpickr/dist/flatpickr.css';
 import 'vue-loaders/dist/vue-loaders.css';
 
 import VueLoadersBallClipRotate from 'vue-loaders/dist/loaders/ball-clip-rotate';
+import VueLoadersBallBeat from 'vue-loaders/dist/loaders/ball-beat';
 
 import { Icon }  from 'leaflet';
 delete Icon.Default.prototype._getIconUrl;
@@ -114,12 +117,19 @@ export default {
         const notifierProvider = new NotifierProvider(Vue.$toast);
         const iconsProvider = new IconsProvider();
         const modalProvider = new ModalProvider(Vue.prototype.$eventHub);
+        const configurationProvider = new ConfigurationProvider();
+        const languageProvider = new LanguageProvider();
+        languageProvider.setLocale(options.locale);
         Vue.prototype.$iconsProvider = iconsProvider;
         Vue.prototype.$modalProvider = modalProvider;
+        Vue.prototype.$languageProvider = languageProvider;
+        Vue.prototype.$configurationProvider = configurationProvider;
         var app = Vue.prototype.$uncle.getApp();
         app.serviceManager.setNotifier(notifierProvider);
         app.serviceManager.setModal(modalProvider);
         app.serviceManager.setIcons(iconsProvider);
+        app.serviceManager.setLanguageProvider(languageProvider);
+        app.serviceManager.setConfigurationProvider(configurationProvider);
         app.serviceManager.setEventEmitter(Vue.prototype.$eventHub);
         Vue.component('UncleSidebar', UncleSidebar);
         Vue.component('UncleView', UncleView);
@@ -201,11 +211,16 @@ export default {
         Vue.component('vue-tags-input', VueTagsInput);
         Vue.component('flat-pickr', flatPickr);
         Vue.component('vue-loaders-ball-clip-rotate', VueLoadersBallClipRotate.component);
+        Vue.component('vue-loaders-ball-beat', VueLoadersBallBeat.component);
         
         const validatorProvider = new ValidatorProvider(Vue);
         if (options.validation) {
             validatorProvider.localize(options.validation.language, options.validation.class);
         }
         validatorProvider.init();
+        
+        if (options.datepicker) {
+            configurationProvider.setDatePickerConfig(options.datepicker);
+        }
     }
 }

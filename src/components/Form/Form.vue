@@ -8,7 +8,7 @@
             </p>
             <div v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
-                    <vue-grid align="stretch" justify="start">
+                    <vue-grid align="stretch" justify="between">
                         <vue-cell :width="getGroupWidht(group)" v-for="(group, gindex) in groupsList" :key="gindex">
                             <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
                                 <template slot="header">
@@ -121,5 +121,33 @@
         color: var(--danger);
         font-size: 0.875rem;
         margin-top: 10px;
+    }
+
+    ::v-deep .input-group-prepend + input{
+        padding-left: 10px !important;
+    }
+
+    .form {
+        .group {
+            margin-right:20px;
+            .title {
+                @extend .h3;
+                font-weight: bold;
+                margin-bottom: 0;
+                color: $color-text-medium;
+            }
+        }
+
+        .field {
+            &:not(:last-child) {
+                margin-bottom: 15px;
+            }
+            .label {
+                color: $color-text-light;
+                margin-bottom: 8px;
+                font-size: $text-small;
+            }
+
+        }
     }
 </style>

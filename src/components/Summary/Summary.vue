@@ -1,13 +1,15 @@
 <template>
     <div class="summary">
-        <p slot="actions" v-show='actionsList && actionsList.length > 0'>
+        <p v-show='actionsList && actionsList.length > 0'>
             <template v-if="item">
-                <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :params='item'>{{actionItem.text}}</UncleActionButton>
+                <slot name="actions">
+                    <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :params='item'>{{actionItem.text}}</UncleActionButton>
+                </slot>
             </template>
         </p>
         <div class="cols-layout-container">            
             <template v-if="item && groupsList.length > 0">
-                <vue-grid align="stretch" justify="start">
+                <vue-grid align="stretch" justify="space-between">
                     <vue-cell :width="getGroupWidht(group)" v-for="(group, gindex) in groupsList" :key="gindex">
                         <UncleSummaryGroup
                             class="group"
@@ -19,12 +21,6 @@
                             <UncleSummaryFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text="field.text" :field-object="field">
                                 <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
                             </UncleSummaryFieldContainer>
-                            <!--<div class="field" v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text'>
-                                <label v-show="field.type != 'array_image' && !field.disableLabel" class="label" v-if="!field.getLabel()">
-                                    {{field.text}}
-                                </label>
-                                <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
-                            </div>!-->
                         </UncleSummaryGroup>
                     </vue-cell>
                 </vue-grid>
@@ -72,5 +68,32 @@
     }
     .cols-layout-container {
         height: auto;
+    }
+    .summary p {
+        display: flex;
+    }
+
+    .summary {
+        .group {
+            margin-right:20px;
+            .title {
+                @extend .h3;
+                font-weight: bold;
+                margin-bottom: 0;
+                color: $color-text-medium;
+            }
+        }
+
+        .field {
+            &:not(:last-child) {
+                margin-bottom: 15px;
+            }
+            .label {
+                color: $color-text-light;
+                margin-bottom: 8px;
+                font-size: $text-small;
+            }
+
+        }
     }
 </style>

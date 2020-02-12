@@ -1,6 +1,6 @@
 <template>
     <div>
-        <flat-pickr class="form-control" @input="triggerInput" v-model="filterValue"></flat-pickr>
+        <flat-pickr class="form-control" @input="triggerInput" v-model="filterValue" :config="config"></flat-pickr>
     </div>
 </template>
 
@@ -8,6 +8,11 @@
     import { FilterFieldComponent } from 'uncle-vue';
 
     export default {
-        extends: FilterFieldComponent
+        extends: FilterFieldComponent,
+        data () {
+            return {
+                config: this.$configurationProvider.getDatePickerConfig(),                
+            }
+        }
     }
 </script>

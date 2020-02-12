@@ -69,8 +69,7 @@ export default class ValidatorProvider {
                 params[ref.oldPasswordField] = value;
                 const actionResult = await action.execute(params);
                 const data = actionResult.getData();
-                console.log(data);
-                return data;
+                return !data;
             },
             options: { },
             paramNames: ['action', 'oldPasswordField'],
