@@ -1,13 +1,13 @@
 <template>
     <div>
-        <base-button type="primary" icon="fas fa-filter" @click="modals.modal0 = true">
+        <base-button class="filter-button" type="primary" icon="fas fa-filter" @click="modals.modal0 = true">
         </base-button>
         <modal :show.sync="modals.modal0">
             <template slot="header">
-                <div class="col-4 filters-header__container">
+                <div class="pl-0 col-4 filters-header__container">
                     <h4 class="modal-title">{{$languageProvider.get('filtersModalTitle')}}</h4>
                 </div>
-                <div class="col-8 filters-buttons__container">
+                <div class="pr-0 col-8 filters-buttons__container d-flex justify-content-end">
                     <base-button type="secondary" icon="fas fa-times" @click="modals.modal0 = false">{{$languageProvider.get('close')}}</base-button>
                     <base-button @click="submit()" icon="fas fa-check" type="primary">{{$languageProvider.get('apply')}}</base-button>
                 </div>
@@ -60,6 +60,15 @@
     }
     ::v-deep .filters-buttons__container {
         text-align: right;
+        > button {
+            margin-right: 10px;
+        }
+    }
+    .filter-button {
+        margin: 0;
+    }
+    .filters-buttons__container button:last-child {
+        margin: 0;
     }
     ::v-deep .modal-header {
         align-items: center;

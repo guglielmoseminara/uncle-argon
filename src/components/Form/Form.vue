@@ -6,30 +6,30 @@
                     <UncleActionSubmit @click=actionClick v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :form="formObject.name" :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
                 </slot>
             </p>
-            <div v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
+            <div class="d-lg-flex justify-content-lg-between" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
-                    <vue-grid align="stretch" justify="between">
-                        <vue-cell :width="getGroupWidht(group)" v-for="(group, gindex) in groupsList" :key="gindex">
-                            <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
-                                <template slot="header">
-                                    <p class="title"> {{group.text}} </p>   
-                                </template>
-                                <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
-                                    <UncleFormFieldAbstract :ref="getFieldName(field)" @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name="getFieldName(field)" :data-vv-scope="formObject.name" :field-object="field"
-                                    :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"
-                                    />
-                                    <span class="text-error" v-if="submitted && validated && formErrors[getFieldName(field)]">{{formErrors[getFieldName(field)].msg}}</span>
-                                </UncleFormFieldContainer>
-                            </UncleFormGroup>
-                        </vue-cell>
-                    </vue-grid>
+                    <div class="pl-0 pr-0 col-12 col-lg-6" v-for="(group, gindex) in groupsList" :key="gindex">
+                        <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
+                            <template slot="header">
+                                <p class="title"> {{group.text}} </p>   
+                            </template>
+                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
+                                <UncleFormFieldAbstract :ref="getFieldName(field)" @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name="getFieldName(field)" :data-vv-scope="formObject.name" :field-object="field"
+                                :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"
+                                />
+                                <span class="text-error" v-if="submitted && validated && formErrors[getFieldName(field)]">{{formErrors[getFieldName(field)].msg}}</span>
+                            </UncleFormFieldContainer>
+                        </UncleFormGroup>
+                    </div>
                 </template>
                 <template v-else-if="elementObject.tagName == 'fields'">
-                    <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
-                        <UncleFormFieldAbstract @input="formUpdate(field, $event)" :field-object="field"
-                            v-validate.initial="field.validator" :name='getFieldName(field)' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :ref="getFieldName(field)"/>
-                        <span class="text-error" v-if='submitted && validated && formErrors[getFieldName(field)]'>{{formErrors[getFieldName(field)].msg}}</span>
-                    </UncleFormFieldContainer>
+                    <div class="pl-0 pr-0 col-12">
+                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
+                            <UncleFormFieldAbstract @input="formUpdate(field, $event)" :field-object="field"
+                                v-validate.initial="field.validator" :name='getFieldName(field)' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :ref="getFieldName(field)"/>
+                            <span class="text-error" v-if='submitted && validated && formErrors[getFieldName(field)]'>{{formErrors[getFieldName(field)].msg}}</span>
+                        </UncleFormFieldContainer>
+                    </div>
                 </template>
                 <slot :formValue="formValue" :formErrors="formErrors"></slot>
             </div>
@@ -130,6 +130,10 @@
     .form {
         .group {
             margin-right:20px;
+            @media (max-width: 992px){ 
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
             .title {
                 @extend .h3;
                 font-weight: bold;

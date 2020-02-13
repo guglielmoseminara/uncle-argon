@@ -96,4 +96,12 @@
             margin: 0;
         }
     }
+
+    @media (max-width: 640px){
+        .navbar::v-deep  {
+            #logout {
+                position: static;
+            }
+        }
+    }
 </style>

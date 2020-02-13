@@ -1,5 +1,5 @@
 <template>
-    <span><UncleActionButton :action-obj="fieldObject.action" :text="fieldObject.actionText" :icon="fieldObject.icon" :color="fieldObject.color" :params="params"/></span>
+    <UncleActionButton :action-obj="fieldObject.action" :text="fieldObject.actionText" :icon="fieldObject.icon" :color="fieldObject.color" :params="params"/>
 </template>
 
 <script>

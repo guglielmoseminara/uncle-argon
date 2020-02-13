@@ -1,29 +1,27 @@
 <template>
     <div class="summary">
-        <p v-show='actionsList && actionsList.length > 0'>
+        <p class="d-flex" v-show='actionsList && actionsList.length > 0'>
             <template v-if="item">
                 <slot name="actions">
                     <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :params='item'>{{actionItem.text}}</UncleActionButton>
                 </slot>
             </template>
         </p>
-        <div class="cols-layout-container">            
+        <div class="d-lg-flex justify-content-lg-between summary__columns">            
             <template v-if="item && groupsList.length > 0">
-                <vue-grid align="stretch" justify="space-between">
-                    <vue-cell :width="getGroupWidht(group)" v-for="(group, gindex) in groupsList" :key="gindex">
-                        <UncleSummaryGroup
-                            class="group"
-                            :text='group.text'
-                        >
-                            <template slot="header">
-                                <p class="title"> {{group.text}} </p>   
-                            </template>
-                            <UncleSummaryFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text="field.text" :field-object="field">
-                                <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
-                            </UncleSummaryFieldContainer>
-                        </UncleSummaryGroup>
-                    </vue-cell>
-                </vue-grid>
+                <div class="pl-0 pr-0 col-12 col-lg-6" v-for="(group, gindex) in groupsList" :key="gindex">
+                    <UncleSummaryGroup
+                        class="group"
+                        :text='group.text'
+                    >
+                        <template slot="header">
+                            <p class="title"> {{group.text}} </p>   
+                        </template>
+                        <UncleSummaryFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text="field.text" :field-object="field">
+                            <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
+                        </UncleSummaryFieldContainer>
+                    </UncleSummaryGroup>
+                </div>
             </template>
             <template v-else>
                 <ul v-if="item">
@@ -63,19 +61,16 @@
     img {
         width: 200px;
     }
-    .summary .field .label {
-        color:$primary;
-    }
-    .cols-layout-container {
-        height: auto;
-    }
-    .summary p {
-        display: flex;
-    }
-
     .summary {
+        &__columns {
+            height: auto;
+        }
         .group {
             margin-right:20px;
+            @media (max-width: 992px){ 
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
             .title {
                 @extend .h3;
                 font-weight: bold;
@@ -89,7 +84,7 @@
                 margin-bottom: 15px;
             }
             .label {
-                color: $color-text-light;
+                color: $primary;
                 margin-bottom: 8px;
                 font-size: $text-small;
             }
