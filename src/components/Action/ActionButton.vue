@@ -11,7 +11,7 @@
         </UncleActionNavItem>
     </span>
     <span class="action__container" v-else-if="actionObject.type == 'modal'">
-        <UncleActionModalItem :text='text' :params='params' />
+        <UncleActionModalItem :action-obj='actionObject' :text='text' :params='params' :icon='icon'></UncleActionModalItem>
     </span>
 </template>
 

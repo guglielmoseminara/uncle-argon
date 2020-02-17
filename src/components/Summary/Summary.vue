@@ -7,9 +7,9 @@
                 </slot>
             </template>
         </p>
-        <div class="d-lg-flex justify-content-lg-between summary__columns">            
+        <div class="d-lg-flex justify-content-lg-between flex-wrap summary__columns">            
             <template v-if="item && groupsList.length > 0">
-                <div class="pl-0 pr-0 col-12 col-lg-6" v-for="(group, gindex) in groupsList" :key="gindex">
+                <div class="pl-0 pr-0 col-12" v-bind:class="{'col-lg-12': group.layout == 'full', 'col-lg-6': group.layout != 'full'}" v-for="(group, gindex) in groupsList" :key="gindex">
                     <UncleSummaryGroup
                         class="group"
                         :text='group.text'

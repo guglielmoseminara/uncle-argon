@@ -1,14 +1,14 @@
 <template>
     <div class="form" :data-vv-scope="formObject.name">
         <template v-for="(elementObject, tindex) in formObject.parse()">
-            <p v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
+            <p class="actions__container" v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
                 <slot name="actions">
                     <UncleActionSubmit @click=actionClick v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :form="formObject.name" :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
                 </slot>
             </p>
-            <div class="d-lg-flex justify-content-lg-between" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
+            <div class="d-lg-flex justify-content-lg-between flex-wrap fields__container" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
-                    <div class="pl-0 pr-0 col-12 col-lg-6" v-for="(group, gindex) in groupsList" :key="gindex">
+                    <div class="pl-0 pr-0 col-12 fields-container__column" v-bind:class="{'col-lg-12': group.layout == 'full', 'col-lg-6': group.layout != 'full'}" v-for="(group, gindex) in groupsList" :key="gindex">
                         <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   

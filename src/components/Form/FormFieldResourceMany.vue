@@ -35,7 +35,10 @@
             this.$refs.tagsinput.querySelector('.ti-input').classList.add('form-control');
         },
         watch: {
-            'tag': 'initItems',
+            tag: 'initItems',
+            tags() {
+                this.checkInput();
+            }
         },
         methods: {
             update(newTags) {
@@ -58,7 +61,6 @@
                 }, 600);
             },
             createTags(val) {
-                console.log("create tags", val);
                 if (Array.isArray(val)) {
                     this.tags = val.map((item) => {
                         return {

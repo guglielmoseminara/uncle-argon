@@ -19,6 +19,8 @@
                         <base-button @click="arrowClick($event, column, 'DESC')" style="bottom:-8px;" class="arrow" type="secondary" :icon="currentOrder[column] && currentOrder[column].direction == 'DESC' ? 'fas fa-caret-down' : 'fas fa-angle-down'"></base-button>
                     </span>
                 </th>
+                <th v-show="hasActionsSlot">
+                </th>
             </template>
             <template v-slot="{ row }">
                 <td v-if="listObject.selectable">
@@ -29,8 +31,10 @@
                         <UncleListFieldAbstract :field-object="field" :row="row"/>
                     </slot>
                 </td>
-                <td v-if="!hasActionsList && hasActionsSlot">
-                    <slot name='actions' :row="row"></slot>
+                <td v-show="hasActionsSlot">
+                    <slot name='actions' :row="row">
+
+                    </slot>
                 </td>
             </template>
         </base-table>
@@ -66,7 +70,7 @@ export default {
             return rows ? rows.getAction() : null;
         },
         hasActionsSlot () {
-            return !!this.$slots['actions']
+            return !!this.$slots['actions'] || !!this.$scopedSlots['actions']
         }
     },
     data() {

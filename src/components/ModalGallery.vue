@@ -60,6 +60,11 @@
             imagesList() {
                 return this.images;
             }
+        },
+        watch: {
+            selectedIndex() {
+                this.selectedImageIndex = this.selectedIndex;
+            }
         }
     }
 </script>

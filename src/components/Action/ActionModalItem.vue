@@ -1,7 +1,7 @@
 <template>
     <span>
         <slot name="body" :modal="modal">
-            <base-button type="primary" :icon='icon' @click="$modalProvider.open(modal.name)">
+            <base-button type="primary" :icon='computedIcon' v-if="modal" @click="$modalProvider.open(modal.name)">
                 {{text}}
             </base-button>
         </slot>
@@ -14,10 +14,13 @@
     
     export default {
         extends: ActionComponent,
-        computed: {
-            modal() {
-                return this.actionObj.getModal();
-            }
+        created() {
+            this.modal = this.actionObject.getModal();
+        },
+        data(){
+            return {
+                modal: null
+            };
         }
     }
 </script>
