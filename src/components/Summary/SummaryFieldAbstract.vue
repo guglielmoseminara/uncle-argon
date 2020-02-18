@@ -6,7 +6,7 @@
         :field-object="fieldObject" 
         :value="value"
     />
-    <UncleSummaryFieldImage  v-else-if="type == 'image'" :value="value" :field-object="fieldObject"/>
+    <UncleSummaryFieldImage  v-else-if="type == 'image'" :value="value" :field-object="fieldObject" :has-modal=true />
     <UncleSummaryFieldObject  v-else-if="type == 'object'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldEnum  v-else-if="type == 'enum'" :field-object="fieldObject" :value="value"/>
     <UncleSummaryFieldHidden  v-else-if="type == 'hidden'" :field-object="fieldObject" :value="value"/>

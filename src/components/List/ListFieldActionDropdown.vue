@@ -16,12 +16,12 @@
     }
 </script>
 
-<style scoped>
-    td {
-        text-align: right;
-    }
-    td >>> .dropdown-menu {
+<style scoped lang="scss">
+    ::v-deep .dropdown-menu {
         left:auto;
         right:0;
     } 
+    ::v-deep .dropdown {
+        float: right;
+    }
 </style>

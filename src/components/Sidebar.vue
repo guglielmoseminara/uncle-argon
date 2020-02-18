@@ -9,7 +9,7 @@
             <sidebar-item v-if="navItem.route" :key="navkey" :link="{name: navItem.text, icon: getIcon(navItem.icon), path: navItem.route.url}"/>
             <li :id="navItem.name" class="nav-item nav-item-button" :key="navkey" v-else-if="navItem.action">
                 <a @click="click(navItem.action)" class="nav-link">
-                    <i v-show="!loading" class="fas fa-map-marker-alt"></i>
+                    <i v-show="!loading" :class="getIcon(navItem.icon)"></i>
                     <span v-show="loading" class="loader"><vue-loaders-ball-clip-rotate :color="'rgba(0, 0, 0, 0.5)'"/></span>
                     <span class="nav-link-text">{{navItem.text}}</span>
                 </a>
@@ -67,12 +67,6 @@
         .nav-item-button {
             background: $gray-100;
         }
-        #logout {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
         .router-link-active {
             background-color:$gray-100;
             .nav-link-text, i {
@@ -94,14 +88,6 @@
             height: 0.875rem !important;
             display:block;
             margin: 0;
-        }
-    }
-
-    @media (max-width: 640px){
-        .navbar::v-deep  {
-            #logout {
-                position: static;
-            }
         }
     }
 </style>

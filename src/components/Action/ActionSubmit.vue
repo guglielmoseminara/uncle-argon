@@ -1,5 +1,5 @@
 <template>
-    <base-button @click="click" v-if="actionObject.type == 'sdk'" :icon='icon' :type="color || 'primary'">
+    <base-button @click="click" v-if="actionObject.type == 'sdk'" :icon="!loading ? computedIcon : ''" :type="color || 'primary'">
         <span v-show="loading" class="loader"><vue-loaders-ball-clip-rotate :color="loaderColor"/></span>
         <span>{{text}}</span>
     </base-button>
@@ -18,7 +18,9 @@
         },
         mounted() {
             this.$nextTick(function() {
-                this.loaderColor = getComputedStyle(this.$el.querySelector('button')).color;
+                if (this.$el.querySelector('button')) {
+                    this.loaderColor = getComputedStyle(this.$el.querySelector('button')).color;
+                }
             });
         },
         methods: {
@@ -28,7 +30,7 @@
                 if (this.validate && this.form) {
                     await this.$validator.validateAll(this.form);
                 }
-                if (this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0) {
+                if (!this.validate || (this.validate && this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0)) {
                     this.actionObject.setRequestParams(this.params);
                     await this.execute();
                 }
@@ -48,18 +50,18 @@
     button {
         display: flex;
     }
+    ::v-deep .loader {
+        margin-right: 10px;
+    }
     .loader {
-        margin-right: 10px;
-    }
-    .loader, .loader::v-deep .ball-clip-rotate {
         height: 0.875rem;
-    }
-    .loader::v-deep .ball-clip-rotate {
-        margin-right: 10px;
-    }
-    .loader::v-deep .ball-clip-rotate>div{
-        width: 0.875rem;
-        height: 0.875rem;
-        display:block;
+        .ball-clip-rotate {
+            height: 0.875rem;
+        }
+        .ball-clip-rotate::v-deep div {
+            width: 0.875rem !important;
+            height: 0.875rem !important;
+            display:block;
+        }
     }
 </style>

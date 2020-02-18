@@ -18,7 +18,10 @@ export default class IconsProvider{
             'flag': 'fas fa-flag',
             'file_alt':'fas fa-file-alt',
             'send':'fas fa-paper-plane',
-            'download': 'fas fa-download'
+            'download': 'fas fa-download',
+            'check': 'fas fa-check',
+            'images': 'fas fa-images',
+            'logout': 'fas fa-sign-out-alt'
         }    
     }
     

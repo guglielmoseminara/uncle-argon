@@ -1,5 +1,5 @@
 <template>
-    <div class="form" :data-vv-scope="formObject.name">
+    <form class="form" :data-vv-scope="formObject.name" v-on:submit.prevent="triggerSubmit">
         <template v-for="(elementObject, tindex) in formObject.parse()">
             <p class="actions__container" v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
                 <slot name="actions">
@@ -15,7 +15,7 @@
                             </template>
                             <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
                                 <UncleFormFieldAbstract :ref="getFieldName(field)" @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name="getFieldName(field)" :data-vv-scope="formObject.name" :field-object="field"
-                                :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text"
+                                :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :tabindex="findex"
                                 />
                                 <span class="text-error" v-if="submitted && validated && formErrors[getFieldName(field)]">{{formErrors[getFieldName(field)].msg}}</span>
                             </UncleFormFieldContainer>
@@ -34,7 +34,7 @@
                 <slot :formValue="formValue" :formErrors="formErrors"></slot>
             </div>
         </template>
-    </div>
+    </form>
 </template>
 
 <script>
@@ -71,6 +71,9 @@
             },
             getFieldName(field) {
                 return this.formObject.name+'_'+field.name;
+            },
+            focus() {
+                this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
             }
         },
         data() {
