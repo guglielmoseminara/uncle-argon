@@ -67,7 +67,7 @@
         .nav-item-button {
             background: $gray-100;
         }
-        .router-link-active {
+        .router-link-exact-active {
             background-color:$gray-100;
             .nav-link-text, i {
                 color:$primary;

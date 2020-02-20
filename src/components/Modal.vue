@@ -1,5 +1,5 @@
 <template>
-    <modal :show.sync="isOpened" @close="triggerClose">
+    <modal :show.sync="isOpened" @close="close">
         <template slot="header">
             <div class="pl-0 col-4 filters-header__container">
                 <h4 class="modal-title">{{modalObject.title}}</h4>
@@ -39,7 +39,7 @@
                 this.openedParams = value;
                 if (this.modalObject.name === value.modalId) {
                     this.isOpened = value.visible;
-                    console.log(value);
+                    console.log("OPENED", this.isOpened);
                     this.params = value.params;
                     if (value.params && value.params.item) {
                         this.itemObj = value.params.item;

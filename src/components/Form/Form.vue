@@ -15,7 +15,7 @@
                             </template>
                             <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
                                 <UncleFormFieldAbstract :ref="getFieldName(field)" @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name="getFieldName(field)" :data-vv-scope="formObject.name" :field-object="field"
-                                :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :tabindex="findex"
+                                :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :tabindex="findex" :item-obj="item"
                                 />
                                 <span class="text-error" v-if="submitted && validated && formErrors[getFieldName(field)]">{{formErrors[getFieldName(field)].msg}}</span>
                             </UncleFormFieldContainer>
@@ -26,7 +26,7 @@
                     <div class="pl-0 pr-0 col-12">
                         <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
                             <UncleFormFieldAbstract @input="formUpdate(field, $event)" :field-object="field"
-                                v-validate.initial="field.validator" :name='getFieldName(field)' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :ref="getFieldName(field)"/>
+                                v-validate.initial="field.validator" :name='getFieldName(field)' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :ref="getFieldName(field)" :item-obj="item"/>
                             <span class="text-error" v-if='submitted && validated && formErrors[getFieldName(field)]'>{{formErrors[getFieldName(field)].msg}}</span>
                         </UncleFormFieldContainer>
                     </div>
