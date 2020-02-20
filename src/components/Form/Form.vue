@@ -8,7 +8,7 @@
             </p>
             <div class="d-lg-flex justify-content-lg-between flex-wrap fields__container" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
-                    <div class="pl-0 pr-0 col-12 fields-container__column" v-bind:class="{'col-lg-12': group.layout == 'full', 'col-lg-6': group.layout != 'full'}" v-for="(group, gindex) in groupsList" :key="gindex">
+                    <div class="pl-0 pr-0 col-12 fields-container__column mb-4" v-bind:class="{'col-lg-12': group.layout == 'full', 'col-lg-6': group.layout != 'full'}" v-for="(group, gindex) in groupsList" :key="gindex">
                         <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   

@@ -10,9 +10,6 @@
             </div>
         </template>
         <div>
-            <div class="d-flex justify-content-center" >
-                <vue-loaders-ball-beat v-show="loading"/>
-            </div>
             <UncleForm v-if="formObject" :ref="getFormRefName()" :item-obj=itemObj :form='formObject.name' :params="params" @input="updateForm($event)"/>
             <slot name="content" :opened-params="openedParams"></slot>
         </div>
@@ -33,13 +30,9 @@
         created() {
             this.formObject = this.getComponents('Form').pop();
             this.$eventHub.$on('opened',  (value) => {
-                if (this.formObject) {
-                    this.loading = true;
-                }
                 this.openedParams = value;
                 if (this.modalObject.name === value.modalId) {
                     this.isOpened = value.visible;
-                    console.log("OPENED", this.isOpened);
                     this.params = value.params;
                     if (value.params && value.params.item) {
                         this.itemObj = value.params.item;
@@ -68,7 +61,6 @@
             },
             updateForm(event) {
                 this.formValue = event;
-                this.loading = false;
             },
             triggerClose() {
                 if (this.formObject) {
@@ -89,7 +81,6 @@
                 params: null,
                 openedParams: {},
                 formValue: null,
-                loading: false,
                 itemObj: null
             }
         },
