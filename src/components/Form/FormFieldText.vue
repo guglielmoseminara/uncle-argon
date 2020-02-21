@@ -1,6 +1,6 @@
 <template>
     <div>
-        <base-input @input='triggerInput' v-model='formValue' :name='fieldObject.name' :placeholder="fieldObject.placeholder" :addon-left-icon="getIcon()"/>
+        <base-input @input='triggerInput' v-model='formValue' :name='fieldObject.name' :placeholder="fieldObject.placeholder" :addon-left-icon="getIcon()" :disabled="fieldObject.disabled"/>
     </div>
 </template>
 

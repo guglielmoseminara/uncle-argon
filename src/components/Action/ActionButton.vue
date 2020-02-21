@@ -22,7 +22,10 @@
         extends: ActionComponent,
         mounted() {
             this.$nextTick(function() {
-                this.loaderColor = getComputedStyle(this.$el.querySelector('button')).color;
+                const buttonEl = this.$el.querySelector('button');
+                if (buttonEl) {
+                    this.loaderColor = getComputedStyle(buttonEl).color;
+                }
             });
         },
         methods: {

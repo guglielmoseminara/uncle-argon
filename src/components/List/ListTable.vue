@@ -8,7 +8,9 @@
         </div>
         <base-table ref="table" :class="this.rowsAction ? 'clickable': ''" :columns="headers" :data="itemsList ? itemsList : []" @rowClick="rowClick($event)">
             <template slot="loading">
-                <vue-loaders-ball-beat v-show="loading"/>
+                <div class="table-loading" v-show="loading">
+                    <vue-loaders-ball-beat />
+                </div>
             </template>
             <template #columns="{columns}">
                 <th v-if="listObject.selectable" class="select-all-checkbox" ><UncleListFieldCheckbox @input="setSelectedAllValue($event)" :value="selectedAll"/></th>
@@ -140,6 +142,17 @@ export default {
         padding-bottom: 18px;
     }
     table::v-deep {
+        .table-loading {
+            height:50px;
+        }
+        .ball-beat {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 60px;
+            margin-top: 15px;
+        }
         .ball-beat > div{
             background-color: $primary !important;
         }

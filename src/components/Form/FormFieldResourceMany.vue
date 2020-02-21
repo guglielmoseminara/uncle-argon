@@ -7,6 +7,7 @@
             @tags-changed="update"
             :data-max-tags='fieldObject.max ? parseInt(fieldObject.max) : false'
             @before-adding-tag="addTag"
+            :placeholder="placeholderString || 'Aggiungi tag'"
         >
             <div
                 slot="autocomplete-item"
@@ -16,6 +17,7 @@
             {{ props.item.text }}
             </div>
         </vue-tags-input>
+        <vue-loaders-ball-clip-rotate class="resource-many-loader" v-show="loading"/>
         <base-button v-if="fieldObject.modal" :type="'primary'" @click="add()">Aggiungi</base-button>
         <UncleModal v-if="fieldObject.modal" :modal-obj="fieldObject.modal" @close="modalClosed" @apply="modalApply"/>
     </div>
@@ -31,6 +33,7 @@
                 tag: '',
                 debounce: null,
                 tagAdded: null,
+                loading: false,
             };
         },
         mounted() {
@@ -57,9 +60,11 @@
                 this.triggerInput();
             },
             initItems() {
+                this.loading = true;
                 clearTimeout(this.debounce);
                 this.debounce = setTimeout(async () => {
                     await this.loadItems(this.tag);
+                    this.loading = false;
                 }, 600);
             },
             createTags(val) {
@@ -85,7 +90,6 @@
             },
             async addTag(obj) {
                 const tag = obj.tag.text;
-                console.log("ADD TAG");
                 await this.loadItems(tag);
                 if (this.itemsList.length == 0) {
                     var params = {};
@@ -164,10 +168,25 @@
     }
     .resource-many-field {
         display:flex;
+        position: relative;
     }
     .vue-tags-input {
         max-width:100%;
         width: 100%;
         margin-right: 20px;
+    }
+    .resource-many-loader.ball-clip-rotate {
+        position: absolute;
+        right: 150px;
+        top: 12px;
+        height: 0.875rem;
+    }
+    ::v-deep .resource-many-loader.ball-clip-rotate > div{
+        border-top-color: $primary !important;
+        border-left-color: $primary !important;
+        border-right-color: $primary !important;
+        width: 0.875rem !important;
+        height: 0.875rem !important;
+        display:block;
     }
 </style>

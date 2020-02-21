@@ -81,9 +81,6 @@
         height: 1em;
         margin: auto;
     }
-    span {
-        vertical-align: middle;
-    }
 
     
 </style>

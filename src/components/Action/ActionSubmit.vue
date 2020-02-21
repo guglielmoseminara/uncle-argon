@@ -18,8 +18,9 @@
         },
         mounted() {
             this.$nextTick(function() {
-                if (this.$el.querySelector('button')) {
-                    this.loaderColor = getComputedStyle(this.$el.querySelector('button')).color;
+                const buttonEl = this.$el.querySelector('button');
+                if (buttonEl) {
+                    this.loaderColor = getComputedStyle(buttonEl).color;
                 }
             });
         },

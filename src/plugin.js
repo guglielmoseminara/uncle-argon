@@ -35,6 +35,7 @@ import {
     UncleView,
     UncleBreadcrumb,
     UncleSearchText,
+    UncleButton,
     UncleList,
     UncleListToken,
     UncleListTable,
@@ -135,6 +136,7 @@ export default {
         Vue.component('UncleView', UncleView);
         Vue.component('UncleBreadcrumb', UncleBreadcrumb);
         Vue.component('UncleSearchText', UncleSearchText);
+        Vue.component('UncleButton', UncleButton);
         Vue.component('UncleList', UncleList);
         Vue.component('UncleListTable', UncleListTable);
         Vue.component('UncleListToken', UncleListToken);

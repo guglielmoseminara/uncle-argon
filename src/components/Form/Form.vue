@@ -13,21 +13,41 @@
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   
                             </template>
-                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
-                                <UncleFormFieldAbstract :ref="getFieldName(field)" @input="formUpdate(field, $event)" v-validate.initial="field.validator" :name="getFieldName(field)" :data-vv-scope="formObject.name" :field-object="field"
-                                :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :tabindex="findex" :item-obj="item"
+                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }">
+                                <UncleFormFieldAbstract 
+                                    :ref="getFieldName(field)" 
+                                    @input="formUpdate(field, $event)" 
+                                    v-validate.initial="field.validator" 
+                                    :name="getFieldName(field)" 
+                                    :data-vv-scope="formObject.name" 
+                                    :field-object="field"
+                                    :value='formValue[field.name]' 
+                                    :type="field.type" 
+                                    :data-vv-as="field.text"  
+                                    :item-obj="item" 
+                                    :show-errors="submitted && validated"
                                 />
-                                <span class="text-error" v-if="submitted && validated && formErrors[getFieldName(field)]">{{formErrors[getFieldName(field)].msg}}</span>
+                                <span class="text-error" v-if="isErrorsVisible(field)">{{formErrors[getFieldName(field)].msg}}</span>
                             </UncleFormFieldContainer>
                         </UncleFormGroup>
                     </div>
                 </template>
                 <template v-else-if="elementObject.tagName == 'fields'">
                     <div class="pl-0 pr-0 col-12">
-                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': (submitted && validated && formErrors[getFieldName(field)]) }">
-                            <UncleFormFieldAbstract @input="formUpdate(field, $event)" :field-object="field"
-                                v-validate.initial="field.validator" :name='getFieldName(field)' :data-vv-scope="formObject.name" :value='formValue[field.name]' :type="field.type" :data-vv-as="field.text" :ref="getFieldName(field)" :item-obj="item"/>
-                            <span class="text-error" v-if='submitted && validated && formErrors[getFieldName(field)]'>{{formErrors[getFieldName(field)].msg}}</span>
+                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }">
+                            <UncleFormFieldAbstract 
+                                @input="formUpdate(field, $event)" 
+                                :field-object="field"
+                                v-validate.initial="field.validator" 
+                                :name='getFieldName(field)' 
+                                :data-vv-scope="formObject.name" 
+                                :value='formValue[field.name]' 
+                                :type="field.type" 
+                                :data-vv-as="field.text" 
+                                :ref="getFieldName(field)" 
+                                :item-obj="item"
+                                :show-errors="submitted && validated"/>
+                            <span class="text-error" v-if='isErrorsVisible(field)'>{{formErrors[getFieldName(field)].msg}}</span>
                         </UncleFormFieldContainer>
                     </div>
                 </template>
@@ -74,12 +94,9 @@
             },
             focus() {
                 this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
-            }
-        },
-        data() {
-            return {
-                submitted: false,
-                validated: false
+            },
+            isErrorsVisible(field) {
+                return this.submitted && this.validated && this.formErrors[this.getFieldName(field)]
             }
         },
         computed: {
@@ -106,11 +123,11 @@
         margin-bottom: 1rem;
         margin-top: 1rem;
     }
-    ::v-deep .is-invalid input, ::v-deep .is-invalid select, ::v-deep .is-invalid .ti-input, ::v-deep .is-invalid textarea{
-        border: 1px solid var(--danger);
-    }
-    ::v-deep .form-group:not(.is-invalid) input:not(.ti-new-tag-input), ::v-deep .form-group:not(.is-invalid) select, ::v-deep .form-group:not(.is-invalid) textarea, ::v-deep .form-group:not(.is-invalid) .ti-input {
+    ::v-deep .form-group:not(.is-invalid) input:not(.ti-new-tag-input), ::v-deep .form-group:not(.is-invalid) > select, ::v-deep .form-group:not(.is-invalid) > textarea, ::v-deep .form-group:not(.is-invalid) > .ti-input {
         border: 1px solid #cad1d7;
+    }
+    ::v-deep .is-invalid input:not(.ti-new-tag-input), ::v-deep .is-invalid select, ::v-deep .is-invalid .ti-input, ::v-deep .is-invalid textarea{
+        border: 1px solid var(--danger) !important;
     }
 
     ::v-deep .is-invalid .input-group-prepend .input-group-text{
@@ -120,7 +137,12 @@
     ::v-deep .is-invalid .ti-input input {
         border:none;
     }
-    .text-error {
+
+    ::v-deep .form-control:focus, ::v-deep .form-control:focus-within {
+        border: 1px solid var(--primary) !important;
+    }
+
+    ::v-deep .text-error {
         color: var(--danger);
         font-size: 0.875rem;
         margin-top: 10px;

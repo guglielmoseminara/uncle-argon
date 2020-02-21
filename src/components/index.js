@@ -2,6 +2,7 @@ export { default as UncleSidebar } from './Sidebar.vue';
 export { default as UncleView } from './View.vue';
 export { default as UncleBreadcrumb } from './Breadcrumb.vue';
 export { default as UncleSearchText } from './SearchText.vue';
+export { default as UncleButton } from './Button.vue';
 export { default as UncleList } from './List/List.vue';
 export { default as UncleListTable } from './List/ListTable.vue';
 export { default as UncleListToken } from './List/ListToken.vue';

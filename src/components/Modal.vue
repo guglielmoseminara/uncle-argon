@@ -7,6 +7,7 @@
             <div class="pr-0 col-8 filters-buttons__container d-flex justify-content-end">
                 <base-button v-if="hasCloseBtn" type="secondary" icon="fas fa-times" @click="close()">{{$languageProvider.get('close')}}</base-button>
                 <UncleActionSubmit v-if="formObject" @click=actionFormClick :action-obj="formObject.action" color="primary" :text="$languageProvider.get('apply')" :validate=true :form="formObject.name" :params='formValue' style="float:right" icon="check"/>
+                <slot name="actions"></slot>
             </div>
         </template>
         <div>

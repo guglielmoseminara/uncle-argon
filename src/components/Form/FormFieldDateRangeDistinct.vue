@@ -4,13 +4,13 @@
             <label class="label">
                 Dal
             </label>
-            <flat-pickr class="form-control" v-if="fieldsRange && fieldsRange.length > 0" v-model="formValue[fieldsRange[0].name]" @on-change="update($event)"></flat-pickr>
+            <flat-pickr class="form-control" v-model="formValue[firstField]" @on-change="update($event, 0)" :disabled="fieldObject.disabled"></flat-pickr>
         </div>
         <div class="date-range__text">
             <label class="label">
                 Al
             </label>
-            <flat-pickr class="form-control" v-if="fieldsRange && fieldsRange.length > 0" v-model="formValue[fieldsRange[0].name]" @on-change="update($event)"></flat-pickr>
+            <flat-pickr class="form-control" v-model="formValue[secondField]" @on-change="update($event, 1)" :disabled="fieldObject.disabled"></flat-pickr>
         </div>
     </div>
 </template>
@@ -24,6 +24,14 @@
             update(value, index) {
                 this.triggerInput();
             }
+        },
+        computed: {
+            firstField() {
+                return this.fieldsRange[0].name;
+            },
+            secondField() {
+                return this.fieldsRange[1].name;
+            }
         }
     }
 </script>
@@ -33,7 +41,7 @@
         display: flex;
         .date-range__text {
             width:50%;
-            .form-control {
+            .form-control:not([disabled]) {
                 padding: 14px;
                 background-color:white;
             }

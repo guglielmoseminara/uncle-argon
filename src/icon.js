@@ -21,7 +21,8 @@ export default class IconsProvider{
             'download': 'fas fa-download',
             'check': 'fas fa-check',
             'images': 'fas fa-images',
-            'logout': 'fas fa-sign-out-alt'
+            'logout': 'fas fa-sign-out-alt',
+            'save': 'fas fa-save'
         }    
     }
     
