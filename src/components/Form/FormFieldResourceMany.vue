@@ -90,6 +90,7 @@
             },
             async addTag(obj) {
                 const tag = obj.tag.text;
+                const item = obj.tag.item;
                 await this.loadItems(tag);
                 if (this.itemsList.length == 0) {
                     var params = {};
@@ -100,6 +101,12 @@
                     this.tag = '';
                 } else if (this.itemsList.length == 1) {
                     this.selectItems(this.itemsList);
+                    this.tag = '';
+                } else {
+                    this.tags = [{
+                        text: tag,
+                        item: item
+                    }];
                     this.tag = '';
                 }
             },

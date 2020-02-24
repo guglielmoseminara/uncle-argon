@@ -4,13 +4,13 @@
             <label class="label">
                 Dal
             </label>
-            <flat-pickr class="form-control" v-model="formValue[firstField]" @on-change="update($event, 0)" :disabled="fieldObject.disabled"></flat-pickr>
+            <flat-pickr class="form-control" v-model="formValue[firstField]" @input="update($event, 0)" :disabled="fieldObject.disabled" ></flat-pickr>
         </div>
         <div class="date-range__text">
             <label class="label">
                 Al
             </label>
-            <flat-pickr class="form-control" v-model="formValue[secondField]" @on-change="update($event, 1)" :disabled="fieldObject.disabled"></flat-pickr>
+            <flat-pickr class="form-control" v-model="formValue[secondField]" @input="update($event, 1)" :disabled="fieldObject.disabled" :config="config"></flat-pickr>
         </div>
     </div>
 </template>
@@ -31,6 +31,11 @@
             },
             secondField() {
                 return this.fieldsRange[1].name;
+            }
+        },
+        data () {
+            return {
+                config: this.$configurationProvider.getDatePickerConfig(),                
             }
         }
     }
