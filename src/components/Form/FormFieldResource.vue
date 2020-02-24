@@ -1,6 +1,7 @@
 <template>
     <div>
         <select class="form-control" v-model="resourceValue" @change="triggerInput" :name='fieldObject.name' :disabled="fieldObject.disabled">
+            <option value=""></option>
             <option v-for="(option, oindex) in itemsList" :key=oindex :value="option[fieldObject.item.valueField]">{{getOptionText(option, fieldObject.item.textField)}}</option>
         </select>
     </div>
