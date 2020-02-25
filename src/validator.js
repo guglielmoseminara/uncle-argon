@@ -74,11 +74,26 @@ export default class ValidatorProvider {
             options: { },
             paramNames: ['action', 'oldPasswordField'],
             getMessage(field, params, data) {
-                console.log(checkOldPasswordDictionary[Validator.locale](field));
                 return checkOldPasswordDictionary[Validator.locale](field);
             }
         }
         Validator.extend("check_old_password", checkOldPasswordRule);
-
+        const validPriceDictionary = {
+            en: (field) => `${field} is not a valid price`,
+            fr: (field) => `${field} ce n'est pas un prix valable`,
+            it: (field) => `${field} non è un prezzo valido`,
+        }
+        const priceRule = {
+            validate: (value) => {
+                const regex = /^\d{0,8}(\.\d{1,4})?$/gm;
+                return regex.test(value);
+            },
+            options: { },
+            paramNames: [],
+            getMessage(field, params, data) {
+                return validPriceDictionary[Validator.locale](field);
+            }
+        }
+        Validator.extend("price", priceRule);
     }
 }

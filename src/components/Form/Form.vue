@@ -95,14 +95,13 @@
             async actionClick() {
                 this.submitted = true;
                 await this.validate();
-                /*this.$forceUpdate();
+                this.$forceUpdate();
                 this.$nextTick(() => {
-                    const isInvalids = this.$el.querySelectorAll('.is-invalid');
+                    const isInvalids = this.$el.querySelectorAll('.is-invalid, .is-invalid-content');
                     if (isInvalids.length > 0) {
-                        const boundRect = isInvalids[0].getBoundingClientRect();
-                        window.scrollTo(0, boundRect.y - 40);
+                        isInvalids[0].scrollIntoView();
                     }
-                });*/
+                });
                 this.validated = true;
             },
             async validateAndSubmit() {

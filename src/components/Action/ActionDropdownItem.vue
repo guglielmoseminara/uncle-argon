@@ -1,6 +1,6 @@
 <template>
     <li>
-        <div class="dropdown-item" v-if="actionObject.type == 'sdk'" @click="execute()">
+        <div class="dropdown-item" v-if="actionObject.type == 'sdk' || actionObject.type == 'service'" @click="execute()">
             <i v-show="hasIcon" :class="icon"/>
             {{text}}
         </div>

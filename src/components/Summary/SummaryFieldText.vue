@@ -22,5 +22,6 @@
         display: block;
         padding: 14px;
         border-radius: 4px;
+        min-height: 50px;
     }
 </style>

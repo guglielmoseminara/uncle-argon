@@ -4,7 +4,7 @@
             :key="index" class="field-array-images"
             @click="openModal($event, index)"
         >
-            <slot name="content" :item="itemObj">
+            <slot name="content" :item="itemObj" :index="index">
                 <template v-if="fieldObject">
                     <div v-for="(field, findex) in fieldObject.fields" :key="findex">
                         <UncleSummaryFieldAbstract 
