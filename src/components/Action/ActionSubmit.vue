@@ -34,6 +34,8 @@
                 if (!this.validate || (this.validate && this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0)) {
                     this.actionObject.setRequestParams(this.params);
                     await this.execute();
+                } else {
+                    this.$notifierProvider.error('Sono presenti errori di validazione');
                 }
                 this.loading = false;
             }

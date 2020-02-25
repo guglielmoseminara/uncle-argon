@@ -125,6 +125,7 @@ export default {
         Vue.prototype.$modalProvider = modalProvider;
         Vue.prototype.$languageProvider = languageProvider;
         Vue.prototype.$configurationProvider = configurationProvider;
+        Vue.prototype.$notifierProvider = notifierProvider;
         var app = Vue.prototype.$uncle.getApp();
         app.serviceManager.setNotifier(notifierProvider);
         app.serviceManager.setModal(modalProvider);

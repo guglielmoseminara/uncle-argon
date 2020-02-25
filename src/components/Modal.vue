@@ -6,12 +6,28 @@
             </div>
             <div class="pr-0 col-8 filters-buttons__container d-flex justify-content-end">
                 <base-button v-if="hasCloseBtn" type="secondary" icon="fas fa-times" @click="close()">{{$languageProvider.get('close')}}</base-button>
-                <UncleActionSubmit v-if="formObject" @click=actionFormClick :action-obj="formObject.action" color="primary" :text="$languageProvider.get('apply')" :validate=true :form="formObject.name" :params='formValue' style="float:right" icon="check"/>
+                <UncleActionSubmit v-if="formObject" 
+                    @click=actionFormClick 
+                    :action-obj="formObject.action" 
+                    color="primary" 
+                    :text="$languageProvider.get('apply')" 
+                    :validate=true 
+                    :form="getFormScope()" 
+                    :params='formValue' 
+                    style="float:right" 
+                    icon="check"
+                />
                 <slot name="actions"></slot>
             </div>
         </template>
         <div>
-            <UncleForm v-if="formObject" :ref="getFormRefName()" :item-obj=itemObj :form='formObject.name' :params="params" @input="updateForm($event)"/>
+            <UncleForm v-if="formObject" 
+                :ref="getFormRefName()" 
+                :item-obj=itemObj 
+                :form='formObject.name' 
+                :params="params" 
+                @input="updateForm($event)"
+            />
             <slot name="content" :opened-params="openedParams"></slot>
         </div>
    </modal>
@@ -73,6 +89,10 @@
                 if (this.formObject) {
                     return 'form_'+this.formObject.name;
                 }
+            },
+            getFormScope() {
+                return this.$refs[this.getFormRefName()] ?
+                            this.$refs[this.getFormRefName()].getScope() : null;
             }
         },
         data() {
@@ -102,7 +122,7 @@
             background-color: $primary !important;
         }
         .actions__container {
-            display: none;
+            display: none !important;
         }
         .fields__container {
             max-width: 100%;

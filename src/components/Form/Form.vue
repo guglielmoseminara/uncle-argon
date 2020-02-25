@@ -1,9 +1,36 @@
 <template>
     <form class="form" :data-vv-scope="formObject.name" v-on:submit.prevent="triggerSubmit">
         <template v-for="(elementObject, tindex) in formObject.parse()">
-            <p class="actions__container" v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
+            <p class="actions__container d-flex" v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
                 <slot name="actions">
-                    <UncleActionSubmit @click=actionClick v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :form="formObject.name" :params='formDataValue'>{{actionItem.text}}</UncleActionSubmit>
+                    <template v-for='(actionItem, aindex) in actionsList'>
+                        <UncleActionSubmit
+                            v-if="actionItem.submit"
+                            @click=actionClick 
+                            :key='aindex' 
+                            :action-obj="actionItem.action" 
+                            :color="actionItem.color" 
+                            :text="actionItem.text" 
+                            :icon="actionItem.icon" 
+                            :validate="actionItem.validate" 
+                            :confirm="actionItem.confirm" 
+                            :form="getScope()" 
+                            :params='formDataValue'
+                        >
+                            {{actionItem.text}}
+                        </UncleActionSubmit>
+                        <UncleActionButton v-else
+                            :key='aindex'
+                            :action-obj="actionItem.action"
+                            :color="actionItem.color" 
+                            :text="actionItem.text" 
+                            :icon="actionItem.icon"
+                            :confirm="actionItem.confirm"
+                            :params='formValue'
+                        >
+                            {{actionItem.text}}
+                        </UncleActionButton>
+                    </template>                    
                 </slot>
             </p>
             <div class="d-lg-flex justify-content-lg-between flex-wrap fields__container" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
@@ -19,7 +46,8 @@
                                     @input="formUpdate(field, $event)" 
                                     v-validate.initial="field.validator" 
                                     :name="getFieldName(field)" 
-                                    :data-vv-scope="formObject.name" 
+                                    :data-vv-scope="getScope()"
+                                    :scope="getScope()"
                                     :field-object="field"
                                     :value='formValue[field.name]' 
                                     :type="field.type" 
@@ -40,7 +68,8 @@
                                 :field-object="field"
                                 v-validate.initial="field.validator" 
                                 :name='getFieldName(field)' 
-                                :data-vv-scope="formObject.name" 
+                                :data-vv-scope="getScope()"
+                                :scope="getScope()"
                                 :value='formValue[field.name]' 
                                 :type="field.type" 
                                 :data-vv-as="field.text" 
@@ -66,6 +95,14 @@
             async actionClick() {
                 this.submitted = true;
                 await this.validate();
+                /*this.$forceUpdate();
+                this.$nextTick(() => {
+                    const isInvalids = this.$el.querySelectorAll('.is-invalid');
+                    if (isInvalids.length > 0) {
+                        const boundRect = isInvalids[0].getBoundingClientRect();
+                        window.scrollTo(0, boundRect.y - 40);
+                    }
+                });*/
                 this.validated = true;
             },
             async validateAndSubmit() {
@@ -80,7 +117,7 @@
                 }
             },
             async validate() {
-                return await this.$validator.validateAll(this.formObject.name);
+                return await this.$validator.validateAll(this.getScope());
             },
             getGroupWidht(group) {
                 if (group.layout == 'full') {
@@ -90,7 +127,7 @@
                 }
             },
             getFieldName(field) {
-                return this.formObject.name+'_'+field.name;
+                return this.getScope()+'_'+field.name;
             },
             focus() {
                 this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
@@ -111,7 +148,7 @@
             },
             filteredErrors() {
                 return this.$validator.errors.items.filter((item) => {
-                    return item.scope == this.formObject.name
+                    return item.scope == this.getScope()
                 });
             }
         }
