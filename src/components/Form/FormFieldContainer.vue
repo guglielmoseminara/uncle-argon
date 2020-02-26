@@ -1,6 +1,6 @@
 <template>
     <div class="form-field__container form-group">
-        <label v-show='text && !fieldObject.disableLabel'>
+        <label v-show='text && (!fieldObject || (fieldObject && !fieldObject.disableLabel))'>
             {{text}}
         </label>
         <slot></slot>
