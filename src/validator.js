@@ -25,28 +25,32 @@ export default class ValidatorProvider {
         const extendOptions = { hasTarget: true };
         const uniqueRule = {
             validate: async (value, ref) => {
-                const action = this.vue.prototype.$uncle.getAction(ref.action); 
-                var params = {};
-                params[ref.uniqueField] = value;
-                const actionResult = await action.execute(params);
-                const data = actionResult.getData();
+                const targetFieldContainer = document.querySelectorAll(`[name$='${ref.targetValue}']`);
                 var result = true;
-                if (data) {
-                    if (ref.targetValue) {
-                        for (let i = 0; i < data.length; i++) {
-                            if (data[i][ref.targetField]) {
-                                if (data[i][ref.targetField] != ref.targetValue) {
-                                    result = false;
+                if (targetFieldContainer.length > 0) {
+                    const targetField = targetFieldContainer[0].querySelector(`[name='${ref.targetField}']`);
+                    const action = this.vue.prototype.$uncle.getAction(ref.action); 
+                    var params = {};
+                    params[ref.uniqueField] = value;
+                    const actionResult = await action.execute(params);
+                    const data = actionResult.getData();
+                    if (data) {
+                        if (targetField.value) {
+                            for (let i = 0; i < data.length; i++) {
+                                if (data[i][ref.targetField]) {
+                                    if (data[i][ref.targetField] != targetField.value) {
+                                        result = false;
+                                    }
                                 }
                             }
-                        }
+                        } else {
+                            if (data.length > 0) {
+                                result = false;
+                            }
+                        }    
                     } else {
-                        if (data.length > 0) {
-                            result = false;
-                        }
+                        result = false;
                     }    
-                } else {
-                    result = false;
                 }
                 return result;
             },
@@ -69,7 +73,7 @@ export default class ValidatorProvider {
                 params[ref.oldPasswordField] = value;
                 const actionResult = await action.execute(params);
                 const data = actionResult.getData();
-                return !data;
+                return data;
             },
             options: { },
             paramNames: ['action', 'oldPasswordField'],
@@ -95,5 +99,33 @@ export default class ValidatorProvider {
             }
         }
         Validator.extend("price", priceRule);
+        const equalDictionary = {
+            en: (field, toField) => `${field} is not equal to ${toField}`,
+            fr: (field, toField) => `${field} n'est pas égal à ${toField}`,
+            it: (field, toField) => `${field} non è uguale a ${toField}`,
+        }
+        const equalRule = {
+            validate: (value, ref) => {
+                const equalFieldContainer = document.querySelectorAll(`[name$='${ref.targetValue}']`);
+                var result = true;
+                if (equalFieldContainer.length > 0) {
+                    const targetField = equalFieldContainer[0].querySelector(`[name='${ref.targetField}']`);
+                    if (targetField) {
+                        if (value == targetField.value) {
+                            result = true;
+                        } else {
+                            result = false;
+                        }
+                    }
+                }
+                return result;
+            },
+            options: { },
+            paramNames: ['targetValue', 'targetField'],
+            getMessage(field, params, data) {
+                return equalDictionary[Validator.locale](field, params[1]);
+            }
+        }
+        Validator.extend("equal", equalRule);
     }
 }

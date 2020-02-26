@@ -35,7 +35,7 @@
                     this.actionObject.setRequestParams(this.params);
                     await this.execute();
                 } else {
-                    this.$notifierProvider.error('Sono presenti errori di validazione');
+                    this.$notifierProvider.error(this.$languageProvider.get('validationErrors'));
                 }
                 this.loading = false;
             }

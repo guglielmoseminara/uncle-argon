@@ -22,7 +22,8 @@ export default class IconsProvider{
             'check': 'fas fa-check',
             'images': 'fas fa-images',
             'logout': 'fas fa-sign-out-alt',
-            'save': 'fas fa-save'
+            'save': 'fas fa-save',
+            'profile': 'fas fa-user-circle'
         }    
     }
     

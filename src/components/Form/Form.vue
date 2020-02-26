@@ -40,7 +40,7 @@
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   
                             </template>
-                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }">
+                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }" :field-object="field">
                                 <UncleFormFieldAbstract 
                                     :ref="getFieldName(field)" 
                                     @input="formUpdate(field, $event)" 
@@ -62,7 +62,7 @@
                 </template>
                 <template v-else-if="elementObject.tagName == 'fields'">
                     <div class="pl-0 pr-0 col-12">
-                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }">
+                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }" :field-object="field">
                             <UncleFormFieldAbstract 
                                 @input="formUpdate(field, $event)" 
                                 :field-object="field"
@@ -175,7 +175,7 @@
     }
 
     ::v-deep .form-control:focus, ::v-deep .form-control:focus-within {
-        border: 1px solid var(--primary) !important;
+        border: 1px solid $primary !important;
     }
 
     ::v-deep .text-error {
