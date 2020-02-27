@@ -6,11 +6,15 @@
         >
             <slot name="content" :item="itemObj" :index="index">
                 <template v-if="fieldObject">
-                    <div v-for="(field, findex) in fieldObject.fields" :key="findex">
-                        <UncleSummaryFieldAbstract 
-                            :field-object="field" 
-                            :type="field.type" 
-                            :value="getValue(itemObj, field)" />
+                    <UncleSummaryFieldImage 
+                        :value="getValue(itemObj, fieldObject.fields[0])" 
+                        :field-object="fieldObject.fields[0]" 
+                        :has-modal=false 
+                    />
+                    <div class="field-text">
+                        <span>
+                            {{basename(getValue(itemObj, fieldObject.fields[0]))}}
+                        </span>
                     </div>
                 </template>
             </slot>
@@ -20,7 +24,7 @@
 </template>
 
 <script>
-    import { SummaryFieldArrayComponent } from 'uncle-vue';
+    import { SummaryFieldArrayComponent, Utils } from 'uncle-vue';
 
     export default {
         extends: SummaryFieldArrayComponent,
@@ -36,6 +40,9 @@
                 event.stopPropagation();
                 event.stopImmediatePropagation();
                 this.$modalProvider.open(this.modalId);
+            },
+            basename(url) {
+                return Utils.basename(url);
             }
         },
         computed: {
@@ -53,8 +60,17 @@
         display: flex;
         padding: 15px 0;
         border-bottom: 1px solid $border-color;
+        cursor: pointer;
         .field-text {
-            border: none;
+            color: $color-text-dark;
+            font-weight: 500;
+            font-size: $text-small;
+            border: 1px solid $border-color;
+            display: block;
+            padding: 14px;
+            border-radius: 4px;
+            min-height: 50px;
+            border:none;
         }
     }
 </style>

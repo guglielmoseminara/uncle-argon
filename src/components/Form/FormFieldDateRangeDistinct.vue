@@ -13,7 +13,7 @@
                 v-validate.initial="fieldsRange[0].validator" 
                 :data-vv-scope="scope"
                 :scope="scope"
-                :config="config"
+                :config="configFirst"
                 data-vv-as="Dal"
             ></flat-pickr>
             <span class="text-error" v-if="isErrorsVisible(getFieldName(fieldsRange[0]))">
@@ -29,7 +29,7 @@
                 v-model="formValue[secondField]" 
                 @input="update($event, 1)" 
                 :disabled="fieldObject.disabled" 
-                :config="config"
+                :config="configSecond"
                 :name="getFieldName(fieldsRange[1])"
                 v-validate.initial="fieldsRange[1].validator" 
                 :data-vv-scope="scope"
@@ -48,8 +48,18 @@
 
     export default {
         extends: FormFieldDateRangeComponent,
+        created() {
+            this.config = this.$configurationProvider.getDatePickerConfig();
+            this.configFirst = {...this.config};
+            this.configSecond = {...this.config};
+        },
         methods: {
             update(value, index) {
+                if (index == 0) {
+                    this.configSecond = {...this.configSecond};
+                    this.configSecond.minDate = value;
+                    this.$forceUpdate();
+                }
                 this.triggerInput();
             }
         },
@@ -63,14 +73,16 @@
         },
         data () {
             return {
-                config: this.$configurationProvider.getDatePickerConfig(),                
+                config: null,
+                configFirst: null,                
+                configSecond: null,                
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
-    .date-range__container {
+    .date-range__container ::v-deep{
         display: flex;
         .date-range__text {
             width:50%;
@@ -85,5 +97,20 @@
                 margin-right: 20px;
             }
         }
+    }
+</style>
+
+<style>
+    .flatpickr-disabled {
+        color: rgba(57,57,57,0.3);
+        background: transparent;
+        border-color: transparent;
+        cursor: default;
+    }
+    .flatpickr-disabled:hover{
+        cursor: pointer;
+        outline: 0;
+        background: #e6e6e6 !important;
+        border-color: #e6e6e6;
     }
 </style>

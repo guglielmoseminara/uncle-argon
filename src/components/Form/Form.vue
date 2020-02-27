@@ -12,7 +12,7 @@
                             :color="actionItem.color" 
                             :text="actionItem.text" 
                             :icon="actionItem.icon" 
-                            :validate="actionItem.validate" 
+                            :validate="false" 
                             :confirm="actionItem.confirm" 
                             :form="getScope()" 
                             :params='formDataValue'

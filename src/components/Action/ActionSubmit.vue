@@ -31,13 +31,15 @@
                 if (this.validate && this.form) {
                     await this.$validator.validateAll(this.form);
                 }
-                if (!this.validate || (this.validate && this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0)) {
-                    this.actionObject.setRequestParams(this.params);
-                    await this.execute();
-                } else {
-                    this.$notifierProvider.error(this.$languageProvider.get('validationErrors'));
-                }
-                this.loading = false;
+                setTimeout(async () => {
+                    if (!this.validate || (this.validate && this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0)) {
+                        this.actionObject.setRequestParams(this.params);
+                        await this.execute();
+                    } else {
+                        this.$notifierProvider.error(this.$languageProvider.get('validationErrors'));
+                    }
+                    this.loading = false;
+                }, 200)
             }
         },
         data() {
