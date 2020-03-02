@@ -32,7 +32,7 @@
             return {
                 tag: '',
                 debounce: null,
-                tagAdded: null,
+                tagAdded: [],
                 loading: false,
             };
         },
@@ -129,18 +129,32 @@
                 }
             },
             async modalClosed(value) {
-                if (this.tagAdded && this.tagAdded[this.fieldObject.item.textField]) {
-                    const tag = this.tagAdded[this.fieldObject.item.textField];
-                    await this.loadItems(tag);
-                    if (this.itemsList.length == 1) {
-                        this.selectItems(this.itemsList);
+                console.log(this.tagAdded);
+                if (this.tagAdded && this.tagAdded.length > 0) {
+                    for (let t = 0; t < this.tagAdded.length; t++) {
+                        const tag = this.tagAdded[t][this.fieldObject.item.textField];
+                        if (tag) {
+                            await this.loadItems(tag);
+                            if (this.itemsList.length == 1) {
+                                this.selectItems(this.itemsList);
+                            }
+                        }
                     }
                     this.tag = '';
-                    this.tagAdded = null;
+                    this.tagAdded = [];
                 }
             },
             modalApply(value) {
-                this.tagAdded = value;
+                if (value) {
+                    const textField = this.fieldObject.item.textField;
+                    const tagExist = this.tagAdded.find((tag) => {
+                        return tag[textField] == value[textField]
+                    });
+                    console.log(value);
+                    if (!tagExist) {
+                        this.tagAdded.push(value);
+                    }
+                }
             },
             selectItems(items) {
                 if (items.length > 0) {

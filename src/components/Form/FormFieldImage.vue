@@ -1,7 +1,7 @@
 <template>
         <div>
             <div v-if="files && hasGalleryVisible">
-                <div class="gallery-container" v-for="(file, index) in files" :key="file.id">
+                <div class="gallery-container mb-4" v-for="(file, index) in files" :key="file.id">
                     <img :src="file.blob" class="gallery-img-preview" @click="openModal($event, index)">
                     <i class="fas fa-trash-alt align-middle px-3"
                         @click="deleteFile(index)"
@@ -89,7 +89,6 @@
         align-items: center;
         padding-right: 10px;
         height: 43px;
-        margin-top:20px;
         .file-name {
             overflow: hidden;
             white-space: nowrap;

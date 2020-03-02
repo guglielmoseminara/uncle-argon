@@ -3,7 +3,7 @@
         <template v-for="(item, itemkey) in items">
             <span class="current-link" v-if="itemkey == (items.length - 1)" :key="itemkey">{{item.text}}</span>
             <router-link
-                :to="item.url"
+                :to="item.url || ''"
                 :href="item.url"
                 class="link"
                 v-else :key="itemkey">

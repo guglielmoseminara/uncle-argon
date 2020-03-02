@@ -25,7 +25,11 @@
 </script>
 
 <style scoped lang="scss">
+    .array-chips__container {
+        height:50px;
+    }
     .array-chips {
         margin-right: 5px;
+
     }
 </style>

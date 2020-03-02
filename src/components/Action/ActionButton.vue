@@ -22,9 +22,11 @@
         extends: ActionComponent,
         mounted() {
             this.$nextTick(function() {
-                const buttonEl = this.$el.querySelector('button');
-                if (buttonEl) {
-                    this.loaderColor = getComputedStyle(buttonEl).color;
+                if (this.$el.querySelector) {
+                    const buttonEl = this.$el.querySelector('button');
+                    if (buttonEl) {
+                        this.loaderColor = getComputedStyle(buttonEl).color;
+                    }
                 }
             });
         },

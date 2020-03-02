@@ -12,10 +12,11 @@
                             :color="actionItem.color" 
                             :text="actionItem.text" 
                             :icon="actionItem.icon" 
-                            :validate="false" 
-                            :confirm="actionItem.confirm" 
+                            :confirm="actionItem.confirm"
+                            :validate="actionItem.validate"
                             :form="getScope()" 
                             :params='formDataValue'
+                            :errors='filteredErrors'
                         >
                             {{actionItem.text}}
                         </UncleActionSubmit>
@@ -35,8 +36,20 @@
             </p>
             <div class="d-lg-flex justify-content-lg-between flex-wrap fields__container" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
-                    <div class="pl-0 pr-0 col-12 fields-container__column mb-4" v-bind:class="{'col-lg-12': group.layout == 'full', 'col-lg-6': group.layout != 'full'}" v-for="(group, gindex) in groupsList" :key="gindex">
-                        <UncleFormGroup :id="'group_'+group.name" class="group" :text='group.text'>
+                    <div 
+                        class="pl-0 pr-0 col-12 fields-container__column mb-4" 
+                        v-bind:class="{
+                            'col-lg-12': group.layout == 'full', 
+                            'col-lg-6': group.layout != 'full'
+                        }" 
+                        v-for="(group, gindex) in groupsList" :key="gindex"
+                        v-show="isGroupVisible(group)"
+                    >
+                        <UncleFormGroup 
+                            :id="'group_'+group.name" 
+                            class="group" 
+                            :text='group.text' 
+                        >
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   
                             </template>
@@ -95,7 +108,6 @@
             async actionClick() {
                 this.submitted = true;
                 await this.validate();
-                this.$forceUpdate();
                 this.$nextTick(() => {
                     const isInvalids = this.$el.querySelectorAll('.is-invalid, .is-invalid-content');
                     if (isInvalids.length > 0) {
@@ -103,6 +115,7 @@
                     }
                 });
                 this.validated = true;
+                this.$forceUpdate();
             },
             async validateAndSubmit() {
                 await this.actionClick();
@@ -133,6 +146,11 @@
             },
             isErrorsVisible(field) {
                 return this.submitted && this.validated && this.formErrors[this.getFieldName(field)]
+            },
+            async reset() {
+                this.validated = false;
+                this.submitted = false;
+                await this.init();
             }
         },
         computed: {

@@ -12,7 +12,10 @@
                         :has-modal=false 
                     />
                     <div class="field-text">
-                        <span>
+                        <span v-if="fieldObject.fields[1] && getValue(itemObj, fieldObject.fields[1])">
+                            {{getValue(itemObj, fieldObject.fields[1])}}
+                        </span>
+                        <span v-else>
                             {{basename(getValue(itemObj, fieldObject.fields[0]))}}
                         </span>
                     </div>

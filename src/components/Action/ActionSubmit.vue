@@ -14,32 +14,45 @@
         props: {
             form: {
                 type: String
-            }
+            } 
         },
         mounted() {
             this.$nextTick(function() {
-                const buttonEl = this.$el.querySelector('button');
-                if (buttonEl) {
-                    this.loaderColor = getComputedStyle(buttonEl).color;
+                if (this.$el.querySelector) {
+                    const buttonEl = this.$el.querySelector('button');
+                    if (buttonEl) {
+                        this.loaderColor = getComputedStyle(buttonEl).color;
+                    }
                 }
             });
         },
         methods: {
-            async click() {
+            startLoading() {
                 this.loading = true;
+            },
+            stopLoading() {
+                this.loading = false;
+            },
+            async triggerExecute()  {
+                this.startLoading();
+                this.actionObject.setRequestParams(this.params);
+                await this.execute();
+                this.stopLoading();
+                this.$refs.submit.stopLoading();
+            },
+            async click() {
                 this.$emit('click');
-                if (this.validate && this.form) {
+                if (this.validate) {
+                    this.startLoading();
                     await this.$validator.validateAll(this.form);
-                }
-                setTimeout(async () => {
                     if (!this.validate || (this.validate && this.$validator.errors.items.filter((item) => {return item.scope == this.form}).length == 0)) {
                         this.actionObject.setRequestParams(this.params);
                         await this.execute();
                     } else {
                         this.$notifierProvider.error(this.$languageProvider.get('validationErrors'));
                     }
-                    this.loading = false;
-                }, 200)
+                    this.stopLoading();
+                }
             }
         },
         data() {

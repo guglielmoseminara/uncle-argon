@@ -7,11 +7,11 @@
             <div class="pr-0 col-8 filters-buttons__container d-flex justify-content-end">
                 <base-button v-if="hasCloseBtn" type="secondary" icon="fas fa-times" @click="close()">{{$languageProvider.get('close')}}</base-button>
                 <UncleActionSubmit v-if="formObject" 
-                    @click=actionFormClick 
+                    @click=actionFormClick
+                    ref="submit"
                     :action-obj="formObject.action" 
                     color="primary" 
                     :text="$languageProvider.get('apply')" 
-                    :validate=true 
                     :form="getFormScope()" 
                     :params='formValue' 
                     style="float:right" 
@@ -71,18 +71,22 @@
                 this.triggerClose();
             },
             async actionFormClick() {
-                await this.$refs[this.getFormRefName()].validateAndSubmit();
-                if (this.formObject) {
+                this.$refs.submit.startLoading();
+                const errors = await this.$refs[this.getFormRefName()].validateAndSubmit();
+                if (this.formObject && errors.length == 0) {
                     this.$emit('apply', this.formValue);
+                    await this.$refs.submit.execute();
                 }
+                this.$refs.submit.stopLoading();
             },
             updateForm(event) {
                 this.formValue = event;
             },
-            triggerClose() {
+            async triggerClose() {
                 if (this.formObject) {
                     this.$emit('close', this.formValue);
                     this.itemObj = null;
+                    await this.$refs[this.getFormRefName()].reset();
                 }
             },
             getFormRefName() {

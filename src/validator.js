@@ -25,32 +25,43 @@ export default class ValidatorProvider {
         const extendOptions = { hasTarget: true };
         const uniqueRule = {
             validate: async (value, ref) => {
-                const targetFieldContainer = document.querySelectorAll(`[name$='${ref.targetValue}']`);
                 var result = true;
-                if (targetFieldContainer.length > 0) {
-                    const targetField = targetFieldContainer[0].querySelector(`[name='${ref.targetField}']`);
+                if (ref.targetValue && ref.targetField) {
+                    const targetFieldContainer = document.querySelectorAll(`[name$='${ref.targetValue}']`);
+                    if (targetFieldContainer.length > 0) {
+                        const targetField = targetFieldContainer[0].querySelector(`[name='${ref.targetField}']`);
+                        const action = this.vue.prototype.$uncle.getAction(ref.action); 
+                        var params = {};
+                        params[ref.uniqueField] = value;
+                        const actionResult = await action.execute(params);
+                        const data = actionResult.getData();
+                        if (data) {
+                            if (targetField.value) {
+                                for (let i = 0; i < data.length; i++) {
+                                    if (data[i][ref.targetField]) {
+                                        if (data[i][ref.targetField] != targetField.value) {
+                                            result = false;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (data.length > 0) {
+                                    result = false;
+                                }
+                            }    
+                        } else {
+                            result = false;
+                        }    
+                    }
+                } else {
                     const action = this.vue.prototype.$uncle.getAction(ref.action); 
                     var params = {};
                     params[ref.uniqueField] = value;
                     const actionResult = await action.execute(params);
                     const data = actionResult.getData();
-                    if (data) {
-                        if (targetField.value) {
-                            for (let i = 0; i < data.length; i++) {
-                                if (data[i][ref.targetField]) {
-                                    if (data[i][ref.targetField] != targetField.value) {
-                                        result = false;
-                                    }
-                                }
-                            }
-                        } else {
-                            if (data.length > 0) {
-                                result = false;
-                            }
-                        }    
-                    } else {
+                    if (!data || (data && data.length > 0)) {
                         result = false;
-                    }    
+                    }
                 }
                 return result;
             },
@@ -127,5 +138,9 @@ export default class ValidatorProvider {
             }
         }
         Validator.extend("equal", equalRule);
+    }
+
+    extend(rule, callback) {
+        Validator.extend(rule, callback);
     }
 }

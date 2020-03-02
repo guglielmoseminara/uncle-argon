@@ -221,7 +221,7 @@ export default {
             validatorProvider.localize(options.validation.language, options.validation.class);
         }
         validatorProvider.init();
-        
+        Vue.prototype.$validatorProvider = validatorProvider;
         if (options.datepicker) {
             configurationProvider.setDatePickerConfig(options.datepicker);
         }
