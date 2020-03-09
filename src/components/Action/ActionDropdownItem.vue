@@ -10,7 +10,10 @@
                 {{text}}
             </div>
         </UncleActionNavItem>
-        <div class="dropdown-item" v-else-if="actionObject.type == 'modal'" @click="$modalProvider.open(actionObject.getModal().name, params)">{{text}}</div>
+        <div class="dropdown-item" v-else-if="actionObject.type == 'modal'" @click="$modalProvider.open(actionObject.getModal().name, params)">
+            <i v-show="hasIcon" :class="icon"/>
+            {{text}}
+        </div>
     </li>
 </template>
 

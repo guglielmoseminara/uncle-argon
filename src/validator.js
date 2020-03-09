@@ -59,8 +59,14 @@ export default class ValidatorProvider {
                     params[ref.uniqueField] = value;
                     const actionResult = await action.execute(params);
                     const data = actionResult.getData();
-                    if (!data || (data && data.length > 0)) {
+                    if (!data) {
                         result = false;
+                    } else if ((data && data.length > 0)) {
+                        for (let i = 0; i < data.length; i++) {
+                            if (data[i][ref.uniqueField] == value) {
+                                result = false;
+                            }
+                        }
                     }
                 }
                 return result;

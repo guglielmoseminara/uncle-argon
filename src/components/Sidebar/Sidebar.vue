@@ -33,7 +33,7 @@
         extends: NavComponent,
         data() { 
             return {
-                sidebarBackground: 'vue', //vue|blue|orange|green|red|primary
+                sidebarBackground: 'vue',
                 loading: false
             };
         },
@@ -52,9 +52,6 @@
 
 <style lang="scss" scoped>
     .navbar::v-deep  {
-        // img {
-        //     position: absolute;
-        // }
         .navbar-nav {
             padding-top: 17.5px;
         }

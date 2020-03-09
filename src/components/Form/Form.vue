@@ -3,24 +3,16 @@
         <template v-for="(elementObject, tindex) in formObject.parse()">
             <p class="actions__container d-flex" v-if="elementObject.tagName === 'actions'" slot="actions" :key='tindex' v-show='actionsList && actionsList.length > 0'>
                 <slot name="actions">
+                    <UncleButton
+                        :type="submitActionItem.color"
+                        :icon="submitActionItem.icon"
+                        :loading="isLoading()"
+                        @click="triggerSubmit"
+                    >
+                        {{submitActionItem.text}}
+                    </UncleButton>
                     <template v-for='(actionItem, aindex) in actionsList'>
-                        <UncleActionSubmit
-                            v-if="actionItem.submit"
-                            @click=actionClick 
-                            :key='aindex' 
-                            :action-obj="actionItem.action" 
-                            :color="actionItem.color" 
-                            :text="actionItem.text" 
-                            :icon="actionItem.icon" 
-                            :confirm="actionItem.confirm"
-                            :validate="actionItem.validate"
-                            :form="getScope()" 
-                            :params='formDataValue'
-                            :errors='filteredErrors'
-                        >
-                            {{actionItem.text}}
-                        </UncleActionSubmit>
-                        <UncleActionButton v-else
+                        <UncleActionButton v-if="!actionItem.submit"
                             :key='aindex'
                             :action-obj="actionItem.action"
                             :color="actionItem.color" 
@@ -31,17 +23,14 @@
                         >
                             {{actionItem.text}}
                         </UncleActionButton>
-                    </template>                    
+                    </template>              
                 </slot>
             </p>
             <div class="d-lg-flex justify-content-lg-between flex-wrap fields__container" v-if="elementObject.tagName === 'fields' || elementObject.tagName === 'groups'" :key='tindex'>
                 <template v-if="elementObject.tagName == 'groups'">
                     <div 
                         class="pl-0 pr-0 col-12 fields-container__column mb-4" 
-                        v-bind:class="{
-                            'col-lg-12': group.layout == 'full', 
-                            'col-lg-6': group.layout != 'full'
-                        }" 
+                        v-bind:class="getGroupWidht(group)" 
                         v-for="(group, gindex) in groupsList" :key="gindex"
                         v-show="isGroupVisible(group)"
                     >
@@ -66,7 +55,7 @@
                                     :type="field.type" 
                                     :data-vv-as="field.text"  
                                     :item-obj="item" 
-                                    :show-errors="submitted && validated"
+                                    :show-errors="isSubmitted() && isValidated()"
                                 />
                                 <span class="text-error" v-if="isErrorsVisible(field)">{{formErrors[getFieldName(field)].msg}}</span>
                             </UncleFormFieldContainer>
@@ -88,7 +77,7 @@
                                 :data-vv-as="field.text" 
                                 :ref="getFieldName(field)" 
                                 :item-obj="item"
-                                :show-errors="submitted && validated"/>
+                                :show-errors="isSubmitted() && isValidated()"/>
                             <span class="text-error" v-if='isErrorsVisible(field)'>{{formErrors[getFieldName(field)].msg}}</span>
                         </UncleFormFieldContainer>
                     </div>
@@ -104,68 +93,56 @@
 
     export default {
         extends: FormComponent,
+        created() {
+            this.$on('input', async () => {
+                await this.buildErrors();
+                this.$forceUpdate();
+            });
+        },
         methods: {
-            async actionClick() {
-                this.submitted = true;
+            async validateForm() {
+                this.startSubmit();
+                this.startValidate();
+                await this.buildErrors();
+                this.$forceUpdate();
+                this.scrollToErrors();
+            },
+            async triggerSubmit() {
+                this.startLoading();
+                await this.validateForm();
+                if (!this.hasFormErrors()) {
+                    await this.submit();
+                    this.stopSubmit();
+                }
+                this.stopLoading();
+            },
+            async buildErrors() {
+                this.resetFormErrors();
                 await this.validate();
+                await this.$validator.validateAll(this.getScope());
+                const veeErrors = this.$validator.errors.items.filter((item) => {
+                    return item.scope == this.getScope()
+                });
+                for(let e in veeErrors) {
+                    let formItem = veeErrors[e];
+                    this.formErrors[formItem.field] = formItem;
+                }
+            },
+            getGroupWidht(group) {
+                return {
+                    'col-lg-12': group.layout == 'full', 
+                    'col-lg-6': group.layout != 'full'
+                }
+            },
+            focus() {
+                this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
+            },
+            scrollToErrors() {
                 this.$nextTick(() => {
                     const isInvalids = this.$el.querySelectorAll('.is-invalid, .is-invalid-content');
                     if (isInvalids.length > 0) {
                         isInvalids[0].scrollIntoView();
                     }
-                });
-                this.validated = true;
-                this.$forceUpdate();
-            },
-            async validateAndSubmit() {
-                await this.actionClick();
-                return this.filteredErrors;
-            },
-            async triggerSubmit() {
-                var filteredErrors = await this.validateAndSubmit();
-                if (filteredErrors.length == 0) {
-                    await this.submit();
-                    this.submitted = false;
-                }
-            },
-            async validate() {
-                return await this.$validator.validateAll(this.getScope());
-            },
-            getGroupWidht(group) {
-                if (group.layout == 'full') {
-                    return '12of12';
-                } else {
-                    return '6of12';
-                }
-            },
-            getFieldName(field) {
-                return this.getScope()+'_'+field.name;
-            },
-            focus() {
-                this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
-            },
-            isErrorsVisible(field) {
-                return this.submitted && this.validated && this.formErrors[this.getFieldName(field)]
-            },
-            async reset() {
-                this.validated = false;
-                this.submitted = false;
-                await this.init();
-            }
-        },
-        computed: {
-            formErrors() {
-                var errors = {};
-                var filteredErrors = this.filteredErrors;
-                for(let e in filteredErrors) {
-                    let formItem = filteredErrors[e];
-                    errors[formItem.field] = formItem;
-                }
-                return errors;
-            },
-            filteredErrors() {
-                return this.$validator.errors.items.filter((item) => {
-                    return item.scope == this.getScope()
                 });
             }
         }

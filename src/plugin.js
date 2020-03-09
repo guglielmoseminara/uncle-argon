@@ -4,7 +4,7 @@ import IconsProvider from './icon';
 import NotifierProvider from './notifier';
 import ModalProvider from './modal';
 import ValidatorProvider from './validator';
-import LanguageProvider from './language';
+import LanguageObject from './language';
 import ConfigurationProvider from './config';
 import AsyncComputed from 'vue-async-computed';
 import VueToast from 'vue-toast-notification';
@@ -32,7 +32,6 @@ Icon.Default.mergeOptions({
 
 import {
     UncleSidebar,
-    UncleView,
     UncleBreadcrumb,
     UncleSearchText,
     UncleButton,
@@ -115,26 +114,24 @@ export default {
         Vue.use(VueToast);
         Vue.use(VueBreadcrumbs);
         Vue.prototype.$eventHub = new Vue();
+        var app = Vue.prototype.$uncle.getApp();
         const notifierProvider = new NotifierProvider(Vue.$toast);
         const iconsProvider = new IconsProvider();
         const modalProvider = new ModalProvider(Vue.prototype.$eventHub);
         const configurationProvider = new ConfigurationProvider();
-        const languageProvider = new LanguageProvider();
+        const languageProvider = app.serviceManager.getLanguageProvider();
         languageProvider.setLocale(options.locale);
+        languageProvider.merge(LanguageObject);
         Vue.prototype.$iconsProvider = iconsProvider;
         Vue.prototype.$modalProvider = modalProvider;
-        Vue.prototype.$languageProvider = languageProvider;
         Vue.prototype.$configurationProvider = configurationProvider;
         Vue.prototype.$notifierProvider = notifierProvider;
-        var app = Vue.prototype.$uncle.getApp();
         app.serviceManager.setNotifier(notifierProvider);
         app.serviceManager.setModal(modalProvider);
         app.serviceManager.setIcons(iconsProvider);
-        app.serviceManager.setLanguageProvider(languageProvider);
         app.serviceManager.setConfigurationProvider(configurationProvider);
         app.serviceManager.setEventEmitter(Vue.prototype.$eventHub);
         Vue.component('UncleSidebar', UncleSidebar);
-        Vue.component('UncleView', UncleView);
         Vue.component('UncleBreadcrumb', UncleBreadcrumb);
         Vue.component('UncleSearchText', UncleSearchText);
         Vue.component('UncleButton', UncleButton);
@@ -222,6 +219,7 @@ export default {
         }
         validatorProvider.init();
         Vue.prototype.$validatorProvider = validatorProvider;
+        app.serviceManager.setValidatorProvider(Vue.prototype.$validatorProvider);
         if (options.datepicker) {
             configurationProvider.setDatePickerConfig(options.datepicker);
         }

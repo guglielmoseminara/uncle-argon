@@ -6,17 +6,15 @@
             </div>
             <div class="pr-0 col-8 filters-buttons__container d-flex justify-content-end">
                 <base-button v-if="hasCloseBtn" type="secondary" icon="fas fa-times" @click="close()">{{$languageProvider.get('close')}}</base-button>
-                <UncleActionSubmit v-if="formObject" 
-                    @click=actionFormClick
-                    ref="submit"
-                    :action-obj="formObject.action" 
-                    color="primary" 
-                    :text="$languageProvider.get('apply')" 
-                    :form="getFormScope()" 
-                    :params='formValue' 
+                <UncleButton v-if="formObject" 
+                    @click=buttonClick
+                    type="primary" 
                     style="float:right" 
                     icon="check"
-                />
+                    :loading="loading"
+                >
+                    {{$languageProvider.get('apply')}}
+                </UncleButton>
                 <slot name="actions"></slot>
             </div>
         </template>
@@ -70,14 +68,15 @@
                 this.$modalProvider.close(this.modalObject.name);
                 this.triggerClose();
             },
-            async actionFormClick() {
-                this.$refs.submit.startLoading();
-                const errors = await this.$refs[this.getFormRefName()].validateAndSubmit();
-                if (this.formObject && errors.length == 0) {
+            async buttonClick() {
+                this.loading = true;
+                const form = this.$refs[this.getFormRefName()];
+                await form.validateForm();
+                if (this.formObject && !form.hasFormErrors()) {
                     this.$emit('apply', this.formValue);
-                    await this.$refs.submit.execute();
+                    await form.submit();
                 }
-                this.$refs.submit.stopLoading();
+                this.loading = false;
             },
             updateForm(event) {
                 this.formValue = event;
@@ -106,7 +105,8 @@
                 params: null,
                 openedParams: {},
                 formValue: null,
-                itemObj: null
+                itemObj: null,
+                loading: false,
             }
         },
     }

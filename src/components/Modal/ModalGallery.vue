@@ -8,9 +8,9 @@
             <div class="gallery-footer">
                 <div class="controls">
                     <i class="fas fa-chevron-right ml-3" @click="nextPhoto"></i>
-                    <p class="counter">{{selectedImageIndex + 1}} / {{images.length}}</p>
                     <i class="fas fa-images ml-3"></i>
                     <i class="fas fa-chevron-left" @click="previousPhoto"></i>
+                    <p class="counter">{{selectedImageIndex + 1}} / {{images.length}}</p>
                 </div>
             </div>
         </template>
@@ -97,7 +97,7 @@
             margin: auto;
             i {
                 display: inline-block;
-                float: right;
+                float:left;
                 &.fa-chevron-right, &.fa-chevron-left {
                     cursor: pointer;
                 }

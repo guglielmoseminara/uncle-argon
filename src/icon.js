@@ -23,7 +23,8 @@ export default class IconsProvider{
             'images': 'fas fa-images',
             'logout': 'fas fa-sign-out-alt',
             'save': 'fas fa-save',
-            'profile': 'fas fa-user-circle'
+            'profile': 'fas fa-user-circle',
+            'close': 'fas fa-times-circle'
         }    
     }
     

@@ -103,10 +103,7 @@
                     this.selectItems(this.itemsList);
                     this.tag = '';
                 } else {
-                    this.tags = [{
-                        text: tag,
-                        item: item
-                    }];
+                    this.selectItems([this.itemsList[0]]);
                     this.tag = '';
                 }
             },
@@ -129,7 +126,6 @@
                 }
             },
             async modalClosed(value) {
-                console.log(this.tagAdded);
                 if (this.tagAdded && this.tagAdded.length > 0) {
                     for (let t = 0; t < this.tagAdded.length; t++) {
                         const tag = this.tagAdded[t][this.fieldObject.item.textField];
@@ -137,6 +133,11 @@
                             await this.loadItems(tag);
                             if (this.itemsList.length == 1) {
                                 this.selectItems(this.itemsList);
+                            } else if (this.itemsList.length > 1) {
+                                const itemList = this.itemsList.find((item) => {
+                                    return item[this.fieldObject.item.textField] == tag
+                                });
+                                this.selectItems([itemList]);
                             }
                         }
                     }
@@ -150,7 +151,6 @@
                     const tagExist = this.tagAdded.find((tag) => {
                         return tag[textField] == value[textField]
                     });
-                    console.log(value);
                     if (!tagExist) {
                         this.tagAdded.push(value);
                     }
