@@ -1,6 +1,6 @@
 {
   "name": "uncle-argon",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "vue-toast-notification": "0.0.3",
     "vue2-leaflet": "^2.1.1",
     "vue2-leaflet-geosearch": "https://github.com/guglielmoseminara/vue2-leaflet-geosearch",
+    "vue-upload-component": "^2.8.20",
     "wnumb": "^1.2.0"
   },
   "eslintConfig": {
