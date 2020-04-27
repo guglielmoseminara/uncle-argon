@@ -20,7 +20,7 @@
 <script>
     import { FilterFieldResourceManyComponent } from 'uncle-vue';
 
-    export default {
+    var component = {
         extends: FilterFieldResourceManyComponent,
         data() {
             return {
@@ -69,6 +69,12 @@
             }
         }
     }
+
+    if (process.client) {
+        component.components = { 'vue-tags-input': require('@johmun/vue-tags-input') };
+    }
+
+    export default component;
 </script>
 
 <style scoped lang="scss">

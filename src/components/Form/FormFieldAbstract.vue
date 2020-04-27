@@ -18,16 +18,20 @@
         :show-errors='showErrorsFlag'
         :scope="scope" 
     />
-    <UncleFormFieldResourceMany :validator='validator' :value='value' v-else-if="type == 'resource_many'" 
-        @input='triggerInput($event)'
-        :field-object="fieldObject"
-        :item-obj="item"
-        :show-errors='showErrorsFlag'
-        :scope="scope" 
-    />
+    <vue-no-ssr v-else-if="type == 'resource_many'">
+        <UncleFormFieldResourceMany :validator='validator' :value='value' 
+            @input='triggerInput($event)'
+            :field-object="fieldObject"
+            :item-obj="item"
+            :show-errors='showErrorsFlag'
+            :scope="scope" 
+        />
+    </vue-no-ssr>
     <UncleFormFieldPhone @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'phone'" :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
     <UncleFormFieldHidden @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'hidden'" :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
-    <UncleFormFieldGeoAddress @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'geoaddress'" :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
+    <vue-no-ssr v-else-if="type == 'geoaddress'">
+        <UncleFormFieldGeoAddress @input='triggerInput' :validator='validator' :value='value'  :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
+    </vue-no-ssr>
     <UncleFormFieldDateRangeDistinct @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'date_range' && fieldObject.widget == 'distinct'" :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
     <component :is="fieldObject.component" @input='triggerInput' :value='value'  v-else-if="type == 'custom'" :field-object="fieldObject" :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
 </template>

@@ -8,28 +8,34 @@
 </template>
 
 <script>
-    import { OpenStreetMapProvider } from 'leaflet-geosearch';
-    import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
-    
-    var L = window.L;
+    if (process.client) {
+        const leafletGeosearch = require('leaflet-geosearch');
+        const OpenStreetMapProvider = leafletGeosearch.OpenStreetMapProvider;
+        const vueLeaflet = require('vue2-leaflet');
+        const LMap = vueLeaflet.LMap;
+        const LTileLayer = vueLeaflet.LTileLayer;
+        const LMarker = vueLeaflet.LMarker;
+        var L = window.L;
+    }
 
-    export default {
+    var component = {
         props: {
             value: {}
         },
-        components: { LMap, LTileLayer, LMarker },
         mounted() {
-            this.geosearchOptions = {
-                provider: new OpenStreetMapProvider(),
-                autoClose: true,
-                showMarker: true,
-                showPopup: true,
-                marker: {
-                    icon: new L.Icon.Default(),
-                    draggable: false,
-                },
-                maxMarkers: 1,
-                keepResult: true,
+            if (process.client) {
+                this.geosearchOptions = {
+                    provider: new OpenStreetMapProvider(),
+                    autoClose: true,
+                    showMarker: true,
+                    showPopup: true,
+                    marker: {
+                        icon: new L.Icon.Default(),
+                        draggable: false,
+                    },
+                    maxMarkers: 1,
+                    keepResult: true,
+                }
             }
         },
         computed: {
@@ -42,13 +48,22 @@
             }
         },
         data() {
-            return {
-                geosearchOptions: {
-                    provider: new OpenStreetMapProvider(),
-                }
-            };
+            if (process.client) {
+                return {
+                    geosearchOptions: {
+                        provider: new OpenStreetMapProvider(),
+                    }
+                };
+            } else {
+                return {};
+            }
         }
+    };
+    if (process.client) {
+        component.components = { LMap, LTileLayer, LMarker };
     }
+    export default component;
+            
 </script>
 
 <style lang="scss" scoped>

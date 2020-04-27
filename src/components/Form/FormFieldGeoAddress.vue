@@ -11,27 +11,35 @@
 
 <script>
     import { FormFieldComponent } from 'uncle-vue';
-    import { OpenStreetMapProvider } from 'leaflet-geosearch';
-    import VGeosearch from 'vue2-leaflet-geosearch';
-    import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
-    
-    var L = window.L;
+    if (process.client) {
+        const leafletGeosearch = require('leaflet-geosearch');
+        const OpenStreetMapProvider = leafletGeosearch.OpenStreetMapProvider;
+        const VGeosearch = require('vue2-leaflet-geosearch');
+        const vueLeaflet = require('vue2-leaflet');
+        const leaflet = require('leaflet');
+        const LMap = vueLeaflet.LMap;
+        const LTileLayer = vueLeaflet.LTileLayer;
+        const LMarker = vueLeaflet.LMarker;
+        var L = window.L;
+    }
 
-    export default {
+
+    var component = {
         extends: FormFieldComponent,
-        components: { VGeosearch, LMap, LTileLayer, LMarker },
         mounted() {
-            this.geosearchOptions = {
-                provider: new OpenStreetMapProvider(),
-                autoClose: true,
-                showMarker: true,
-                showPopup: true,
-                marker: {
-                    icon: new L.Icon.Default(),
-                    draggable: false,
-                },
-                maxMarkers: 1,
-                keepResult: true,
+            if (process.client) {
+                this.geosearchOptions = {
+                    provider: new OpenStreetMapProvider(),
+                    autoClose: true,
+                    showMarker: true,
+                    showPopup: true,
+                    marker: {
+                        icon: new L.Icon.Default(),
+                        draggable: false,
+                    },
+                    maxMarkers: 1,
+                    keepResult: true,
+                }
             }
             var map = this.$refs.map.mapObject;
             map.on('geosearch/showlocation', (ev) => {
@@ -51,18 +59,27 @@
             }
         },
         data() {
-            return {
-                geosearchOptions: {
-                    provider: new OpenStreetMapProvider(),
-                }
-            };
+            if (process.client) {
+                return {
+                    geosearchOptions: {
+                        provider: new OpenStreetMapProvider(),
+                    }
+                };
+            } else {
+                return {};
+            }
         },
         watch: {
             value(val) {
                 this.$refs.geosearch.setQuery(val ? val[this.fieldObject.addressField] : '');
             }
         }
+    };
+    if (process.client) {
+        component.components = { VGeosearch, LMap, LTileLayer, LMarker };
+
     }
+    export default component;
 </script>
 
 <style lang="scss" scoped>

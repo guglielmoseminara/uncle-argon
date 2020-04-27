@@ -114,7 +114,10 @@ export default {
             });
         },
         rowClick($event) {
-            this.rowsAction.execute($event);
+            this.rowsAction && this.rowsAction.execute($event);
+        },
+        async test() {
+            return await this.getSSRItems();
         }
     }
 };

@@ -4,9 +4,13 @@
 @import "~vue-argon-dashboard/src/assets/scss/custom/variables";
 @import "~vue-argon-dashboard/src/assets/scss/custom/mixins";
 
-@import "~@fortawesome/fontawesome-free/css/all.css";
+/*@import '~vue-toast-notification/dist/index.css';
+@import '~leaflet/dist/leaflet.css';
+@import '~flatpickr/dist/flatpickr.css';
+@import '~vue-loaders/dist/vue-loaders.css';*/
 
-@import "./_variables.scss";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "./variables.scss";
 @import "./layout.scss";
 
 h1, .h1 {

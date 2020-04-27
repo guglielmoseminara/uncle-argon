@@ -1,5 +1,5 @@
+import ArgonDashboard from 'vue-argon-dashboard';
 import VeeValidate from 'vee-validate';
-import ArgonDashboard from 'vue-argon-dashboard/src/plugins/argon-dashboard'
 import IconsProvider from './icon';
 import NotifierProvider from './notifier';
 import ModalProvider from './modal';
@@ -8,27 +8,14 @@ import LanguageObject from './language';
 import ConfigurationProvider from './config';
 import AsyncComputed from 'vue-async-computed';
 import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/index.css';
 const VueUploadComponent = require('vue-upload-component');
 import { VueGrid, VueCell } from 'vue-grd';
-import VueTagsInput from '@johmun/vue-tags-input';
 import VueBreadcrumbs from 'vue-breadcrumbs'
 import flatPickr from 'vue-flatpickr-component';
-
-import 'leaflet/dist/leaflet.css';
-import 'flatpickr/dist/flatpickr.css';
-import 'vue-loaders/dist/vue-loaders.css';
+import NoSSR from 'vue-no-ssr';
 
 import VueLoadersBallClipRotate from 'vue-loaders/dist/loaders/ball-clip-rotate';
 import VueLoadersBallBeat from 'vue-loaders/dist/loaders/ball-beat';
-
-import { Icon }  from 'leaflet';
-delete Icon.Default.prototype._getIconUrl;
-Icon.Default.mergeOptions({
-    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-});
 
 import {
     UncleSidebar,
@@ -97,9 +84,9 @@ import {
     UncleFormFieldEnum,
     UncleFormFieldResource,
     UncleFormFieldResourceMany,
+    UncleFormFieldGeoAddress,
     UncleFormFieldPhone,
     UncleFormFieldHidden,
-    UncleFormFieldGeoAddress,
     UncleFormFieldDateRangeDistinct,
     UncleSummaryFieldArrayImage,
     UncleFormGroup,
@@ -156,7 +143,6 @@ export default {
         Vue.component('UncleFilterModalFieldEnum', UncleFilterModalFieldEnum);
         Vue.component('UncleFilterModalFieldDate', UncleFilterModalFieldDate);
         Vue.component('UncleFilterModalFieldResource', UncleFilterModalFieldResource);
-        Vue.component('UncleFilterModalFieldResourceMany', UncleFilterModalFieldResourceMany);
         Vue.component('UncleFilterModalFieldNumberSlider', UncleFilterModalFieldNumberSlider);
         Vue.component('UncleActionDropdown', UncleActionDropdown);
         Vue.component('UncleActionButton', UncleActionButton);
@@ -180,7 +166,6 @@ export default {
         Vue.component('UncleSummaryFieldImage', UncleSummaryFieldImage);
         Vue.component('UncleSummaryFieldObject', UncleSummaryFieldObject);
         Vue.component('UncleSummaryFieldEnum', UncleSummaryFieldEnum);
-        Vue.component('UncleSummaryFieldMap', UncleSummaryFieldMap);
         Vue.component('UncleSummaryLabelAbstract', UncleSummaryLabelAbstract);
         Vue.component('UncleSummaryLabelField', UncleSummaryLabelField);
         Vue.component('UncleForm', UncleForm);
@@ -193,10 +178,8 @@ export default {
         Vue.component('UncleFormFieldImage', UncleFormFieldImage);
         Vue.component('UncleFormFieldEnum', UncleFormFieldEnum);
         Vue.component('UncleFormFieldResource', UncleFormFieldResource);
-        Vue.component('UncleFormFieldResourceMany', UncleFormFieldResourceMany);    
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);
         Vue.component('UncleFormFieldHidden', UncleFormFieldHidden);
-        Vue.component('UncleFormFieldGeoAddress', UncleFormFieldGeoAddress);
         Vue.component('UncleFormFieldDateRangeDistinct', UncleFormFieldDateRangeDistinct);
         Vue.component('UncleFormGroup', UncleFormGroup);
         Vue.component('UncleSummaryGroup', UncleSummaryGroup);
@@ -208,11 +191,25 @@ export default {
         Vue.component('file-upload', VueUploadComponent);
         Vue.component('vue-grid', VueGrid);
         Vue.component('vue-cell', VueCell);
-        Vue.component('vue-tags-input', VueTagsInput);
         Vue.component('flat-pickr', flatPickr);
         Vue.component('vue-loaders-ball-clip-rotate', VueLoadersBallClipRotate.component);
         Vue.component('vue-loaders-ball-beat', VueLoadersBallBeat.component);
+        Vue.component('vue-no-ssr', NoSSR);
         
+        if (process.client) {
+            const leaflet = require('leaflet');
+            Vue.component('UncleFilterModalFieldResourceMany', UncleFilterModalFieldResourceMany);
+            Vue.component('UncleFormFieldGeoAddress', UncleFormFieldGeoAddress);
+            Vue.component('UncleFormFieldResourceMany', UncleFormFieldResourceMany);    
+            Vue.component('UncleSummaryFieldMap', UncleSummaryFieldMap);
+            const Icon = leaflet.Icon;
+            delete Icon.Default.prototype._getIconUrl;
+            Icon.Default.mergeOptions({
+                iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+                iconUrl: require('leaflet/dist/images/marker-icon.png'),
+                shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+            });
+        }
         const validatorProvider = new ValidatorProvider(Vue);
         if (options.validation) {
             validatorProvider.localize(options.validation.language, options.validation.class);

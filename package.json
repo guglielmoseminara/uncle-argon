@@ -1,18 +1,31 @@
 {
   "name": "uncle-argon",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/uncle-argon.umd.js",
+  "browser": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:bundle": "vue-cli-service build --target lib --name uncle-argon ./index.js",
+    "watch:bundle": "vue-cli-service build --target lib --name uncle-argon ./index.js --watch"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guglielmoseminara/uncle-argon"
+  },
+  "author": "Guglielmo Seminara",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@johmun/vue-tags-input": "^2.1.0",
+    "flatpickr": "^4.6.3",
     "leaflet": "^1.5.1",
     "leaflet-geosearch": "^2.7.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "uncle-vue": "^1.0.44",
     "vee-validate": "^2.2.15",
     "vue-argon-dashboard": "git+https://github.com/guglielmoseminara/vue-argon-dashboard.git",
     "vue-async-computed": "^3.7.0",
@@ -20,10 +33,12 @@
     "vue-flatpickr-component": "^8.1.5",
     "vue-grd": "^1.2.1",
     "vue-loaders": "^3.1.0",
+    "vue-no-ssr": "^1.1.1",
     "vue-toast-notification": "0.0.3",
+    "vue-upload-component": "^2.8.20",
     "vue2-leaflet": "^2.1.1",
     "vue2-leaflet-geosearch": "https://github.com/guglielmoseminara/vue2-leaflet-geosearch",
-    "vue-upload-component": "^2.8.20",
+    "webpack-node-externals": "^1.7.2",
     "wnumb": "^1.2.0"
   },
   "eslintConfig": {
@@ -44,5 +59,11 @@
     "plugins": {
       "autoprefixer": {}
     }
+  },
+  "devDependencies": {
+    "@vue/cli": "3.9.0",
+    "@vue/cli-plugin-babel": "3.9.0",
+    "@vue/cli-plugin-eslint": "3.9.0",
+    "@vue/cli-service": "3.9.0"
   }
 }
