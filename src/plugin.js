@@ -17,6 +17,11 @@ import NoSSR from 'vue-no-ssr';
 import VueLoadersBallClipRotate from 'vue-loaders/dist/loaders/ball-clip-rotate';
 import VueLoadersBallBeat from 'vue-loaders/dist/loaders/ball-beat';
 
+import 'vue-toast-notification/dist/index.css';
+import 'leaflet/dist/leaflet.css';
+import 'flatpickr/dist/flatpickr.css';
+import 'vue-loaders/dist/vue-loaders.css';
+
 import {
     UncleSidebar,
     UncleBreadcrumb,
