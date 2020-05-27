@@ -5,7 +5,14 @@
                 <h4 class="modal-title">{{modalObject.title}}</h4>
             </div>
             <div class="pr-0 col-8 filters-buttons__container d-flex justify-content-end">
-                <base-button v-if="hasCloseBtn" type="secondary" icon="fas fa-times" @click="close()">{{$languageProvider.get('close')}}</base-button>
+                <base-button 
+                    v-if="hasCloseBtn" 
+                    type="secondary" 
+                    icon="fas fa-times" 
+                    @click="close()"
+                >
+                {{$languageProvider.get('close')}}
+                </base-button>
                 <UncleButton v-if="formObject" 
                     @click=buttonClick
                     type="primary" 

@@ -1,7 +1,7 @@
 <template>
     <span>
         <slot name="body" :modal="modal">
-            <base-button type="primary" :icon='computedIcon' v-if="modal" @click="$modalProvider.open(modal.name)">
+            <base-button :type="color || 'primary'" :icon='computedIcon' v-if="modal" @click="$modalProvider.open(modal.name)">
                 {{text}}
             </base-button>
         </slot>

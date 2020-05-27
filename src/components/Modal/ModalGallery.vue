@@ -97,7 +97,7 @@
             margin: auto;
             i {
                 display: inline-block;
-                float:left;
+                float:right;
                 &.fa-chevron-right, &.fa-chevron-left {
                     cursor: pointer;
                 }
@@ -105,7 +105,7 @@
             p {
                 float: right;
                 &.counter {
-                    margin-left: 10px;
+                    margin-right: 20px;
                     margin-bottom: 0;
                     font-size: 12px;
                 }

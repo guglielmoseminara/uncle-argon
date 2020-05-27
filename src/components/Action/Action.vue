@@ -8,6 +8,14 @@
 
     export default {
         extends: ActionComponent,
+        methods: {
+            async checkConfirm() {
+                const confirmResponse = confirm(this.$languageProvider.get('confirmText'));
+                if (confirmResponse) {
+                    await this.onConfirmation();
+                }
+            }
+        },
         computed: {
             computedIcon() {
                 if (this.icon) {

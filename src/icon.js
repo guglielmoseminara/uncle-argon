@@ -24,7 +24,8 @@ export default class IconsProvider{
             'logout': 'fas fa-sign-out-alt',
             'save': 'fas fa-save',
             'profile': 'fas fa-user-circle',
-            'close': 'fas fa-times-circle'
+            'close': 'fas fa-times-circle',
+            'city': 'fas fa-city'
         }    
     }
     

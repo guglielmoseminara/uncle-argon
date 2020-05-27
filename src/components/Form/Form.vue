@@ -135,7 +135,9 @@
                 }
             },
             focus() {
-                this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
+                if (this.getFirstFocusableField()) {
+                    this.$refs[this.getFieldName(this.getFirstFocusableField())][0].$el.querySelector('.form-control').focus();
+                }
             },
             scrollToErrors() {
                 this.$nextTick(() => {

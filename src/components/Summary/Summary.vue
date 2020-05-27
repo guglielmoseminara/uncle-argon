@@ -3,7 +3,19 @@
         <p class="d-flex" v-show='actionsList && actionsList.length > 0'>
             <template v-if="item">
                 <slot name="actions">
-                    <UncleActionButton v-for='(actionItem, aindex) in actionsList' :key='aindex' :action-obj="actionItem.action" :color="actionItem.color" :text="actionItem.text" :icon="actionItem.icon" :validate="actionItem.validate" :confirm="actionItem.confirm" :params='item'>{{actionItem.text}}</UncleActionButton>
+                    <UncleActionButton 
+                        v-for='(actionItem, aindex) in actionsList' 
+                        :key='aindex' 
+                        :action-obj="actionItem.action" 
+                        :color="actionItem.color" 
+                        :text="actionItem.text" 
+                        :icon="actionItem.icon" 
+                        :validate="actionItem.validate" 
+                        :confirm="actionItem.confirm" 
+                        :params='item'
+                        v-show="!actionItem.isHiddenCondition"
+                    >
+                    </UncleActionButton>
                 </slot>
             </template>
         </p>
@@ -17,8 +29,18 @@
                         <template slot="header">
                             <p class="title"> {{group.text}} </p>   
                         </template>
-                        <UncleSummaryFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text="field.text" :field-object="field">
-                            <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
+                        <UncleSummaryFieldContainer 
+                            v-for="(field, findex) in group.fields" 
+                            :key='findex' 
+                            :text="field.text" 
+                            :field-object="field" 
+                            v-show="!field.isHiddenCondition"
+                        >
+                            <UncleSummaryFieldAbstract 
+                                :field-object="field" 
+                                :type="field.type" 
+                                :value="getValue(item, field)" 
+                            />
                         </UncleSummaryFieldContainer>
                     </UncleSummaryGroup>
                 </div>
@@ -30,7 +52,7 @@
                             {{field.text}}
                         </label>
                         <p>
-                            <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" />
+                            <UncleSummaryFieldAbstract :field-object="field" :type="field.type" :value="getValue(item, field)" v-show="!field.isHiddenCondition" />
                         </p>
                     </li>
                 </ul> 
@@ -52,6 +74,9 @@
                 } else {
                     return '6of12';
                 }
+            },
+            test() {
+                console.log('test');
             }
         }
     }

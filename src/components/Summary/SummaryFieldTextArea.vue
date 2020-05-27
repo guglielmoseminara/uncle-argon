@@ -19,6 +19,6 @@
         display: block;
         padding: 14px;
         border-radius: 4px;
-        min-height: 50px;
+        min-height: 150px;
     }
 </style>

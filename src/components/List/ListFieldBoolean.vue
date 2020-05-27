@@ -1,6 +1,6 @@
 <template>
     <span>
-        {{ text == true ? 'Yes' : 'No' }}
+        {{ text === true || text == 'true' || text == 1 ? $languageProvider.get('listFieldBooleanTrue') : $languageProvider.get('listFieldBooleanFalse') }}
     </span>
 </template>
 
@@ -8,7 +8,7 @@
     export default {
         props: {
             text: {
-                type: String,
+                type: [String, Boolean, Number],
                 required: true
             }
         }

@@ -70,6 +70,9 @@
                 color:$primary;
             }
         }
+        .navbar-collapse:before {
+            margin:0;
+        }
     }
 
     ::v-deep .loader {

@@ -9,13 +9,13 @@
                 </div>
             </div>
             <file-upload
-                ref="upload"
+                :ref="uploadRef"
                 v-model="files"
                 post-action="/post.method"
                 :multiple="false"
                 put-action="/put.method"
                 @input-filter="inputFilter"
-                input-id="fileupload"
+                :input-id="uploadInputId"
                 class="btn btn-icon btn-primary"
             >
                 <slot name="content">
@@ -42,6 +42,8 @@
             return {
                 selectedImageIndex: 0,
                 modalId: 'GalleryModal',
+                uploadRef: 'upload'+this._uid,
+                uploadInputId: 'fileupload'+this._uid,
             }
         },
         methods: {

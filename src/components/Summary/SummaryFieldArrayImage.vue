@@ -34,7 +34,7 @@
         data() {
             return {
                 selectedImageIndex: 0,
-                modalId: 'GalleryModal',
+                modalId: 'GalleryModal_'+this._uid,
             }
         },
         methods: {

@@ -21,7 +21,7 @@
         data() {
             return {
                 selectedImageIndex: 0,
-                modalId: 'GalleryModal',
+                modalId: 'GalleryModal_'+this._uid,
             }
         },
         methods: {
@@ -50,5 +50,6 @@
         width: 50px;
         height: 50px;
         object-fit: cover;
+        cursor:pointer;
     }
 </style>
