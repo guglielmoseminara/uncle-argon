@@ -8,13 +8,13 @@
 </template>
 
 <script>
-    if (process.client) {
-        const leafletGeosearch = require('leaflet-geosearch');
-        const OpenStreetMapProvider = leafletGeosearch.OpenStreetMapProvider;
-        const vueLeaflet = require('vue2-leaflet');
-        const LMap = vueLeaflet.LMap;
-        const LTileLayer = vueLeaflet.LTileLayer;
-        const LMarker = vueLeaflet.LMarker;
+    if (typeof window != 'undefined') {
+        var leafletGeosearch = require('leaflet-geosearch');
+        var OpenStreetMapProvider = leafletGeosearch.OpenStreetMapProvider;
+        var vueLeaflet = require('vue2-leaflet');
+        var LMap = vueLeaflet.LMap;
+        var LTileLayer = vueLeaflet.LTileLayer;
+        var LMarker = vueLeaflet.LMarker;
         var L = window.L;
     }
 
@@ -23,7 +23,7 @@
             value: {}
         },
         mounted() {
-            if (process.client) {
+            if (typeof window != 'undefined') {
                 this.geosearchOptions = {
                     provider: new OpenStreetMapProvider(),
                     autoClose: true,
@@ -48,7 +48,7 @@
             }
         },
         data() {
-            if (process.client) {
+            if (typeof window != 'undefined') {
                 return {
                     geosearchOptions: {
                         provider: new OpenStreetMapProvider(),
@@ -59,7 +59,7 @@
             }
         }
     };
-    if (process.client) {
+    if (typeof window != 'undefined') {
         component.components = { LMap, LTileLayer, LMarker };
     }
     export default component;

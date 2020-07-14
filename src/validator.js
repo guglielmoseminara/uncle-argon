@@ -144,6 +144,32 @@ export default class ValidatorProvider {
             }
         }
         Validator.extend("equal", equalRule);
+        const requiredUnlessDictionary = {
+            en: (field) => `${field} is required`,
+            fr: (field) => `${field} est requis`,
+            it: (field) => `${field} è richiesto`,
+        }
+        const requiredUnlessRule = {
+            validate: (value, ref) => {
+                const targetField = document.querySelectorAll(`[name$='${ref.targetField}']`);
+                var result = true;
+                if (targetField.length > 0 && targetField[0].value!=ref.targetValue && (value == '' || value == null)) {
+                    result = false;
+                }
+                return {
+                    valid: result,
+                    data: {
+                        required: !result
+                    }
+                };
+            },
+            options: {computesRequired: true},
+            paramNames: ['targetField', 'targetValue'],
+            getMessage(field, params, data) {
+                return requiredUnlessDictionary[Validator.locale](field);
+            }
+        }
+        Validator.extend("required_unless", requiredUnlessRule);
     }
 
     extend(rule, callback) {

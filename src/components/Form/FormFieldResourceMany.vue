@@ -25,7 +25,10 @@
 
 <script>
     import { FormFieldResourceManyComponent } from 'uncle-vue';
-
+    if (typeof window != 'undefined') {
+        var VueTagsInput = require('@johmun/vue-tags-input').VueTagsInput
+    }
+    
     var component = {
         extends: FormFieldResourceManyComponent,
         data() {
@@ -180,8 +183,8 @@
             }
         }
     };
-    if (process.client) {
-        component.components = { 'vue-tags-input': require('@johmun/vue-tags-input') };
+    if (typeof window != 'undefined') {
+        component.components = { 'vue-tags-input': VueTagsInput };
     }
     export default component;
 </script>

@@ -42,7 +42,7 @@
                             <template slot="header">
                                 <p class="title"> {{group.text}} </p>   
                             </template>
-                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }" :field-object="field">
+                            <UncleFormFieldContainer v-for="(field, findex) in group.getFields()" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }" :field-object="field" v-show="!fieldsObject[field.name].isHiddenCondition">
                                 <UncleFormFieldAbstract 
                                     :ref="getFieldName(field)" 
                                     @input="formUpdate(field, $event)" 
@@ -64,7 +64,7 @@
                 </template>
                 <template v-else-if="elementObject.tagName == 'fields'">
                     <div class="pl-0 pr-0 col-12">
-                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }" :field-object="field">
+                        <UncleFormFieldContainer v-for="(field, findex) in elementObject.element" :key='findex' :text='field.text' v-bind:class="{ 'is-invalid': isErrorsVisible(field) }" :field-object="field" v-show="!fieldsObject[field.name].isHiddenCondition">
                             <UncleFormFieldAbstract 
                                 @input="formUpdate(field, $event)" 
                                 :field-object="field"

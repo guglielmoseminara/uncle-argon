@@ -201,7 +201,7 @@ export default {
         Vue.component('vue-loaders-ball-beat', VueLoadersBallBeat.component);
         Vue.component('vue-no-ssr', NoSSR);
         
-        if (process.client) {
+        if (typeof window != 'undefined') {
             const leaflet = require('leaflet');
             Vue.component('UncleFilterModalFieldResourceMany', UncleFilterModalFieldResourceMany);
             Vue.component('UncleFormFieldGeoAddress', UncleFormFieldGeoAddress);

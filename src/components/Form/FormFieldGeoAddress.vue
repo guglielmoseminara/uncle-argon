@@ -11,15 +11,15 @@
 
 <script>
     import { FormFieldComponent } from 'uncle-vue';
-    if (process.client) {
-        const leafletGeosearch = require('leaflet-geosearch');
-        const OpenStreetMapProvider = leafletGeosearch.OpenStreetMapProvider;
-        const VGeosearch = require('vue2-leaflet-geosearch');
-        const vueLeaflet = require('vue2-leaflet');
-        const leaflet = require('leaflet');
-        const LMap = vueLeaflet.LMap;
-        const LTileLayer = vueLeaflet.LTileLayer;
-        const LMarker = vueLeaflet.LMarker;
+    if (typeof window != 'undefined') {
+        var leafletGeosearch = require('leaflet-geosearch');
+        var OpenStreetMapProvider = leafletGeosearch.OpenStreetMapProvider;
+        var VGeosearch = require('vue2-leaflet-geosearch').default;
+        var vueLeaflet = require('vue2-leaflet');
+        var leaflet = require('leaflet');
+        var LMap = vueLeaflet.LMap;
+        var LTileLayer = vueLeaflet.LTileLayer;
+        var LMarker = vueLeaflet.LMarker;
         var L = window.L;
     }
 
@@ -27,7 +27,7 @@
     var component = {
         extends: FormFieldComponent,
         mounted() {
-            if (process.client) {
+            if (typeof window != 'undefined') {
                 this.geosearchOptions = {
                     provider: new OpenStreetMapProvider(),
                     autoClose: true,
@@ -59,7 +59,7 @@
             }
         },
         data() {
-            if (process.client) {
+            if (typeof window != 'undefined') {
                 return {
                     geosearchOptions: {
                         provider: new OpenStreetMapProvider(),
@@ -75,7 +75,7 @@
             }
         }
     };
-    if (process.client) {
+    if (typeof window != 'undefined') {
         component.components = { VGeosearch, LMap, LTileLayer, LMarker };
 
     }
