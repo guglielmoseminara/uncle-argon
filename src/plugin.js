@@ -82,6 +82,7 @@ import {
     UncleFormFieldAbstract,
     UncleFormFieldContainer,
     UncleFormFieldText,
+    UncleFormFieldCheckbox,
     UncleFormFieldPassword,
     UncleFormFieldTextArea,
     UncleFormFieldEmail,
@@ -93,6 +94,7 @@ import {
     UncleFormFieldPhone,
     UncleFormFieldHidden,
     UncleFormFieldDateRangeDistinct,
+    UncleFormFieldObject,
     UncleSummaryFieldArrayImage,
     UncleFormGroup,
     UncleChip,
@@ -179,6 +181,7 @@ export default {
         Vue.component('UncleFormFieldText', UncleFormFieldText);
         Vue.component('UncleFormFieldPassword', UncleFormFieldPassword);
         Vue.component('UncleFormFieldTextArea', UncleFormFieldTextArea);
+        Vue.component('UncleFormFieldCheckbox', UncleFormFieldCheckbox);
         Vue.component('UncleFormFieldEmail', UncleFormFieldEmail);
         Vue.component('UncleFormFieldImage', UncleFormFieldImage);
         Vue.component('UncleFormFieldEnum', UncleFormFieldEnum);
@@ -186,6 +189,7 @@ export default {
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);
         Vue.component('UncleFormFieldHidden', UncleFormFieldHidden);
         Vue.component('UncleFormFieldDateRangeDistinct', UncleFormFieldDateRangeDistinct);
+        Vue.component('UncleFormFieldObject', UncleFormFieldObject);
         Vue.component('UncleFormGroup', UncleFormGroup);
         Vue.component('UncleSummaryGroup', UncleSummaryGroup);
         Vue.component('UncleChip', UncleChip);
