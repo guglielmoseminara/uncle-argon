@@ -47,6 +47,7 @@ export { default as UncleFormFieldTextArea } from './Form/FormFieldTextArea.vue'
 export { default as UncleFormFieldCheckbox } from './Form/FormFieldCheckbox.vue';
 export { default as UncleFormFieldEmail } from './Form/FormFieldEmail.vue';
 export { default as UncleFormFieldImage } from './Form/FormFieldImage.vue';
+export { default as UncleFormFieldFile } from './Form/FormFieldFile.vue';
 export { default as UncleFormFieldEnum } from './Form/FormFieldEnum.vue';
 export { default as UncleFormFieldResource } from './Form/FormFieldResource.vue';
 export { default as UncleFormFieldResourceMany } from './Form/FormFieldResourceMany.vue';

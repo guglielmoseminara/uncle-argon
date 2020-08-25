@@ -87,6 +87,7 @@ import {
     UncleFormFieldTextArea,
     UncleFormFieldEmail,
     UncleFormFieldImage,
+    UncleFormFieldFile,
     UncleFormFieldEnum,
     UncleFormFieldResource,
     UncleFormFieldResourceMany,
@@ -184,6 +185,7 @@ export default {
         Vue.component('UncleFormFieldCheckbox', UncleFormFieldCheckbox);
         Vue.component('UncleFormFieldEmail', UncleFormFieldEmail);
         Vue.component('UncleFormFieldImage', UncleFormFieldImage);
+        Vue.component('UncleFormFieldFile', UncleFormFieldFile);
         Vue.component('UncleFormFieldEnum', UncleFormFieldEnum);
         Vue.component('UncleFormFieldResource', UncleFormFieldResource);
         Vue.component('UncleFormFieldPhone', UncleFormFieldPhone);

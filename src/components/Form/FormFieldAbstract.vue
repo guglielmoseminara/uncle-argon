@@ -5,6 +5,7 @@
     <UncleFormFieldEmail @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'email'" :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
     <UncleFormFieldCheckbox @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'checkbox'" :field-object='fieldObject' :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
     <UncleFormFieldImage @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'image'" :has-gallery=true :has-modal=true :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
+    <UncleFormFieldFile @input='triggerInput' :validator='validator' :value='value' v-else-if="type == 'file'" :item-obj="item" :show-errors='showErrorsFlag' :scope="scope" />
     <UncleFormFieldEnum :validator='validator' :value='value' v-else-if="type == 'enum'" 
         @input='triggerInput($event)'
         :field-object="fieldObject"
