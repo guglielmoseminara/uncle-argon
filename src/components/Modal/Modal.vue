@@ -26,13 +26,15 @@
             </div>
         </template>
         <div>
-            <UncleForm v-if="formObject" 
-                :ref="getFormRefName()" 
-                :item-obj=itemObj 
-                :form='formObject.name' 
-                :params="params" 
-                @input="updateForm($event)"
-            />
+            <template v-if="formObject"> 
+                <UncleForm 
+                    :ref="getFormRefName()" 
+                    :item-obj=itemObj 
+                    :form='formObject ? formObject.name : null' 
+                    :params="params" 
+                    @input="updateForm($event)"
+                />
+            </template>
             <slot name="content" :opened-params="openedParams"></slot>
         </div>
    </modal>

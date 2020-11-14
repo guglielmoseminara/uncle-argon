@@ -1,5 +1,5 @@
 <template>
-    <span class="field-text">{{value}}</span>
+    <pre class="field-text">{{value}}</pre>
 </template>
 
 <script>
@@ -11,7 +11,8 @@
 </script>
 
 <style scoped lang="scss">
-    .field-text {
+    pre.field-text {
+        white-space: pre-wrap;
         color: $color-text-dark;
         font-weight: 500;
         font-size: $text-small;
