@@ -1,6 +1,6 @@
 {
   "name": "uncle-argon",
-  "version": "1.0.46",
+  "version": "1.0.47",
   "description": "",
   "main": "./dist/uncle-argon.umd.js",
   "browser": "index.js",
