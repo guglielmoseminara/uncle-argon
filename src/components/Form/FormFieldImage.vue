@@ -12,7 +12,7 @@
                 :ref="uploadRef"
                 v-model="files"
                 post-action="/post.method"
-                :multiple="false"
+                :multiple="hasMultipleUpload"
                 put-action="/put.method"
                 @input-filter="inputFilter"
                 :input-id="uploadInputId"
