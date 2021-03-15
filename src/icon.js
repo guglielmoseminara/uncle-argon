@@ -25,7 +25,8 @@ export default class IconsProvider{
             'save': 'fas fa-save',
             'profile': 'fas fa-user-circle',
             'close': 'fas fa-times-circle',
-            'city': 'fas fa-city'
+            'city': 'fas fa-city',
+            'chart': 'fas fa-chart-line'
         }    
     }
     
