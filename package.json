@@ -25,7 +25,7 @@
     "leaflet-geosearch": "^2.7.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
-    "uncle-vue": "file:../uncle-vue",
+    "uncle-vue": "latest",
     "vee-validate": "^2.2.15",
     "vue-argon-dashboard": "git+https://github.com/guglielmoseminara/vue-argon-dashboard.git",
     "vue-async-computed": "^3.7.0",
