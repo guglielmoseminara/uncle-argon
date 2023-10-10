@@ -1,5 +1,5 @@
 <template>
-    <pre class="field-text">{{value}}</pre>
+    <pre class="field-text" v-html="value"></pre>
 </template>
 
 <script>
