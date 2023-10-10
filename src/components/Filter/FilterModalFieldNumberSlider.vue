@@ -25,7 +25,7 @@
                 this.triggerInput(value);
             },
             getOptions() {
-                return {step: 1, format: wNumb({decimals: 0})};
+                return {step: 1, format: wNumb({decimals: 0}), connect: true, start: [this.range.min, this.range.max]};
             }
         }
     }
